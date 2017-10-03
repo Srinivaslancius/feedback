@@ -9,7 +9,7 @@
             $sub_category_name = $_POST['sub_category_name'];
             $fileToUpload = $_FILES["fileToUpload"]["name"];
             $status = $_POST['status'];
-            $feedbackOpt = implode(',',$_POST['status']);
+            $feedbackOpt = implode(',',$_POST['feedback_options']);
             
             if($fileToUpload!='') {
 
@@ -68,7 +68,7 @@
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Feedback option</label>
                     <?php while ($row = $getStatus->fetch_assoc()) { ?>
-                    <input type="checkbox" value="<?php echo $row['feedback_option']; ?>"><?php echo $row['feedback_option']; ?>
+                    <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"><?php echo $row['feedback_option']; ?>
                     <?php } ?>
                   </div>
 				          <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
