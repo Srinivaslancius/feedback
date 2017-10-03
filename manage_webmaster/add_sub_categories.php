@@ -1,4 +1,38 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
+<style type="text/css">
+.nopad {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/*image gallery*/
+.image-checkbox {
+  cursor: pointer;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 4px solid transparent;
+  margin-bottom: 0;
+  outline: 0;
+}
+.image-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.image-checkbox-checked {
+  border-color: #4783B0;
+}
+.image-checkbox .fa {
+  position: absolute;
+  color: #4A79A3;
+  background-color: #fff;
+  padding: 10px;
+  top: 0;
+  right: 0;
+}
+.image-checkbox-checked .fa {
+  display: block !important;
+}
+</style>
 
 <?php  if (!isset($_POST['submit']))  {
           //If fail
@@ -67,10 +101,21 @@
                   <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Feedback Options : </label><br />
-                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                   
+                    <!-- <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
                     <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
-                    <?php } ?>
+                    <?php } ?> -->
+
+                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                      <label class="image-checkbox">
+                        <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
+                        <input type="checkbox" name="feedback_options[]" value="<?php echo $row['id']; ?>" />
+                        <i class="fa fa-check hidden"></i>
+                      </label>
+                    </div>
+
                   </div>
+                  <div class="clearfix"></div>
 				          <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -93,6 +138,27 @@
       </div>
       <?php include_once 'admin_includes/footer.php'; ?>
       <script src="js/tables-datatables.min.js"></script>
+      <script type="text/javascript">
+      // image gallery
+      // init the state from the input
+      $(".image-checkbox").each(function () {
+        if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+          $(this).addClass('image-checkbox-checked');
+        }
+        else {
+          $(this).removeClass('image-checkbox-checked');
+        }
+      });
+
+      // sync the state to the input
+      $(".image-checkbox").on("click", function (e) {
+        $(this).toggleClass('image-checkbox-checked');
+        var $checkbox = $(this).find('input[type="checkbox"]');
+        $checkbox.prop("checked",!$checkbox.prop("checked"))
+
+        e.preventDefault();
+      });
+      </script>
 
       
        
