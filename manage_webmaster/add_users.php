@@ -107,23 +107,17 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="form-control-3" class="control-label">Select Sub Category</label>
-                    <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required >
+                    <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required onChange="getFeedBackOptions(this.value);">
                       <option value="">Select Sub Category</option>
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
 
-                  <?php $getFeedbacks = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Choose your Feedback</label>
-                    <select id="form-control-3" name="feedback_option" class="custom-select" data-error="This field is required." required>
-                      <option value="">Select Feedback</option>
-                      <?php while($row = $getFeedbacks->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['feedback_option']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
+                 
+                  <div class="form-group" id="get_feed_back_options">
+                    <label for="form-control-2" class="control-label">Feedback Options : </label><br />
                   </div>
+
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -215,6 +209,17 @@ function getLocations(val) {
     data:'category_id='+val,
     success: function(data){
         $("#sub_category_id").html(data);
+    }
+    });
+}
+function getFeedBackOptions(val) {
+    $.ajax({
+    type: "POST",
+    url: "ajax_get_feedback_options.php",
+    data:'sub_category_id='+val,
+    success: function(data){
+      alert(data);
+        $("#get_feed_back_options").html(data);
     }
     });
 }
