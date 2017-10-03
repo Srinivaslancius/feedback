@@ -121,6 +121,10 @@
                     </div>
 
                   </div>
+                  <div class="form-group">
+                     <a href="javascript:void(0);"  ><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
+                  </div>
+                  <div id="dynamicInput" class="input-field col s12"></div>
                   <!-- End Main div for add more -->
 
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
@@ -150,7 +154,57 @@
       </div>
   
 <?php include_once 'admin_includes/footer.php'; ?>
+
+<?php
+    $sql1 = "SELECT * FROM categories where status = '0'";
+    $result1 = $conn->query($sql1);                                    
+?>
+
+<?php while($row = $result1->fetch_assoc()) { 
+   $choices1[] = $row['id'];
+   $choices_names[] = $row['category_name'];
+} ?>
+
+<?php
+    $sql2 = "SELECT * FROM sub_categories where status = '0'";
+    $result2 = $conn->query($sql2);                                    
+?>
+
+<?php while($row2 = $result2->fetch_assoc()) { 
+   $choices2[] = $row2['id'];
+   $choices_names2[] = $row2['sub_category_name'];
+} ?>
+
 <script type="text/javascript">
+
+function addInput(divName) {
+ 
+    var choices = <?php echo json_encode($choices1); ?>; 
+    var choices_names = <?php echo json_encode($choices_names); ?>;   
+
+    var choices2 = <?php echo json_encode($choices2); ?>; 
+    var choices_names2 = <?php echo json_encode($choices_names2); ?>;
+
+    var newDiv = document.createElement('div');
+    newDiv.className = 'new_appen_class';
+    var selectHTML = "";   
+    var newTextBox = ""; 
+    selectHTML="<div class='input-field form-group col-md-6'><select required name='weight_type_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
+    var newTextBox = "<div class='form-group col-md-4'><select required name='' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
+    removeBox="<div class='input-field  form-group col-md-2'><a class='remove_button' ><img src='remove-icon.png'/></a></div><div class='clearfix'></div>";
+    for(i = 0; i < choices.length; i = i + 1) {
+        selectHTML += "<option value='" + choices[i] + "'>" + choices_names[i] + "</option>";
+    }
+    selectHTML += "</select></div>";
+    for(i = 0; i < choices2.length; i = i + 1) {
+        newTextBox += "<option value='" + choices2[i] + "'>" + choices_names2[i] + "</option>";
+    }
+
+    newTextBox += "</select></div>";
+    newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" "+ removeBox;
+    document.getElementById(divName).appendChild(newDiv);
+}
+
 function getState(val) {
     $.ajax({
     type: "POST",
