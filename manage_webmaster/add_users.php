@@ -94,36 +94,39 @@
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
-                  <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group col-md-6">
-                    <label for="form-control-3" class="control-label">Choose your Category</label>
-                    <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required onChange="getSubCategories(this.value);">
-                      <option value="">Select Category</option>
-                      <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="form-control-3" class="control-label">Select Sub Category</label>
-                    <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required >
-                      <option value="">Select Sub Category</option>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
 
-                  <?php $getFeedbacks = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Choose your Feedback</label>
-                    <select id="form-control-3" name="feedback_option" class="custom-select" data-error="This field is required." required>
-                      <option value="">Select Feedback</option>
-                      <?php while($row = $getFeedbacks->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['feedback_option']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
+                  <!-- Main div for add more -->
+                  <div style="border:1px solid red;">
+
+                    <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                    <div class="form-group col-md-6">
+                      <label for="form-control-3" class="control-label">Choose your Category</label>
+                      <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required onChange="getSubCategories(this.value);">
+                        <option value="">Select Category</option>
+                        <?php while($row = $getCategories->fetch_assoc()) {  ?>
+                          <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
+                        <?php } ?>
+                     </select>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="form-control-3" class="control-label">Select Sub Category</label>
+                      <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required onChange="getFeedBackOptions(this.value);">
+                        <option value="">Select Sub Category</option>
+                     </select>
+                      <div class="help-block with-errors"></div>
+                    </div>                 
+                    <!-- display feed back options -->
+                    <div class="form-group" id="get_feed_back_options">                    
+                    </div>
+
                   </div>
+                  <div class="form-group">
+                     <a href="javascript:void(0);"  ><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
+                  </div>
+                  <div id="dynamicInput" class="input-field col s12"></div>
+                  <!-- End Main div for add more -->
+
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -151,7 +154,57 @@
       </div>
   
 <?php include_once 'admin_includes/footer.php'; ?>
+
+<?php
+    $sql1 = "SELECT * FROM categories where status = '0'";
+    $result1 = $conn->query($sql1);                                    
+?>
+
+<?php while($row = $result1->fetch_assoc()) { 
+   $choices1[] = $row['id'];
+   $choices_names[] = $row['category_name'];
+} ?>
+
+<?php
+    $sql2 = "SELECT * FROM sub_categories where status = '0'";
+    $result2 = $conn->query($sql2);                                    
+?>
+
+<?php while($row2 = $result2->fetch_assoc()) { 
+   $choices2[] = $row2['id'];
+   $choices_names2[] = $row2['sub_category_name'];
+} ?>
+
 <script type="text/javascript">
+
+function addInput(divName) {
+ 
+    var choices = <?php echo json_encode($choices1); ?>; 
+    var choices_names = <?php echo json_encode($choices_names); ?>;   
+
+    var choices2 = <?php echo json_encode($choices2); ?>; 
+    var choices_names2 = <?php echo json_encode($choices_names2); ?>;
+
+    var newDiv = document.createElement('div');
+    newDiv.className = 'new_appen_class';
+    var selectHTML = "";   
+    var newTextBox = ""; 
+    selectHTML="<div class='input-field form-group col-md-6'><select required name='weight_type_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
+    var newTextBox = "<div class='form-group col-md-4'><select required name='' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
+    removeBox="<div class='input-field  form-group col-md-2'><a class='remove_button' ><img src='remove-icon.png'/></a></div><div class='clearfix'></div>";
+    for(i = 0; i < choices.length; i = i + 1) {
+        selectHTML += "<option value='" + choices[i] + "'>" + choices_names[i] + "</option>";
+    }
+    selectHTML += "</select></div>";
+    for(i = 0; i < choices2.length; i = i + 1) {
+        newTextBox += "<option value='" + choices2[i] + "'>" + choices_names2[i] + "</option>";
+    }
+
+    newTextBox += "</select></div>";
+    newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" "+ removeBox;
+    document.getElementById(divName).appendChild(newDiv);
+}
+
 function getState(val) {
     $.ajax({
     type: "POST",
@@ -215,6 +268,16 @@ function getLocations(val) {
     data:'category_id='+val,
     success: function(data){
         $("#sub_category_id").html(data);
+    }
+    });
+}
+function getFeedBackOptions(val) {
+    $.ajax({
+    type: "POST",
+    url: "ajax_get_feedback_options.php",
+    data:'sub_category_id='+val,
+    success: function(data){      
+        $("#get_feed_back_options").html(data);
     }
     });
 }
