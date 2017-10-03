@@ -1,5 +1,5 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getUsersData = getAllDataWithActiveRecent('feedback_options'); $i=1; ?>
+<?php $getFeedbackData = getAllDataWithActiveRecent('feedback_options'); $i=1; ?>
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
@@ -19,13 +19,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($row = $getUsersData->fetch_assoc()) { ?>
+                  <?php while ($row = $getFeedbackData->fetch_assoc()) { ?>
                   <tr>
                     <td><?php echo $i;?></td>
                     <td><?php echo $row['feedback_option'];?></td>
                     <td><img src="<?php echo $base_url . 'uploads/feedback_images/'.$row['feedback_option_image'] ?>" height="100" width="100"/></td>
                     <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='feedback_options'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='feedback_options'>In Active</span>" ;} ?></td>
-                    <td> <a href="edit_feedback_options.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-edit"></i></a> &nbsp; <a href="delete_feedback_options.php?bid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a> </td>
+                    <td> <a href="edit_feedback_options.php?bid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-edit"></i></a> &nbsp; <a href="delete_feedback_options.php?bid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a> </td>
                   </tr>
                   <?php  $i++; } ?>
                 </tbody>
