@@ -64,11 +64,11 @@
                         <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="fileToUpload" id="fileToUpload"  onchange="loadFile(event)"  multiple="multiple" required >
                       </label>
                   </div>
-                  <?php $getStatus = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Feedback option</label>
-                    <?php while ($row = $getStatus->fetch_assoc()) { ?>
-                    <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"><?php echo $row['feedback_option']; ?>
+                    <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                    <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
                     <?php } ?>
                   </div>
 				          <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
