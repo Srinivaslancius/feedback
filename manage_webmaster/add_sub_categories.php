@@ -9,6 +9,7 @@
             $sub_category_name = $_POST['sub_category_name'];
             $fileToUpload = $_FILES["fileToUpload"]["name"];
             $status = $_POST['status'];
+            $feedbackOpt = implode(',',$_POST['status']);
             
             if($fileToUpload!='') {
 
@@ -17,7 +18,7 @@
                 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                    $sql = "INSERT INTO `sub_categories` (`category_id`, `sub_category_name`,`sub_category_image`, `status`) VALUES ('$category_id','$sub_category_name', '$fileToUpload','$status')";
+                    $sql = "INSERT INTO `sub_categories` (`category_id`, `sub_category_name`,`sub_category_image`, `status`,`subcat_feedback_options`) VALUES ('$category_id','$sub_category_name', '$fileToUpload','$status','$feedbackOpt')";
                     if($conn->query($sql) === TRUE){
                        echo "<script type='text/javascript'>window.location='sub_categories.php?msg=success'</script>";
                     } else {
