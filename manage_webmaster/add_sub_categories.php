@@ -64,6 +64,13 @@
                         <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="fileToUpload" id="fileToUpload"  onchange="loadFile(event)"  multiple="multiple" required >
                       </label>
                   </div>
+                  <?php $getStatus = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Feedback option</label>
+                    <?php while ($row = $getStatus->fetch_assoc()) { ?>
+                    <input type="checkbox" value="<?php echo $row['feedback_option']; ?>"><?php echo $row['feedback_option']; ?>
+                    <?php } ?>
+                  </div>
 				          <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
