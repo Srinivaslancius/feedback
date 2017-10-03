@@ -85,6 +85,14 @@
                 <span class="menu-text">Orders</span>
               </a>
             </li> 
+            <li  class="<?php if($page_name == 'feedback_options.php' || $page_name == 'add_feedback_options.php' || $page_name == 'edit_feedback_options.php') { echo "active"; } ?>">
+              <a href="feedback_options.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Feedback Options</span>
+              </a>
+            </li> 
             <!-- <li  class="<?php if($page_name == 'product_offers.php' || $page_name == 'add_product_offers.php' || $page_name == 'edit_product_offers.php') { echo "active"; } ?>">
               <a href="product_offers.php" aria-haspopup="true">
                 <span class="menu-icon">
