@@ -7,6 +7,8 @@ $id = $_GET['bid'];
             $category_id = $_POST['category_id'];
             $status = $_POST['status'];
             $sub_category_name = $_POST['sub_category_name'];
+            $feedbackOpt = implode(',',$_POST['feedback_options']);
+
             if($_FILES["fileToUpload"]["name"]!='') {
               $fileToUpload = $_FILES["fileToUpload"]["name"];
               $target_dir = "../uploads/sub_category_images/";
@@ -15,7 +17,7 @@ $id = $_GET['bid'];
               $getImgUnlink = getImageUnlink('sub_category_image','sub_categories','id',$id,$target_dir);
                 //Send parameters for img val,tablename,clause,id,imgpath for image ubnlink from folder
               if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                    $sql = "UPDATE `sub_categories` SET category_id = '$category_id', sub_category_name = '$sub_category_name', sub_category_image = '$fileToUpload', status='$status' WHERE id = '$id' ";
+                    $sql = "UPDATE `sub_categories` SET category_id = '$category_id', sub_category_name = '$sub_category_name', sub_category_image = '$fileToUpload', status='$status',subcat_feedback_options='$feedbackOpt' WHERE id = '$id' ";
                     if($conn->query($sql) === TRUE){
                        echo "<script type='text/javascript'>window.location='sub_categories.php?msg=success'</script>";
                     } else {
@@ -26,7 +28,7 @@ $id = $_GET['bid'];
                     echo "Sorry, there was an error uploading your file.";
                 }
             }  else {
-                $sql = "UPDATE `sub_categories` SET category_id = '$category_id', sub_category_name = '$sub_category_name', status='$status' WHERE id = '$id' ";
+                $sql = "UPDATE `sub_categories` SET category_id = '$category_id', sub_category_name = '$sub_category_name', status='$status',subcat_feedback_options='$feedbackOpt' WHERE id = '$id' ";
                 if($conn->query($sql) === TRUE){
                    echo "<script type='text/javascript'>window.location='sub_categories.php?msg=success'</script>";
                 } else {
@@ -71,6 +73,20 @@ $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activ
                         <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="fileToUpload" id="fileToUpload"  onchange="loadFile(event)"  multiple="multiple" >
                       </label>
                   </div>
+
+                  <?php  
+                        $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { 
+                        $checked = '';
+                        $explodeFeedbackOpt=explode(',',$getSubCategories['subcat_feedback_options']);
+                      if (in_array($row['id'], $explodeFeedbackOpt)) $checked = " checked"; 
+                    ?>
+                    <input type="checkbox" value="<?php echo $row['id']; ?>" name='feedback_options[]' <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                    <?php } ?>
+                  </div>
+
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
