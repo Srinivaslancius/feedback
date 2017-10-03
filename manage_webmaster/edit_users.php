@@ -64,7 +64,7 @@ $id = $_GET['uid'];
                   <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);  ?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select Country</label>
-                      <select name="client_country_id" id="client_country_id" class="custom-select" required onChange="getState(this.value);">
+                      <select name="client_country_id" id="client_country_id" class="custom-select" data-error="This field is required."  required onChange="getState(this.value);">
                           <option value="">Select Country</option>
                           <?php while($row = $getCountries->fetch_assoc()) {  ?>
                               <option <?php if($row['id'] == $getUsers1['client_country_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['country_name']; ?></option>
@@ -114,7 +114,7 @@ $id = $_GET['uid'];
                     <select id="form-control-3" name="status" class="custom-select" data-error="This field is required." required>
                       <option value="">Select Status</option>
                       <?php while($row = $getStatus->fetch_assoc()) {  ?>
-                        <option <?php if($row['id'] == $getUsers1['status']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
+                          <option <?php if($row['id'] == $getContents1['status']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
                       <?php } ?>
                     </select>
                     <div class="help-block with-errors"></div>
