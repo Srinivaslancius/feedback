@@ -94,29 +94,34 @@
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
-                  <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group col-md-6">
-                    <label for="form-control-3" class="control-label">Choose your Category</label>
-                    <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required onChange="getSubCategories(this.value);">
-                      <option value="">Select Category</option>
-                      <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="form-control-3" class="control-label">Select Sub Category</label>
-                    <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required onChange="getFeedBackOptions(this.value);">
-                      <option value="">Select Sub Category</option>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
 
-                 
-                  <div class="form-group" id="get_feed_back_options">
-                    <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                  <!-- Main div for add more -->
+                  <div style="border:1px solid red;">
+
+                    <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                    <div class="form-group col-md-6">
+                      <label for="form-control-3" class="control-label">Choose your Category</label>
+                      <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required onChange="getSubCategories(this.value);">
+                        <option value="">Select Category</option>
+                        <?php while($row = $getCategories->fetch_assoc()) {  ?>
+                          <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
+                        <?php } ?>
+                     </select>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="form-control-3" class="control-label">Select Sub Category</label>
+                      <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required onChange="getFeedBackOptions(this.value);">
+                        <option value="">Select Sub Category</option>
+                     </select>
+                      <div class="help-block with-errors"></div>
+                    </div>                 
+                    <!-- display feed back options -->
+                    <div class="form-group" id="get_feed_back_options">                    
+                    </div>
+
                   </div>
+                  <!-- End Main div for add more -->
 
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
@@ -217,8 +222,7 @@ function getFeedBackOptions(val) {
     type: "POST",
     url: "ajax_get_feedback_options.php",
     data:'sub_category_id='+val,
-    success: function(data){
-      alert(data);
+    success: function(data){      
         $("#get_feed_back_options").html(data);
     }
     });

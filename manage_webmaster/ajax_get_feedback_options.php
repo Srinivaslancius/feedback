@@ -11,11 +11,12 @@ if(!empty($_POST["sub_category_id"])) {
 	//echo "<pre>"; print_r($expOpt); die;
 ?>
 
+<label for="form-control-2" class="control-label">Feedback Options : </label><br />
 <?php foreach ($expOpt as $key => $value) { 
 	  $getfeedbackOpt = getDataFromTables('feedback_options',$status=NULL,'id',$value,$activeStatus=NULL,$activeTop=NULL);
 	  $row = $getfeedbackOpt->fetch_assoc()
 ?>
-	<input type="checkbox" name="chk" value="<?php echo $value ?>"> <?php echo $row['feedback_option']; ?>
+	<input type="checkbox" name="feedback_options[]" value="<?php echo $value ?>"> <?php echo $row['feedback_option']; ?>
 <?php
 	}
 }
