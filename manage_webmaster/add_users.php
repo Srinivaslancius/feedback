@@ -9,6 +9,8 @@
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
     $client_mobile = $_POST['client_mobile'];
+    $remember_name = $_POST['remember_name'];
+    $no_of_accounts = $_POST['no_of_accounts'];
     $client_country_id = $_POST['client_country_id'];
     $client_state_id = $_POST['client_state_id'];
     $client_city_id = $_POST['client_city_id'];
@@ -18,7 +20,7 @@
     $status = $_POST['status'];
     $created_super_admin_id = $_SESSION['created_super_admin_id'];
     $created_at = date("Y-m-d h:i:s");
-      $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`, `client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`status`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
+      $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`status`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
     if($conn->query($sql) === TRUE){
        echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
     } else {
@@ -58,7 +60,16 @@
                     <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)">
                     <div class="help-block with-errors"></div>
                   </div>
-
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Remember Name</label>
+                    <input type="text" name="remember_name" class="form-control" id="form-control-2" placeholder="Remember Name" data-error="Please enter Remember Name" required>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Number Of Accounts</label>
+                    <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required>
+                    <div class="help-block with-errors"></div>
+                  </div>
                   <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select Country</label>
