@@ -52,7 +52,7 @@ $id = $_GET['bid'];
                   </div>
                   <div class="form-group">
                     <label for="form-control-4" class="control-label">Feedback Image</label>
-                    <img src="<?php echo $base_url . 'uploads/feedback_images/'.$getContents['feedback_option_image'] ?>"  id="output" height="100" width="100"/>
+                    <img src="<?php echo $base_url . 'uploads/feedback_images/'.$getContents1['feedback_option_image'] ?>"  id="output" height="100" width="100"/>
                     <label class="btn btn-default file-upload-btn">
                         Choose file...
                         <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="fileToUpload" id="fileToUpload"  onchange="loadFile(event)"  multiple="multiple" >
