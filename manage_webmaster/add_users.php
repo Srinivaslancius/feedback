@@ -17,7 +17,7 @@
             $client_admin_logo = $_FILES["client_admin_logo"]["name"];
             
             $status = $_POST['status'];
-            $created_super_admin_id = $_SESSION['created_super_admin_id'];
+            $created_super_admin_id = $_SESSION['admin_user_id'];
             $created_at = date("Y-m-d h:i:s");
             
             if($client_admin_logo!='') {
