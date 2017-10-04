@@ -46,7 +46,7 @@
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
               </div>
               <div class="wt-icon">
-                <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-fw"></i>
+                <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
               </div>
               <div class="wt-icon">
-                <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-fw"></i>
+                <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
               </div>
               <div class="wt-icon">
-                <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-fw"></i>
+                <i class="zmdi zmdi-mood-bad zmdi-hc-fw"></i>
               </div>
             </div>
           </div>
