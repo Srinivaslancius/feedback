@@ -17,9 +17,35 @@ $id = $_GET['uid'];
     $client_city_id = $_POST['client_city_id'];
     $client_location_id = $_POST['client_location_id'];
     $status = $_POST['status'];
-    $created_super_admin_id = $_SESSION['created_super_admin_id'];
+    $created_super_admin_id = $_SESSION['admin_user_id'];
     $created_at = date("Y-m-d h:i:s");
-        $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";
+
+    if($_FILES["client_admin_logo"]["name"]!='') {
+              $client_admin_logo = $_FILES["client_admin_logo"]["name"];
+              $target_dir = "../uploads/client_logos/";
+              $target_file = $target_dir . basename($_FILES["client_admin_logo"]["name"]);
+              $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+              $getImgUnlink = getImageUnlink('client_admin_logo','client_admin_users','id',$id,$target_dir);
+                //Send parameters for img val,tablename,clause,id,imgpath for image ubnlink from folder
+              if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
+            $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',client_admin_logo='$client_admin_logo',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                    
+            if($conn->query($sql) === TRUE){    
+                       echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
+                    } else {
+                       echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
+                    }
+                    //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }  else {
+
+            $sql  = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                if($conn->query($sql) === TRUE){
+                   echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
+              } else {
+                 echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
+              }
+            }
         $result = $conn->query($sql);
         $last_id = $conn->insert_id;
         $category_ids = $_REQUEST['category_id'];
@@ -188,6 +214,15 @@ $id = $_GET['uid'];
                   </div>
                   <div class="clearfix"></div>
                   <div id="dynamicInput" class="input-field col s12"></div>
+
+                  <div class="form-group">
+                    <label for="form-control-4" class="control-label">Client Admin Logo</label>
+                    <img src="<?php echo $base_url . 'uploads/client_logos/'.$getUsers1['client_admin_logo'] ?>"  id="output" height="100" width="100"/>
+                    <label class="btn btn-default file-upload-btn">
+                        Choose file...
+                        <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="client_admin_logo" id="client_admin_logo"  onchange="loadFile(event)"  multiple="multiple" >
+                      </label>
+                  </div>
 
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
