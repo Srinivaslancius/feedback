@@ -18,6 +18,7 @@ if (!isset($_POST['submit']))  {
   }
 }
 ?>
+
       <div class="site-content">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -46,10 +47,14 @@ if (!isset($_POST['submit']))  {
                  <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Feedback Options : </label><br />
-                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                    
+                   <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
                     <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
                     <?php } ?>
+
                   </div>
+
+                  <div class="clearfix"></div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -72,3 +77,4 @@ if (!isset($_POST['submit']))  {
       </div>
       <?php include_once 'admin_includes/footer.php'; ?>
       <script src="js/tables-datatables.min.js"></script>
+     
