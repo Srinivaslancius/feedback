@@ -1,12 +1,13 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php  
-error_reporting(0);
-$id = $_GET['uid'];
- if (!isset($_POST['submit'])) {
-      //If fail
-        echo "fail";
-    } else {
-    //If success            
+<?php 
+  error_reporting(0);
+  if (!isset($_POST['submit']))  {
+    //If fail
+    echo "fail";
+  } else  { 
+    //echo "<pre>"; print_r($_REQUEST); 
+    //echo $check=implode(", ", $_POST['feedback_options'][0]);  die;
+    // //If success
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
     $client_mobile = $_POST['client_mobile'];
@@ -16,27 +17,30 @@ $id = $_GET['uid'];
     $client_state_id = $_POST['client_state_id'];
     $client_city_id = $_POST['client_city_id'];
     $client_location_id = $_POST['client_location_id'];
+    
     $status = $_POST['status'];
     $created_super_admin_id = $_SESSION['created_super_admin_id'];
     $created_at = date("Y-m-d h:i:s");
-        $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";
-        $result = $conn->query($sql);
-        $last_id = $conn->insert_id;
-        $category_ids = $_REQUEST['category_id'];
-        foreach($category_ids as $key=>$value){
-          $category_id = $_REQUEST['category_id'][$key];
-          $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
-          //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
-          $sql1 = "UPDATE client_selected_feedback_options SET client_user_id='$last_id',category_id='$category_id',feedback_options='$getcheckList',created_at='$created_at' ";
-          $result1 = $conn->query($sql1);
-        }
 
-        if($result == 1){
-           echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
-        } else {
-           echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
-        }
-      }
+    $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
+    $result = $conn->query($sql);
+    $last_id = $conn->insert_id;
+
+    $category_ids = $_REQUEST['category_id'];
+    foreach($category_ids as $key=>$value){
+      $category_id = $_REQUEST['category_id'][$key];
+      $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
+      //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
+      $sql1 = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$last_id','$category_id','$getcheckList','$created_at')";
+      $result1 = $conn->query($sql1);
+    }
+
+    if($result == 1){
+       echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
+    } else {
+       echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
+    }
+  }
 ?>
       <div class="site-content">
         <div class="panel panel-default">
@@ -45,112 +49,91 @@ $id = $_GET['uid'];
           </div>
           <div class="panel-body">
             <div class="row">
-              <?php $getUsers = getDataFromTables('client_admin_users',$status=NULL,'id',$id,$activeStatus=NULL,$activeTop=NULL);
-              $getUsers1 = $getUsers->fetch_assoc(); ?>		
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <form data-toggle="validator" method="POST" autocomplete="off">
+                <form data-toggle="validator" method="POST">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
-                    <input type="text" name="client_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter user name" required value="<?php echo $getUsers1['client_name'];?>">
+                    <input type="text" name="client_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter Name" required>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" onkeyup="checkemail();" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['client_email'];?>">
-                    <span id="email_status" style="color: red;"></span>
+                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter valid email address." required>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <!-- <div class="form-group">
                     <label for="form-control-2" class="control-label">Password</label>
-                    <input type="password" name="user_password" class="form-control" id="form-control-2" placeholder="Password" data-error="Please enter password." required value="<?php echo decryptPassword($getUsers1['user_password']);?>">
+                    <input type="password" name="user_password" class="form-control" id="form-control-2" placeholder="Password" data-error="Please enter Password." required>
                     <div class="help-block with-errors"></div>
                   </div> -->
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['client_mobile'];?>">
+                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)">
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Remember Name</label>
-                    <input type="text" name="remember_name" class="form-control" id="form-control-2" placeholder="Remember Name" data-error="Please enter Remember Name" required value="<?php echo $getUsers1['remember_name'];?>">
+                    <input type="text" name="remember_name" class="form-control" id="form-control-2" placeholder="Remember Name" data-error="Please enter Remember Name" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Number Of Accounts</label>
-                    <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required value="<?php echo $getUsers1['no_of_accounts'];?>">
+                    <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required>
                     <div class="help-block with-errors"></div>
                   </div>
-                  <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);  ?>
+                  <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select Country</label>
-                      <select name="client_country_id" id="client_country_id" class="custom-select" required onChange="getState(this.value);">
-                          <option value="">Select Country</option>
-                          <?php while($row = $getCountries->fetch_assoc()) {  ?>
-                              <option <?php if($row['id'] == $getUsers1['client_country_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['country_name']; ?></option>
-                          <?php } ?>
-                      </select> 
+                    <select id="client_country_id" name="client_country_id" class="custom-select" data-error="This field is required." required onChange="getState(this.value);">
+                      <option value="">Select Country</option>
+                      <?php while($row = $getCountries->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['id']; ?>"><?php echo $row['country_name']; ?></option>
+                      <?php } ?>
+                   </select>
+                    <div class="help-block with-errors"></div>
                   </div>
 
-                  <?php $getStates =  getDataFromTables('lkp_states',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select State</label>
                     <select id="client_state_id" name="client_state_id" class="custom-select" data-error="This field is required." required onChange="getCities(this.value);">
-                       <option value="">Select State</option>
-                      <?php while($row = $getStates->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['client_state_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['state_name']; ?></option>
-                      <?php } ?>
+                      <option value="">Select Country</option>
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
 
-                  <?php $getCities =  getDataFromTables('lkp_cities',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select City</label>
                     <select id="client_city_id" name="client_city_id" class="custom-select" data-error="This field is required." required onChange="getLocations(this.value);">
-                       <option value="">Select City</option>
-                      <?php while($row = $getCities->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['client_city_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['city_name']; ?></option>
-                      <?php } ?>
+                      <option value="">Select City</option>
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
 
-                  <?php $getLocations =  getDataFromTables('lkp_locations',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select Location</label>
                     <select id="client_location_id" name="client_location_id" class="custom-select" data-error="This field is required." required>
-                       <option value="">Select Location</option>
-                      <?php while($row = $getLocations->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['client_location_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['location_name']; ?></option>
-                      <?php } ?>
+                      <option value="">Select Location</option>
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
 
-                  <?php $id = $_GET['uid'];
-                    $sql2 = "SELECT * FROM client_selected_feedback_options where client_user_id = '$id'";
-                    $result2 = $conn->query($sql2);
-                  ?>
                   <!-- Main div for add more -->
                   <div style="border:1px solid #333;" class="col-md-12">
 
-                    
-                    <?php while($row2 = $result2->fetch_assoc()) { ?>
+                    <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose your Category</label>
-                      <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                       <select id="form-control-3" name="category_id[]" class="custom-select" data-error="This field is required." required>
-                        <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$row2['category_id'],$activeStatus=NULL,$activeTop=NULL);?>
+                        <option value="">Select Category</option>
                         <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                          <option value="<?php echo $row['id']; ?>" <?php if($row['id'] == $row2['category_id']) { echo "Selected"; } ?>><?php echo $row['category_name']; ?></option>
+                          <option value="<?php echo $row['category_name']; ?>"><?php echo $row['category_name']; ?></option>
                         <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
                     </div>
-                    <?php } ?>
 
                     <!-- <?php $getSubCategories = getDataFromTables('sub_categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
 
@@ -164,49 +147,45 @@ $id = $_GET['uid'];
                      </select>
                       <div class="help-block with-errors"></div>
                     </div>  -->  
- 
+
                     <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group">
                       <label for="form-control-2" class="control-label">Feedback Options : </label><br />
                       
-                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { 
-                      $checked = '';
-                        $explodeFeedbackOpt=explode(',',$row['feedback_option']);
-                      if (in_array($row['id'], $explodeFeedbackOpt)) $checked = " checked"; 
-                      ?>
-
-                      <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[0][]" <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name="feedback_options[0][]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
                       <?php } ?>
 
                     </div>              
                     
 
-                  </div>
+                  </div>                 
 
                   <div class="form-group" style="float:right; margin-top:5px;">
                      <a href="javascript:void(0);"><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
                   </div>
                   <div class="clearfix"></div>
                   <div id="dynamicInput" class="input-field col s12"></div>
+                  <!-- End Main div for add more -->
 
+                  <div class="clearfix"></div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
                     <select id="form-control-3" name="status" class="custom-select" data-error="This field is required." required>
                       <option value="">Select Status</option>
-                      <?php while($row = $getStatus->fetch_assoc()) {  ?>
-                        <option <?php if($row['id'] == $getUsers1['status']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
+                      <?php while($row = $getStatus->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
                       <?php } ?>
-                    </select>
+                   </select>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <!-- <div class="form-group">
-                    <label for="form-control-2" class="control-label">Address</label>
-                    <textarea type="text" name="user_address" class="form-control" id="form-control-2" placeholder="Address" data-error="This field is required." required><?php echo $getUsers1['user_address'];?></textarea>
-                    <div class="help-block with-errors"></div>
+                    <label for="form-control-4" class="control-label">Address</label>
+                    <textarea type="text" name="user_address" class="form-control" id="form-control-2" placeholder="Address" data-error="This field is required." required></textarea>
                   </div> -->
-
+                
                   <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
               </div>
@@ -217,6 +196,7 @@ $id = $_GET['uid'];
       </div>
   
 <?php include_once 'admin_includes/footer.php'; ?>
+
 <?php
     $sql1 = "SELECT * FROM categories where status = '0'";
     $result1 = $conn->query($sql1);                                    
@@ -225,6 +205,16 @@ $id = $_GET['uid'];
 <?php while($row = $result1->fetch_assoc()) { 
    $choices1[] = $row['id'];
    $choices_names[] = $row['category_name'];
+} ?>
+
+<?php
+    $sql2 = "SELECT * FROM sub_categories where status = '0'";
+    $result2 = $conn->query($sql2);                                    
+?>
+
+<?php while($row2 = $result2->fetch_assoc()) { 
+   $choices2[] = $row2['id'];
+   $choices_names2[] = $row2['sub_category_name'];
 } ?>
 
 
@@ -237,10 +227,10 @@ $id = $_GET['uid'];
    $choices3[] = $row3['id'];
    $choices_names3[] = $row3['feedback_option'];
 } ?>
-<!--script for allow only numbers-->
+
 <script type="text/javascript">
 
-    function addInput(divName) {
+function addInput(divName) {
  
     var geDivLegn = $('.new_appen_class').length;
     var totalDivInc = geDivLegn+1;
@@ -280,43 +270,43 @@ $id = $_GET['uid'];
     document.getElementById(divName).appendChild(newDiv);
 }
 
-    function isNumberKey(evt){
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
-    function getState(val) {
+function getState(val) {
     $.ajax({
     type: "POST",
     url: "get_state.php",
     data:'country_id='+val,
     success: function(data){
-        $("#user_state_id").html(data);
+        $("#client_state_id").html(data);
     }
     });
-  }
+}
 
-  function getCities(val) { 
-      $.ajax({
-      type: "POST",
-      url: "get_cities.php",
-      data:'state_id='+val,
-      success: function(data){
-          $("#user_city_id").html(data);
-      }
-      });
-  }
+function getCities(val) { 
+    $.ajax({
+    type: "POST",
+    url: "get_cities.php",
+    data:'state_id='+val,
+    success: function(data){
+        $("#client_city_id").html(data);
+    }
+    });
+}
 
-  function getLocations(val) { 
-      $.ajax({
-      type: "POST",
-      url: "get_locations.php",
-      data:'city_id='+val,
-      success: function(data){
-          $("#user_location_id").html(data);
-      }
-      });
+function getLocations(val) { 
+    $.ajax({
+    type: "POST",
+    url: "get_locations.php",
+    data:'city_id='+val,
+    success: function(data){
+        $("#client_location_id").html(data);
+    }
+    });
+}
+  function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
   }
   function checkemail() {
     var email1 = document.getElementById("client_email").value;
@@ -331,12 +321,33 @@ $id = $_GET['uid'];
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
           $("#client_email").val("");
-        }        
         }
-       });          
+        }
+       });
     }
   }
-  $(document).ready(function() {
+  function getSubCategories(val) {
+    $.ajax({
+    type: "POST",
+    url: "get_sub_categories.php",
+    data:'category_id='+val,
+    success: function(data){
+        $("#sub_category_id").html(data);
+    }
+    });
+}
+function getFeedBackOptions(val) {
+    $.ajax({
+    type: "POST",
+    url: "ajax_get_feedback_options.php",
+    data:'sub_category_id='+val,
+    success: function(data){      
+        $("#get_feed_back_options").html(data);
+    }
+    });
+}
+
+$(document).ready(function() {
     $(dynamicInput).on("click",".remove_button", function(e){ //user click on remove text
         e.preventDefault();
         $(this).parent().parent().remove();

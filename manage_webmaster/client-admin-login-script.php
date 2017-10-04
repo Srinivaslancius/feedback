@@ -15,6 +15,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 	if($row) {
 	    $_SESSION['admin_user_id'] = $row['id'];
 	    $_SESSION['admin_user_name'] = $row['client_name'];
+	    $_SESSION['admin_user_flag'] = 1;
 	    //Assign the current timestamp as the user's
 		//latest activity
 		$_SESSION['last_action'] = time();
