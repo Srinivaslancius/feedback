@@ -85,7 +85,7 @@
                 <span class="menu-text">Orders</span>
               </a>
             </li> -->
-            <li  class="<?php if($page_name == 'feedback_options.php') { echo "active"; } ?>">
+            <li  class="<?php if($page_name == 'changename.php') { echo "active"; } ?>">
               <a href="feedback_options.php" aria-haspopup="true">
                 <span class="menu-icon">
                    <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
