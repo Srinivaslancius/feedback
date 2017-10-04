@@ -1,47 +1,55 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php 
-  error_reporting(0);
-  if (!isset($_POST['submit']))  {
-    //If fail
-    echo "fail";
-  } else  { 
-    //echo "<pre>"; print_r($_REQUEST); 
-    //echo $check=implode(", ", $_POST['feedback_options'][0]);  die;
-    // //If success
-    $client_name = $_POST['client_name'];
-    $client_email = $_POST['client_email'];
-    $client_mobile = $_POST['client_mobile'];
-    $remember_name = $_POST['remember_name'];
-    $no_of_accounts = $_POST['no_of_accounts'];
-    $client_country_id = $_POST['client_country_id'];
-    $client_state_id = $_POST['client_state_id'];
-    $client_city_id = $_POST['client_city_id'];
-    $client_location_id = $_POST['client_location_id'];
-    
-    $status = $_POST['status'];
-    $created_super_admin_id = $_SESSION['created_super_admin_id'];
-    $created_at = date("Y-m-d h:i:s");
+<?php  if (!isset($_POST['submit']))  {
+          //If fail
+          echo "fail";
+        } 
+        else  {
+            //If success
+            $client_name = $_POST['client_name'];
+            $client_email = $_POST['client_email'];
+            $client_mobile = $_POST['client_mobile'];
+            $remember_name = $_POST['remember_name'];
+            $no_of_accounts = $_POST['no_of_accounts'];
+            $client_country_id = $_POST['client_country_id'];
+            $client_state_id = $_POST['client_state_id'];
+            $client_city_id = $_POST['client_city_id'];
+            $client_location_id = $_POST['client_location_id'];
+            $client_admin_logo = $_FILES["client_admin_logo"]["name"];
+            
+            $status = $_POST['status'];
+            $created_super_admin_id = $_SESSION['created_super_admin_id'];
+            $created_at = date("Y-m-d h:i:s");
+            
+            if($client_admin_logo!='') {
 
-    $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
-    $result = $conn->query($sql);
-    $last_id = $conn->insert_id;
+                $target_dir = "../uploads/client_logos/";
+                $target_file = $target_dir . basename($_FILES["client_admin_logo"]["name"]);
+                $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-    $category_ids = $_REQUEST['category_id'];
-    foreach($category_ids as $key=>$value){
-      $category_id = $_REQUEST['category_id'][$key];
-      $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
-      //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
-      $sql1 = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$last_id','$category_id','$getcheckList','$created_at')";
-      $result1 = $conn->query($sql1);
-    }
+                if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
 
-    if($result == 1){
-       echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
-    } else {
-       echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
-    }
-  }
-?>
+                   $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `client_admin_logo`,`status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', '$client_admin_logo ,'$status')";
+                  
+                    $result = $conn->query($sql);
+                    $last_id = $conn->insert_id;
+
+                    $category_ids = $_REQUEST['category_id'];
+                    foreach($category_ids as $key=>$value){
+                      $category_id = $_REQUEST['category_id'][$key];
+                      $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
+                      //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
+                      $sql1 = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$last_id','$category_id','$getcheckList','$created_at')";
+                      $result1 = $conn->query($sql1);
+                    }
+
+                    if($result == 1){
+                       echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>"; }
+                    else {
+                       echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>"; }              
+                }   
+            }
+          }
+    ?>
       <div class="site-content">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -50,7 +58,7 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <form data-toggle="validator" method="POST">
+                <form data-toggle="validator" method="POST" enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
                     <input type="text" name="client_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter Name" required>
@@ -167,7 +175,14 @@
                   <div class="clearfix"></div>
                   <div id="dynamicInput" class="input-field col s12"></div>
                   <!-- End Main div for add more -->
-
+                  <div class="form-group">
+                    <label for="form-control-4" class="control-label">Client Admin Logo</label>
+                    <img id="output" height="100" width="100"/>
+                    <label class="btn btn-default file-upload-btn">
+                      Choose file...
+                        <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="client_admin_logo" id="client_admin_logo"  onchange="loadFile(event)"  multiple="multiple" required >
+                      </label>
+                  </div>
                   <div class="clearfix"></div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
