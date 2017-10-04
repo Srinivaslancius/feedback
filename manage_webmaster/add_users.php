@@ -5,6 +5,9 @@
     //If fail
     echo "fail";
   } else  { 
+    //echo "<pre>"; print_r($_REQUEST); 
+    //echo $check=implode(", ", $_POST['feedback_options'][0]);  die;
+   
       // //If success
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
@@ -18,8 +21,20 @@
     $status = $_POST['status'];
     $created_super_admin_id = $_SESSION['created_super_admin_id'];
     $created_at = date("Y-m-d h:i:s");
-      $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`, `client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`status`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
-    if($conn->query($sql) === TRUE){
+    $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`, `client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', $status)";
+    $result = $conn->query($sql);
+    $last_id = $conn->insert_id;
+
+    $category_ids = $_REQUEST['category_id'];
+    foreach($category_ids as $key=>$value){
+      $category_id = $_REQUEST['category_id'][$key];
+      $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
+      //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
+      $sql1 = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$last_id','$category_id','$getcheckList','$created_at')";
+      $result1 = $conn->query($sql1);
+    }
+
+    if($result == 1){
        echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
     } else {
        echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
@@ -99,9 +114,9 @@
                   <div style="border:1px solid #333;" class="col-md-12">
 
                     <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose your Category</label>
-                      <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required>
+                      <select id="form-control-3" name="category_id[]" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Category</option>
                         <?php while($row = $getCategories->fetch_assoc()) {  ?>
                           <option value="<?php echo $row['category_name']; ?>"><?php echo $row['category_name']; ?></option>
@@ -110,25 +125,25 @@
                       <div class="help-block with-errors"></div>
                     </div>
 
-                    <?php $getSubCategories = getDataFromTables('sub_categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                    <!-- <?php $getSubCategories = getDataFromTables('sub_categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
 
                     <div class="form-group col-md-6">
                       <label for="form-control-3" class="control-label">Select Sub Category</label>
-                      <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required>
+                      <select id="sub_category_id" name="sub_category_id[]" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Category</option>
                         <?php while($row = $getSubCategories->fetch_assoc()) {  ?>
                           <option value="<?php echo $row['sub_category_name']; ?>"><?php echo $row['sub_category_name']; ?></option>
                         <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
-                    </div>   
+                    </div>  -->  
 
                     <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group">
                       <label for="form-control-2" class="control-label">Feedback Options : </label><br />
                       
                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
-                      <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name="feedback_options[0][]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
                       <?php } ?>
 
                     </div>              
@@ -207,6 +222,8 @@
 
 function addInput(divName) {
  
+    var geDivLegn = $('.new_appen_class').length;
+    var totalDivInc = geDivLegn+1;
     var choices = <?php echo json_encode($choices1); ?>; 
     var choices_names = <?php echo json_encode($choices_names); ?>;   
 
@@ -220,27 +237,25 @@ function addInput(divName) {
     newDiv.className = 'new_appen_class';
     var selectHTML = "";   
     var newTextBox = ""; 
-    selectHTML="<div style='border:1px solid #333;'><div class='input-field form-group col-md-6'><label for='form-control-3' class='control-label'>Choose your Category</label><select required name='weight_type_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
-    var newTextBox = "<div class='form-group col-md-4'><label for='form-control-3' class='control-label'>Select Sub Category</label><select required name='' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
+    selectHTML="<div style='border:1px solid #333;'><div class='input-field form-group col-md-12'><label for='form-control-3' class='control-label'>Choose your Category</label><select required name='category_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
+    //var newTextBox = "<div class='form-group col-md-4'><label for='form-control-3' class='control-label'>Select Sub Category</label><select required name='sub_category_id[]' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
 
     var newCheckBox = "<div class='form-group col-md-12'> <label for='form-control-2' class='control-label'>Feedback Options : </label><br /> ";
 
     removeBox="<div class='input-field  form-group col-md-2'><a class='remove_button' ><img src='remove-icon.png'/></a></div><div class='clearfix'></div></div><div class='clearfix'></div>";
     for(i = 0; i < choices.length; i = i + 1) {
-        selectHTML += "<option value='" + choices[i] + "'>" + choices_names[i] + "</option>";
+        selectHTML += "<option value='" + choices_names[i] + "'>" + choices_names[i] + "</option>";
     }
     selectHTML += "</select></div>";
-    for(i = 0; i < choices2.length; i = i + 1) {
-        newTextBox += "<option value='" + choices2[i] + "'>" + choices_names2[i] + "</option>";
+    /*for(i = 0; i < choices2.length; i = i + 1) {
+        newTextBox += "<option value='" + choices_names2[i] + "'>" + choices_names2[i] + "</option>";
     }
-
+    newTextBox += "</select></div>";*/
     for(i = 0; i < choices3.length; i = i + 1) {
-        newCheckBox += "<input type='checkbox' value='" + choices_names3[i] + "'>&nbsp;" + choices_names3[i] + " &nbsp;&nbsp;";
+        newCheckBox += "<input type='checkbox' name='feedback_options["+totalDivInc+"][]' value='" + choices_names3[i] + "'>&nbsp;" + choices_names3[i] + " &nbsp;&nbsp;";
     }
-
-    newTextBox += "</select></div>";
-
     newCheckBox += "</div>";
+    
     newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" &nbsp; "+ newCheckBox +" " +removeBox;
     document.getElementById(divName).appendChild(newDiv);
 }
