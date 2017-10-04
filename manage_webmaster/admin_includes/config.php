@@ -34,7 +34,7 @@ if($setcon == 1) {
 	$password = "";
 	$dbname = "";
 } else {
-	$servername = "192.168.0.110";	
+	$servername = "192.168.0.107";	
 	$username = "root";
 	$password = "root";
 	$dbname = "feedback_demo";
@@ -47,6 +47,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$base_url = "http://192.168.0.110/feedback/";
+$base_url = "http://localhost/feedback/";
  
 ?>
