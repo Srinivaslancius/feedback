@@ -30,6 +30,27 @@ if (!isset($_POST['submit']))  {
                     <input type="text" class="form-control" id="form-control-2" name="category_name" placeholder="Category Name" data-error="Please enter Category Name." required>
                     <div class="help-block with-errors"></div>
                   </div>
+
+                  <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Feedback Options </label><br />
+                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                    <?php $image=$row ['feedback_option_image']; ?>
+                      <input type="checkbox" class="chk " id="img<?php echo $row['id']; ?>" name="img<?php echo $row['id']; ?>" value="0" />
+                      <label for="img<?php echo $row['id']; ?>">
+                          <img class="img" src="../uploads/feedback_images/<?php echo $image; ?>" width="150px" height="150px"/>
+                      </label>
+                    <?php } ?>
+                  </div>
+
+                  
+                  <style type="text/css">
+                  input:checked ~ label {
+                      opacity: 0.5;
+                  }
+                  </style>
+
+
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
