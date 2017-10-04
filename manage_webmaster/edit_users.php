@@ -6,7 +6,8 @@ $id = $_GET['uid'];
       //If fail
         echo "fail";
     } else {
-    //If success            
+    //If success   
+    echo "<pre>"; print_r($_REQUEST); die;         
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
     $client_mobile = $_POST['client_mobile'];
@@ -50,8 +51,15 @@ $id = $_GET['uid'];
             }
         $result = $conn->query($sql);
         
-        
-        
+        /*$del = "DELETE FROM client_selected_feedback_options WHERE client_user_id = '$id' ";
+        $result = $conn->query($del);*/
+        $category_ids = $_REQUEST['category_id'];
+        foreach($category_ids as $key=>$value){
+        $category_id = $_REQUEST['category_id'][$key];
+        $getcheckList=implode(",", $_REQUEST['feedback_options'][$key]);           
+        echo $sql = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$id','$category_id','$getcheckList','$created_at')"; die;
+        $result = $conn->query($sql);
+    }
         if($result == 1){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
