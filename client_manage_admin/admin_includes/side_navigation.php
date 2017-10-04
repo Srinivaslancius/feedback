@@ -84,7 +84,15 @@
                 </span>
                 <span class="menu-text">Orders</span>
               </a>
-            </li> --> 
+            </li> -->
+            <li  class="<?php if($page_name == 'feedback_options.php') { echo "active"; } ?>">
+              <a href="feedback_options.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Change Name</span>
+              </a>
+            </li>
             <li  class="<?php if($page_name == 'feedback_options.php' || $page_name == 'add_feedback_options.php' || $page_name == 'edit_feedback_options.php') { echo "active"; } ?>">
               <a href="feedback_options.php" aria-haspopup="true">
                 <span class="menu-icon">

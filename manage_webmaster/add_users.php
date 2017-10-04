@@ -10,6 +10,7 @@
             $client_mobile = $_POST['client_mobile'];
             $remember_name = $_POST['remember_name'];
             $no_of_accounts = $_POST['no_of_accounts'];
+            $no_of_floors = $_POST['no_of_floors'];
             $client_country_id = $_POST['client_country_id'];
             $client_state_id = $_POST['client_state_id'];
             $client_city_id = $_POST['client_city_id'];
@@ -28,7 +29,7 @@
 
                 if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
                   
-                   $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `client_admin_logo`,`status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', '$client_admin_logo' ,'$status')";
+                   $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`no_of_floors`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `client_admin_logo`,`status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$no_of_floors','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', '$client_admin_logo' ,'$status')";
                   
                     $result = $conn->query($sql);
                     $last_id = $conn->insert_id;
@@ -90,6 +91,11 @@
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Number Of Accounts</label>
                     <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Number Of Floors</label>
+                    <input type="text" name="no_of_floors" class="form-control" id="form-control-2" placeholder="Number Of Floors" data-error="Please enter Number Of Floors" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
