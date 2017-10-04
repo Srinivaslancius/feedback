@@ -7,8 +7,7 @@
   } else  { 
     //echo "<pre>"; print_r($_REQUEST); 
     //echo $check=implode(", ", $_POST['feedback_options'][0]);  die;
-   
-      // //If success
+    // //If success
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
     $client_mobile = $_POST['client_mobile'];
@@ -18,8 +17,7 @@
     $client_state_id = $_POST['client_state_id'];
     $client_city_id = $_POST['client_city_id'];
     $client_location_id = $_POST['client_location_id'];
-    //$user_password = encryptPassword($_POST['user_password']);
-    //$user_address = $_POST['user_address'];
+    
     $status = $_POST['status'];
     $created_super_admin_id = $_SESSION['created_super_admin_id'];
     $created_at = date("Y-m-d h:i:s");
@@ -268,7 +266,7 @@ function addInput(divName) {
     }
     newCheckBox += "</div>";
     
-    newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" &nbsp; "+ newCheckBox +" " +removeBox;
+    newDiv.innerHTML = selectHTML+ " &nbsp;" + newCheckBox +" " +removeBox;
     document.getElementById(divName).appendChild(newDiv);
 }
 
