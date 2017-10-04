@@ -48,16 +48,9 @@ $id = $_GET['uid'];
               }
             }
         $result = $conn->query($sql);
-        $last_id = $conn->insert_id;
-        $category_ids = $_REQUEST['category_id'];
-        foreach($category_ids as $key=>$value){
-          $category_id = $_REQUEST['category_id'][$key];
-          $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
-          //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
-          $sql1 = "UPDATE client_selected_feedback_options SET client_user_id='$last_id',category_id='$category_id',feedback_options='$getcheckList',created_at='$created_at' ";
-          $result1 = $conn->query($sql1);
-        }
-
+        
+        
+        
         if($result == 1){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -162,54 +155,37 @@ $id = $_GET['uid'];
                     $result2 = $conn->query($sql2);
                   ?>
                   <!-- Main div for add more -->
-                  <div style="border:1px solid #333;" class="col-md-12">
-
+                  <?php while($row2 = $result2->fetch_assoc()) { ?>
+                    <div style="border:1px solid #333; position:relative; top:5px;" class="col-md-12">
                     
-                    <?php while($row2 = $result2->fetch_assoc()) { ?>
-                    <div class="form-group">
-                      <label for="form-control-3" class="control-label">Choose your Category</label>
-                      <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                      <select id="form-control-3" name="category_id[]" class="custom-select" data-error="This field is required." required>
-                        <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$row2['category_id'],$activeStatus=NULL,$activeTop=NULL);?>
+                    <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                      <div class="form-group">
+                        <label for="form-control-3" class="control-label">Choose your Category</label>
+                        <select id="form-control-3" name="category_id[]" class="custom-select" data-error="This field is required.">
                         <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                          <option value="<?php echo $row['id']; ?>" <?php if($row['id'] == $row2['category_id']) { echo "Selected"; } ?>><?php echo $row['category_name']; ?></option>
-                        <?php } ?>
-                     </select>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                    <?php } ?>
-
-                    <!-- <?php $getSubCategories = getDataFromTables('sub_categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-
-                    <div class="form-group col-md-6">
-                      <label for="form-control-3" class="control-label">Select Sub Category</label>
-                      <select id="sub_category_id" name="sub_category_id[]" class="custom-select" data-error="This field is required." required>
-                        <option value="">Select Category</option>
-                        <?php while($row = $getSubCategories->fetch_assoc()) {  ?>
-                          <option value="<?php echo $row['sub_category_name']; ?>"><?php echo $row['sub_category_name']; ?></option>
-                        <?php } ?>
-                     </select>
-                      <div class="help-block with-errors"></div>
-                    </div>  -->  
- 
-                    <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                    <div class="form-group">
-                      <label for="form-control-2" class="control-label">Feedback Options : </label><br />
-                      
-                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { 
-                      $checked = '';
-                        $explodeFeedbackOpt=explode(',',$row['feedback_option']);
-                      if (in_array($row['id'], $explodeFeedbackOpt)) $checked = " checked"; 
-                      ?>
-
-                      <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[0][]" <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                        <option value="<?php echo $row['category_name']; ?>" <?php if($row['category_name'] == $row2['category_id']) { echo "Selected"; } ?>><?php echo $row['category_name']; ?></option>
                       <?php } ?>
+                       </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
 
-                    </div>              
-                    
+                      <?php  
+                      $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                      <div class="form-group">
+                      <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { 
+                          $checked = '';                          
+                          $explodeFeedbackOpt=explode(',',$row2['feedback_options']);
+                        if (in_array($row['feedback_option'], $explodeFeedbackOpt)) $checked = " checked"; 
+                      ?>
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name='feedback_options[]' <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                      <?php } ?>
+                      </div>
 
-                  </div>
-
+                    </div> 
+                    <div class="clearfix"></div>
+                    <?php } ?>
+                 
                   <div class="form-group" style="float:right; margin-top:5px;">
                      <a href="javascript:void(0);"><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
                   </div>
