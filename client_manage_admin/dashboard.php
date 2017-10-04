@@ -82,6 +82,14 @@
             <td><?php $getCityData =  getDataFromTables('lkp_cities',$status=NULL,'id',$row['client_city_id'],$activeStatus=NULL,$activeTop=NULL); $city = $getCityData->fetch_assoc(); echo $city['city_name']?></td>
           </tr>
           <tr>
+            <td>Status: </td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Created Account Date: </td>
+            <td><?php echo $row['created_at'];?></td>
+          </tr>
+          <tr>
         </table></center>
         <?php } ?>
         </div>
