@@ -40,7 +40,8 @@ $id = $_GET['uid'];
                 }
             }  else {
 
-            $sql  = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                if($conn->query($sql) === TRUE){
+            $sql  = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                
+            if($conn->query($sql) === TRUE){
                    echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
               } else {
                  echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
