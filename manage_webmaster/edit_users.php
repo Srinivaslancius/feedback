@@ -164,7 +164,7 @@ $id = $_GET['uid'];
                      </select>
                       <div class="help-block with-errors"></div>
                     </div>  -->  
-
+ 
                     <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group">
                       <label for="form-control-2" class="control-label">Feedback Options : </label><br />
@@ -174,7 +174,7 @@ $id = $_GET['uid'];
                         $explodeFeedbackOpt=explode(',',$row['feedback_option']);
                       if (in_array($row['id'], $explodeFeedbackOpt)) $checked = " checked"; 
                       ?>
-                      
+
                       <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[0][]" <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
                       <?php } ?>
 
