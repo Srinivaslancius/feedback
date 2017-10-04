@@ -12,6 +12,7 @@ $id = $_GET['uid'];
     $client_mobile = $_POST['client_mobile'];
     $remember_name = $_POST['remember_name'];
     $no_of_accounts = $_POST['no_of_accounts'];
+    $no_of_floors = $_POST['no_of_floors'];
     $client_country_id = $_POST['client_country_id'];
     $client_state_id = $_POST['client_state_id'];
     $client_city_id = $_POST['client_city_id'];
@@ -28,7 +29,7 @@ $id = $_GET['uid'];
               $getImgUnlink = getImageUnlink('client_admin_logo','client_admin_users','id',$id,$target_dir);
                 //Send parameters for img val,tablename,clause,id,imgpath for image ubnlink from folder
               if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
-            $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',client_admin_logo='$client_admin_logo',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                    
+            $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts',no_of_floors = '$no_of_floors' ,client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',client_admin_logo='$client_admin_logo',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                    
             if($conn->query($sql) === TRUE){    
                        echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
                     } else {
@@ -101,6 +102,11 @@ $id = $_GET['uid'];
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Number Of Accounts</label>
                     <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required value="<?php echo $getUsers1['no_of_accounts'];?>">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Number Of Floors</label>
+                    <input type="text" name="no_of_floors" class="form-control" id="form-control-2" placeholder="Number Of Floors" data-error="Please enter Number Of Floors" required value="<?php echo $getUsers1['no_of_floors'];?>">
                     <div class="help-block with-errors"></div>
                   </div>
                   <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);  ?>

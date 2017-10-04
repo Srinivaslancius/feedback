@@ -121,6 +121,21 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Remember Name: </div>
+                            <div class="col-sm-6"><?php echo $row['remember_name'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Number Of Accounts: </div>
+                            <div class="col-sm-6"><?php echo $row['no_of_accounts'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Number Of Floors: </div>
+                            <div class="col-sm-6"><?php echo $row['no_of_floors'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
                             <div class="col-sm-4">Country: </div>
                             <div class="col-sm-6"><?php $getCountryData =  getDataFromTables('lkp_countries',$status=NULL,'id',$row['client_country_id'],$activeStatus=NULL,$activeTop=NULL); $country = $getCountryData->fetch_assoc(); echo $country['country_name']?></div>
                           </div>
