@@ -38,7 +38,6 @@
     }
 
     if($result == 1){
-
        echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
     } else {
        echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
