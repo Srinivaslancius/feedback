@@ -10,6 +10,8 @@ $id = $_GET['uid'];
       $user_name = $_POST['user_name'];
       $user_email = $_POST['user_email'];
       $user_mobile = $_POST['user_mobile'];
+      $remember_name = $_POST['remember_name'];
+      $no_of_accounts = $_POST['no_of_accounts'];
       $user_country_id = $_POST['user_country_id'];
       $user_state_id = $_POST['user_state_id'];
       $user_city_id = $_POST['user_city_id'];
@@ -60,7 +62,16 @@ $id = $_GET['uid'];
                     <input type="text" name="user_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['user_mobile'];?>">
                     <div class="help-block with-errors"></div>
                   </div>
-
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Remember Name</label>
+                    <input type="text" name="remember_name" class="form-control" id="form-control-2" placeholder="Remember Name" data-error="Please enter Remember Name" required value="<?php echo $getUsers1['remember_name'];?>">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Number Of Accounts</label>
+                    <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required value="<?php echo $getUsers1['no_of_accounts'];?>">
+                    <div class="help-block with-errors"></div>
+                  </div>
                   <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);  ?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Select Country</label>

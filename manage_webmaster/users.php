@@ -19,7 +19,7 @@
                   $result2 = $conn->query($sql2);
               ?>
 
-                <div class="col s12 m12 l12">                  
+                <!-- <div class="col s12 m12 l12">                  
 
                   <div class="form-group col-md-4">                    
                     <select id="select-country" class="custom-select">
@@ -48,7 +48,7 @@
                     </select>                    
                   </div>
 
-                </div>
+                </div> -->
 
                 <div class="clear_fix"></div>
 
@@ -75,7 +75,7 @@
                     <th>Country</th>
                     <th>State</th>
                     <th>City</th>
-                    <th>Address</th>
+                    <!-- <th>Address</th> -->
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
