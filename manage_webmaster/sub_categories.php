@@ -45,10 +45,27 @@
                             <div class="col-sm-4">Sub Category Name: </div>
                             <div class="col-sm-6"><?php echo $row['sub_category_name'];?></div>
                           </div>
+                          <?php
+                          if(!empty($_POST["sub_category_id"])) {
+                            $query ="SELECT * FROM sub_categories WHERE id = '" . $_POST["sub_category_id"] . "'";
+                            $results = $conn->query($query);
+                            $getFOptions = $results->fetch_assoc();
+                            $getAllOptions = $getFOptions['subcat_feedback_options'];
+                            $expOpt = explode(",",$getAllOptions);
+                            //echo "<pre>"; print_r($expOpt); die;
+                          ?>
                           <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-4">Feedback Options: </div>
-                            <div class="col-sm-6"><?php echo $row['sub_category_name'];?></div>
+                            <div class="col-sm-6"><?php foreach ($expOpt as $key => $value) { 
+                            $getfeedbackOpt = getDataFromTables('sub_categories',$status=NULL,'id',$value,$activeStatus=NULL,$activeTop=NULL);
+                            $row = $getfeedbackOpt->fetch_assoc();
+                          ?>
+                            <input type="checkbox" name="feedback_options[]" value="<?php echo $value ?>"> <?php echo $row['feedback_option']; ?>
+                          <?php
+                            }
+                            }
+                          ?></div>
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>
