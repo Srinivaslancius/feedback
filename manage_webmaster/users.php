@@ -75,7 +75,7 @@
                     <th>Country</th>
                     <th>State</th>
                     <th>City</th>
-                    <th>Address</th>
+                    <!-- <th>Address</th> -->
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
