@@ -146,6 +146,11 @@
                           </div> -->
                           <div class="row">
                             <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Client Admin Logo: </div>
+                            <div class="col-sm-6"><img src="<?php echo $base_url . 'uploads/client_logos/'.$row['client_admin_logo'] ?>" height="70" width="70"/></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
                             <div class="col-sm-4">Status: </div>
                             <div class="col-sm-6"><?php if($row['status'] == 0 ){ echo "Active";} else{ echo "InActive";}?></div>
                           </div>
