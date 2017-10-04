@@ -96,37 +96,54 @@
                   </div>
 
                   <!-- Main div for add more -->
-                  <div style="border:1px solid red;">
+                  <div style="border:1px solid #333;" class="col-md-12">
 
                     <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group col-md-6">
                       <label for="form-control-3" class="control-label">Choose your Category</label>
-                      <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required onChange="getSubCategories(this.value);">
+                      <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Category</option>
                         <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                          <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
+                          <option value="<?php echo $row['category_name']; ?>"><?php echo $row['category_name']; ?></option>
                         <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
                     </div>
+
+                    <?php $getSubCategories = getDataFromTables('sub_categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+
                     <div class="form-group col-md-6">
                       <label for="form-control-3" class="control-label">Select Sub Category</label>
-                      <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required onChange="getFeedBackOptions(this.value);">
-                        <option value="">Select Sub Category</option>
+                      <select id="sub_category_id" name="sub_category_id" class="custom-select" data-error="This field is required." required>
+                        <option value="">Select Category</option>
+                        <?php while($row = $getSubCategories->fetch_assoc()) {  ?>
+                          <option value="<?php echo $row['sub_category_name']; ?>"><?php echo $row['sub_category_name']; ?></option>
+                        <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
-                    </div>                 
-                    <!-- display feed back options -->
-                    <div class="form-group" id="get_feed_back_options">                    
-                    </div>
+                    </div>   
 
+                    <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                    <div class="form-group">
+                      <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                      
+                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                      <input type="checkbox" value="<?php echo $row['id']; ?>" name="feedback_options[]"> <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                      <?php } ?>
+
+                    </div>              
+                    
+
+                  </div>                 
+
+                  <div class="form-group" style="float:right; margin-top:5px;">
+                     <a href="javascript:void(0);"><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
                   </div>
-                  <div class="form-group">
-                     <a href="javascript:void(0);"  ><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
-                  </div>
+                  <div class="clearfix"></div>
                   <div id="dynamicInput" class="input-field col s12"></div>
                   <!-- End Main div for add more -->
 
+                  <div class="clearfix"></div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -175,6 +192,17 @@
    $choices_names2[] = $row2['sub_category_name'];
 } ?>
 
+
+<?php
+    $sql3 = "SELECT * FROM feedback_options where status = '0'";
+    $result3 = $conn->query($sql3);                                    
+?>
+
+<?php while($row3 = $result3->fetch_assoc()) { 
+   $choices3[] = $row3['id'];
+   $choices_names3[] = $row3['feedback_option'];
+} ?>
+
 <script type="text/javascript">
 
 function addInput(divName) {
@@ -185,13 +213,19 @@ function addInput(divName) {
     var choices2 = <?php echo json_encode($choices2); ?>; 
     var choices_names2 = <?php echo json_encode($choices_names2); ?>;
 
+    var choices3 = <?php echo json_encode($choices3); ?>; 
+    var choices_names3 = <?php echo json_encode($choices_names3); ?>;
+
     var newDiv = document.createElement('div');
     newDiv.className = 'new_appen_class';
     var selectHTML = "";   
     var newTextBox = ""; 
-    selectHTML="<div class='input-field form-group col-md-6'><select required name='weight_type_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
-    var newTextBox = "<div class='form-group col-md-4'><select required name='' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
-    removeBox="<div class='input-field  form-group col-md-2'><a class='remove_button' ><img src='remove-icon.png'/></a></div><div class='clearfix'></div>";
+    selectHTML="<div style='border:1px solid #333;'><div class='input-field form-group col-md-6'><label for='form-control-3' class='control-label'>Choose your Category</label><select required name='weight_type_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
+    var newTextBox = "<div class='form-group col-md-4'><label for='form-control-3' class='control-label'>Select Sub Category</label><select required name='' id='sub_category_id' class='custom-select' style='display:block !important'><option value=''>Select Sub Category</option>";
+
+    var newCheckBox = "<div class='form-group col-md-12'> <label for='form-control-2' class='control-label'>Feedback Options : </label><br /> ";
+
+    removeBox="<div class='input-field  form-group col-md-2'><a class='remove_button' ><img src='remove-icon.png'/></a></div><div class='clearfix'></div></div><div class='clearfix'></div>";
     for(i = 0; i < choices.length; i = i + 1) {
         selectHTML += "<option value='" + choices[i] + "'>" + choices_names[i] + "</option>";
     }
@@ -200,8 +234,14 @@ function addInput(divName) {
         newTextBox += "<option value='" + choices2[i] + "'>" + choices_names2[i] + "</option>";
     }
 
+    for(i = 0; i < choices3.length; i = i + 1) {
+        newCheckBox += "<input type='checkbox' value='" + choices_names3[i] + "'>&nbsp;" + choices_names3[i] + " &nbsp;&nbsp;";
+    }
+
     newTextBox += "</select></div>";
-    newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" "+ removeBox;
+
+    newCheckBox += "</div>";
+    newDiv.innerHTML = selectHTML+ " &nbsp;" +newTextBox +" &nbsp; "+ newCheckBox +" " +removeBox;
     document.getElementById(divName).appendChild(newDiv);
 }
 
@@ -281,4 +321,12 @@ function getFeedBackOptions(val) {
     }
     });
 }
+
+$(document).ready(function() {
+    $(dynamicInput).on("click",".remove_button", function(e){ //user click on remove text
+        e.preventDefault();
+        $(this).parent().parent().remove();
+    })
+    
+});
 </script>
