@@ -14,7 +14,7 @@
           </div>
         
           <div class="col-md-3 col-sm-3">
-            <div class="widget widget-tile-2 bg-danger m-b-30">
+            <div class="widget widget-tile-2 bg-success m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Good</div>
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3">
-            <div class="widget widget-tile-2 bg-primary m-b-30">
+            <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Average</div>
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3">
-            <div class="widget widget-tile-2 bg-warning m-b-30">
+            <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Poor</div>
                 <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
