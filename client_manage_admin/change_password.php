@@ -48,7 +48,6 @@ $(document).ready(function(){
         type:"POST",
         url:"ajax_change_password.php",
         data:"email="+email+"&mobile="+mobile+"&password="+password,
-        alert("hai");
         success:function(data){
           if (data == "success") {
             
