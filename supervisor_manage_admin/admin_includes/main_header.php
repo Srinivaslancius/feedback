@@ -5,7 +5,7 @@ include_once('../admin_includes/common_functions.php');
 $getSiteSettings = getDataFromTables('site_settings',$status=NULL,$clause='id',$id=1,$activeStatus=NULL,$activeTop=NULL); 
 $getSiteSettingsData = $getSiteSettings->fetch_assoc();
 
-if(!isset($_SESSION['admin_user_id'])) {
+if(!isset($_SESSION['supervisor_admin_user_id'])) {
   header("Location: logout.php");
   exit;
 }
@@ -61,7 +61,7 @@ if(!isset($_SESSION['admin_user_id'])) {
                   <span class="nav-cell p-r-10">
                     <img class="img-circle" src="img/avatars/1.jpg" alt="" width="32" height="32">
                   </span>
-                  <span class="nav-cell"><?php echo $_SESSION['admin_user_name']; ?>
+                  <span class="nav-cell"><?php echo $_SESSION['supervisor_admin_user_name']; ?>
                     <span class="caret"></span>
                   </span>
                 </a>

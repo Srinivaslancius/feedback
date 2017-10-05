@@ -8,7 +8,7 @@
                 <div class="wt-number"><?php echo getRowsCount('supervisors_admin_users')?></div>
               </div>
               <div class="wt-icon">
-                <i class="zmdi zmdi-accounts"></i>
+                <i class="zmdi zmdi-accounts"></i> 
               </div>
             </div>
           </div>
