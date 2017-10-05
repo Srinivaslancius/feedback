@@ -9,7 +9,7 @@
                     <i class="zmdi zmdi-caret-up"></i>
                   </span>
                 </div>
-                <div class="wt-number"><?php echo getRowsCount('users')?></div>
+                <div class="wt-number"><?php echo getRowsCount('admin_users')?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-accounts"></i>
@@ -31,7 +31,7 @@
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Supervisor Admin</div>
-                <div class="wt-number"><?php echo getRowsCount('client_selected_feedback_options')?></div>
+                <div class="wt-number"><?php echo getRowsCount('supervisors_admin_users')?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-accounts"></i>
