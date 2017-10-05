@@ -12,14 +12,14 @@
                 <form>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="text" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter Email" required>
+                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter Email" required>
                     <span  id="email_status"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="client_mobile" placeholder="Mobile" required maxlength="10" pattern="[0-9]{10}">
+                    <input type="password" name="client_mobile" class="form-control" id="client_mobile" placeholder="Mobile" required maxlength="10" pattern="[0-9]{10}">
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
