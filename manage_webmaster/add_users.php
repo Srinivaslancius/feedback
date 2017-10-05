@@ -59,7 +59,7 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <form data-toggle="validator" method="POST" enctype="multipart/form-data">
+                <form data-toggle="validator" method="POST" enctype="multipart/form-data" autocomplete="off">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
                     <input type="text" name="client_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter Name" required>
@@ -68,7 +68,8 @@
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter valid email address." required>
+                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter valid email address." required onkeyup="checkemail()" >
+                    <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
@@ -80,7 +81,8 @@
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)">
+                    <input type="text" name="client_mobile" class="form-control" id="client_mobile" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" onkeyup="checkMobile()" >
+                    <span id="mobile_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
@@ -334,7 +336,7 @@ function getLocations(val) {
     if (email1){
       $.ajax({
       type: "POST",
-      url: "check_email_avail.php",
+      url: "check_email_avail1.php",
       data: {
         client_email:email1,
       },
@@ -342,6 +344,24 @@ function getLocations(val) {
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
           $("#client_email").val("");
+        }
+        }
+       });
+    }
+  }
+  function checkMobile() {
+    var mobile = document.getElementById("client_mobile").value;
+    if (mobile){
+      $.ajax({
+      type: "POST",
+      url: "check_mobile_avail.php",
+      data: {
+        client_mobile:mobile,
+      },
+      success: function (response) {
+        $( '#mobile_status' ).html(response);
+        if (response == "Mobile Number Already Exist"){
+          $("#client_mobile").val("");
         }
         }
        });

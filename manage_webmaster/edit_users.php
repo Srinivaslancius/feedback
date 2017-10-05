@@ -86,7 +86,7 @@ $id = $_GET['uid'];
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" onkeyup="checkemail();" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['client_email'];?>">
+                    <input type="email" name="client_email" class="form-control" id="client_email" placeholder="Email" onkeyup="checkemail()" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['client_email'];?>">
                     <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
@@ -99,7 +99,8 @@ $id = $_GET['uid'];
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['client_mobile'];?>">
+                    <input type="text" name="client_mobile" class="form-control" id="client_mobile" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['client_mobile'];?>" onkeyup="checkMobile()" >
+                    <span id="mobile_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
@@ -349,7 +350,7 @@ $id = $_GET['uid'];
     if (email1){
       $.ajax({
       type: "POST",
-      url: "check_email_avail.php",
+      url: "check_email_avail1.php",
       data: {
         client_email:email1,
       },
@@ -357,9 +358,27 @@ $id = $_GET['uid'];
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
           $("#client_email").val("");
-        }        
         }
-       });          
+        }
+       });
+    }
+  }
+  function checkMobile() {
+    var mobile = document.getElementById("client_mobile").value;
+    if (mobile){
+      $.ajax({
+      type: "POST",
+      url: "check_mobile_avail.php",
+      data: {
+        client_mobile:mobile,
+      },
+      success: function (response) {
+        $( '#mobile_status' ).html(response);
+        if (response == "Mobile Number Already Exist"){
+          $("#client_mobile").val("");
+        }
+        }
+       });
     }
   }
   $(document).ready(function() {
