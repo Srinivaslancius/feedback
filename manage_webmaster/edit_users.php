@@ -7,7 +7,7 @@ $id = $_GET['uid'];
         echo "fail";
     } else {
     //If success   
-    echo "<pre>"; print_r($_REQUEST); die;         
+    //echo "<pre>"; print_r($_REQUEST); die;         
     $client_name = $_POST['client_name'];
     $client_email = $_POST['client_email'];
     $client_mobile = $_POST['client_mobile'];
@@ -51,8 +51,8 @@ $id = $_GET['uid'];
             }
         $result = $conn->query($sql);
         
-        /*$del = "DELETE FROM client_selected_feedback_options WHERE client_user_id = '$id' ";
-        $result = $conn->query($del);*/
+        $del = "DELETE FROM client_selected_feedback_options WHERE client_user_id = '$id' ";
+        $result = $conn->query($del);
         $category_ids = $_REQUEST['category_id'];
         foreach($category_ids as $key=>$value){
         $category_id = $_REQUEST['category_id'][$key];
@@ -169,8 +169,8 @@ $id = $_GET['uid'];
                     $result2 = $conn->query($sql2);
                   ?>
                   <!-- Main div for add more -->
-                  <?php while($row2 = $result2->fetch_assoc()) { ?>
-                    <div style="border:1px solid #333; position:relative; top:5px;" class="col-md-12">
+                  <?php $i =0; while($row2 = $result2->fetch_assoc()) { ?>
+                    <div style="border:1px solid #333; position:relative; top:5px;" class="col-md-12 new_appen_class">
                     
                     <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                       <div class="form-group">
@@ -187,18 +187,18 @@ $id = $_GET['uid'];
                       $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                       <div class="form-group">
                       <label for="form-control-2" class="control-label">Feedback Options : </label><br />
-                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { 
+                      <?php  while ($row = $getfeedbackOpt->fetch_assoc()) { 
                           $checked = '';                          
                           $explodeFeedbackOpt=explode(',',$row2['feedback_options']);
                         if (in_array($row['feedback_option'], $explodeFeedbackOpt)) $checked = " checked"; 
                       ?>
-                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name='feedback_options[]' <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
-                      <?php } ?>
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name='feedback_options[<?php echo $i ?>][]' <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                      <?php  } ?>
                       </div>
 
                     </div> 
                     <div class="clearfix"></div>
-                    <?php } ?>
+                    <?php $i++; } ?>
                  
                   <div class="form-group" style="float:right; margin-top:5px;">
                      <a href="javascript:void(0);"><img src="add-icon.png" onclick="addInput('dynamicInput');"/></a>
@@ -268,8 +268,9 @@ $id = $_GET['uid'];
 
     function addInput(divName) {
  
-    var geDivLegn = $('.new_appen_class').length;
-    var totalDivInc = geDivLegn+1;
+    var totalDivInc = $('.new_appen_class').length;
+    
+    //var totalDivInc = geDivLegn+1;
     var choices = <?php echo json_encode($choices1); ?>; 
     var choices_names = <?php echo json_encode($choices_names); ?>;   
 
