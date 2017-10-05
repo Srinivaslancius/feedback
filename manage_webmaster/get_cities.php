@@ -1,6 +1,6 @@
 <?php
-include_once('admin_includes/config.php');
-include_once('admin_includes/common_functions.php');
+include_once('../admin_includes/config.php');
+include_once('../admin_includes/common_functions.php');
 if(!empty($_POST["state_id"])) {
 	$query ="SELECT * FROM lkp_cities WHERE lkp_state_id = '" . $_POST["state_id"] . "'";
 	$results = $conn->query($query);

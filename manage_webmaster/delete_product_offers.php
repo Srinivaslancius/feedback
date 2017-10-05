@@ -1,6 +1,6 @@
 <?php
-include_once('admin_includes/config.php');
-include_once('admin_includes/common_functions.php');
+include_once('../admin_includes/config.php');
+include_once('../admin_includes/common_functions.php');
 $id = $_GET['oid'];
 //echo $music_number;
 $target_dir = '../uploads/offer_images/';
