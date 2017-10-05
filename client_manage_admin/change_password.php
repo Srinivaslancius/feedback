@@ -2,7 +2,7 @@
 
       <div class="site-content">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="change_password">
             <h3 class="m-y-0">Change Password</h3>
           </div>
           <div class="panel-body">
@@ -11,18 +11,18 @@
                 <form data-toggle="validator" method="post" id="form_id">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="text" name="client_email" class="form-control" id="form-control-2" placeholder="Email" data-error="Please enter Email" required>
+                    <input type="text" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter Email" required>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter Mobile" required>
+                    <input type="text" name="client_mobile" class="form-control" id="form_control_mobile" placeholder="Mobile" data-error="Please enter Mobile" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">New Password</label>
-                    <input type="text" name="email" class="form-control" id="form-control-2" placeholder="New Password" data-error="Please enter New Password" required>
+                    <input type="text" name="email" class="form-control" id="form_control_password" placeholder="New Password" data-error="Please enter New Password" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div id="content"></div>
@@ -39,15 +39,22 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#submit").click(function() {
-      $.ajax({
-            type:"POST",
-            url:"ajax_change_password.php",
-            data:"client_email="+name+"&client_mobile="+password+"&salary="+salary,
-            success:function(data){
-                }
-            
-      });
-    });
+  $("#submit").click(function({
+  var email = $('#client_email').val();
+  var mobile = $('#client_mobile').val();
+  var password = $('#client_password').val();
+   $.ajax({
+      type:"POST",
+      url:"ajax_change_password.php",
+      data:{client_email : email,client_mobile : mobile, client_password :password},
+      success:function(data){
+      if (data == "success") {
+        
+      };
+              
+      }
+  });
+
+
 });
 </script>

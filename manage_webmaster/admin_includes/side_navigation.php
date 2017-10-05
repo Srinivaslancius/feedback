@@ -29,10 +29,10 @@
                 <span class="menu-icon">
                   <i class="zmdi zmdi-accounts zmdi-hc-fw"></i>
                 </span>
-                <span class="menu-text">Users</span>
+                <span class="menu-text">Admins</span>
               </a>
               <ul class="sidebar-submenu collapse">
-                <li class="menu-subtitle">Users</li>
+                <li class="menu-subtitle">Admins</li>
                 <li class="<?php if($page_name == 'admin_users.php' || $page_name == 'add_admin_users.php' || $page_name == 'edit_admin_users.php') { echo "active"; } ?>"><a href="admin_users.php">Super Admin</a></li> 
                 <li class="<?php if($page_name == 'users.php' || $page_name == 'add_users.php' || $page_name == 'edit_users.php') { echo "active"; } ?>"><a href="users.php">Client Admin</a></li>
               </ul>
@@ -61,14 +61,14 @@
                 <span class="menu-text">Categories</span>
               </a>
             </li>
-            <li  class="<?php if($page_name == 'sub_categories.php' || $page_name == 'add_sub_categories.php' || $page_name == 'edit_sub_categories.php') { echo "active"; } ?>">
+            <!-- <li  class="<?php if($page_name == 'sub_categories.php' || $page_name == 'add_sub_categories.php' || $page_name == 'edit_sub_categories.php') { echo "active"; } ?>">
               <a href="sub_categories.php" aria-haspopup="true">
                 <span class="menu-icon">
                    <i class="zmdi zmdi-store zmdi-hc-fw"></i>
                 </span>
                 <span class="menu-text">Sub Categories</span>
               </a>
-            </li>
+            </li> -->
             <!-- <li  class="<?php if($page_name == 'products.php' || $page_name == 'add_products.php' || $page_name == 'edit_products.php') { echo "active"; } ?>">
               <a href="products.php" aria-haspopup="true">
                 <span class="menu-icon">

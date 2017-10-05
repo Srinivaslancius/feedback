@@ -2,8 +2,8 @@
 ob_start();
 include_once('../admin_includes/config.php');
 include_once('../admin_includes/common_functions.php');
-$getSiteSettings = getDataFromTables('site_settings',$status=NULL,$clause='id',$id=1,$activeStatus=NULL,$activeTop=NULL); 
-$getSiteSettingsData = $getSiteSettings->fetch_assoc();
+$getClients = getDataFromTables('client_admin_users',$status=NULL,$clause='id',$id=$_SESSION['client_admin_user_id'],$activeStatus=NULL,$activeTop=NULL); 
+$getClientData = $getClients->fetch_assoc();
 
 if(!isset($_SESSION['client_admin_user_id'])) {
   header("Location: logout.php");
@@ -18,8 +18,8 @@ if(!isset($_SESSION['client_admin_user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
-    <title><?php echo $getSiteSettingsData['admin_title'];?></title>
-    <link rel="icon" type="image/png" href="<?php echo $base_url . 'uploads/logo/'.$getSiteSettingsData['logo'] ?>" sizes="32x32">    
+    <title>Client Admin</title>
+    <link rel="icon" type="image/png" href="<?php echo $base_url . 'uploads/client_logos/'.$getClientData['client_admin_logo'] ?>" sizes="32x32">    
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/vendor.min.css">
     <link rel="stylesheet" href="css/cosmos.min.css">
@@ -31,8 +31,8 @@ if(!isset($_SESSION['client_admin_user_id'])) {
       <nav class="navbar navbar-default" style="background-color:#D4E6F1 !important;">
         <div class="navbar-header">
           <a class="navbar-brand" href="dashboard.php">
-            <img src="<?php echo $base_url . 'uploads/logo/'.$getSiteSettingsData['logo'] ?>" accept="image/*" height="20">
-            <span><?php echo $getSiteSettingsData['admin_title'];?></span>
+            <img src="<?php echo $base_url . 'uploads/client_logos/'.$getClientData['client_admin_logo'] ?>" accept="image/*" height="20">
+            <span>Client Admin</span>
           </a>
           <button class="navbar-toggler left-sidebar-toggle pull-left visible-xs" type="button">
             <span class="hamburger"></span>

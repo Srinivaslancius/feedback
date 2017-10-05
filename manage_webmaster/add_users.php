@@ -37,7 +37,7 @@
                     $category_ids = $_REQUEST['category_id'];
                     foreach($category_ids as $key=>$value){
                       $category_id = $_REQUEST['category_id'][$key];
-                      $getcheckList=implode(", ", $_REQUEST['feedback_options'][$key]);
+                      $getcheckList=implode(",", $_REQUEST['feedback_options'][$key]);
                       //$sub_category_id = $_REQUEST['sub_category_id'][$key];     
                       $sql1 = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$last_id','$category_id','$getcheckList','$created_at')";
                       $result1 = $conn->query($sql1);

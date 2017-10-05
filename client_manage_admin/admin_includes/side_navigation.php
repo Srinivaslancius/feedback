@@ -16,15 +16,7 @@
                 <span class="menu-text">Dashboard</span>
               </a>
             </li>
-            <li class="<?php if($page_name == 'site_settings.php') { echo "active"; } ?>">
-              <a href="site_settings.php" aria-haspopup="true">
-                <span class="menu-icon">
-                  <i class="zmdi zmdi-settings zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Site Settings</span>
-              </a>
-            </li>
-            <li class="with-sub">
+            <!-- <li class="with-sub">
               <a href="#" aria-haspopup="true">
                 <span class="menu-icon">
                   <i class="zmdi zmdi-accounts zmdi-hc-fw"></i>
@@ -36,6 +28,7 @@
                 <li class="<?php if($page_name == 'admin_users.php' || $page_name == 'add_admin_users.php' || $page_name == 'edit_admin_users.php') { echo "active"; } ?>"><a href="admin_users.php">Super Admin</a></li> 
                 <li class="<?php if($page_name == 'users.php' || $page_name == 'add_users.php' || $page_name == 'edit_users.php') { echo "active"; } ?>"><a href="users.php">Client Admin</a></li>
               </ul>
+<<<<<<< HEAD
             </li>
             <!-- <li  class="<?php if($page_name == 'banners.php' || $page_name == 'add_banners.php' || $page_name == 'edit_banners.php' ) { echo "active"; } ?>">
               <a href="banners.php" aria-haspopup="true">
@@ -117,7 +110,10 @@
                 </span>
                 <span class="menu-text">Customer Enqueries</span>
               </a>
+=======
+>>>>>>> baef6edf9c287e77c9ee3bc7c9cd9907e490a9aa
             </li> -->
+            
           </ul>
         </div>
       </div>
