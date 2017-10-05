@@ -10,11 +10,18 @@ $id = $_GET['uid'];
       $supervisor_name = $_POST['supervisor_name'];
       $supervisor_email = $_POST['supervisor_email'];
       $supervisor_mobile = $_POST['supervisor_mobile'];
-      $supervisor_floor_no = $_POST['supervisor_floor_no'];
+      //$supervisor_floor_no = $_POST['supervisor_floor_no'];
+      $supervisor_floor_no = implode(',',$_POST['supervisor_floor_no']);
+      $string1 = str_shuffle('abcdefghijklmnopqrstuvwxyz');
+      $random1 = substr($string1,0,3);
+      $string2 = str_shuffle('1234567890');
+      $random2 = substr($string2,0,3);
+      $contstr = "SUPEVIS";
+      $supervisors_random_id = $contstr.$random1.$random2;
       $status = $_POST['status'];
       $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
       $created_at = date("Y-m-d h:i:s");
-        $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_floor_no='$supervisor_floor_no',created_client_admin_id='$created_supervisor_admin_id',status = '$status' WHERE id = '$id' ";
+        echo $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_floor_no='$supervisor_floor_no',supervisors_random_id='$supervisors_random_id', created_client_admin_id='$created_supervisor_admin_id',status = '$status' WHERE id = '$id' ";die;
         if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -52,15 +59,17 @@ $id = $_GET['uid'];
                   </div>
                   <?php $getNumberOfFloors = getDataFromTables('client_admin_users','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);
                     $row = $getNumberOfFloors->fetch_assoc();
+                    $HiddenFloors = explode(',',$row['supervisor_floor_no']);
                     ?>
                     <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
-                      <select id="form-control-3" name="supervisor_floor_no" class="custom-select" data-error="This field is required." required>
+                      <select id="form-control-3" name="supervisor_floor_no[]" multiple="multiple" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Floor Number</option>
                         <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
 
                          ?>
-                          <option value="<?php echo $i; ?>" <?php if($i == $getUsers1['supervisor_floor_no']) { echo "selected=selected"; }?> >  <?php echo "Floor - ".$i; ?></option>
+                          <option value="<?php echo $i; ?>" <?php if($i == in_array($i, $HiddenFloors)) { echo "selected=selected"; }?> >  <?php echo "Floor - ".$i; ?></option>
+                          
                         <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
