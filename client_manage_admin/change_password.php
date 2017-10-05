@@ -38,25 +38,10 @@
   
 <?php include_once 'admin_includes/footer.php'; ?>
 
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
-  $("#submit").click(function({
-  var email = $('#client_email').val();
-  var mobile = $('#client_mobile').val();
-  var password = $('#client_password').val();
-  alert("hai");
-   $.ajax({
-      type:"POST",
-      url:"ajax_change_password.php",
-      data:{client_email : email, client_mobile : mobile , client_password : password},
-      success:function(data){
-      if (data == "success") {
-        return true;
-      };
-              
-      }
-  });
-
-
+    $("#submit").click(function(){
+        alert("hai");
+    });
 });
 </script>
