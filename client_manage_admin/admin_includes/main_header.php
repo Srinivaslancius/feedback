@@ -18,7 +18,7 @@ if(!isset($_SESSION['client_admin_user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
-    <title>Client Admin</title>
+    <title>FeedBack Panel Client Admin</title>
     <link rel="icon" type="image/png" href="<?php echo $base_url . 'uploads/client_logos/'.$getClientData['client_admin_logo'] ?>" sizes="32x32">    
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/vendor.min.css">
@@ -32,7 +32,7 @@ if(!isset($_SESSION['client_admin_user_id'])) {
         <div class="navbar-header">
           <a class="navbar-brand" href="dashboard.php">
             <img src="<?php echo $base_url . 'uploads/client_logos/'.$getClientData['client_admin_logo'] ?>" accept="image/*" height="20">
-            <span>Client Admin</span>
+            <span>FeedBack Panel Client Admin</span>
           </a>
           <button class="navbar-toggler left-sidebar-toggle pull-left visible-xs" type="button">
             <span class="hamburger"></span>

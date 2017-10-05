@@ -28,7 +28,7 @@ $id = $_GET['uid'];
               <?php $getUsers = getDataFromTables('admin_users',$status=NULL,'id',$id,$activeStatus=NULL,$activeTop=NULL);
               $getUsers1 = $getUsers->fetch_assoc(); ?>
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <form data-toggle="validator" method="POST">
+                <form data-toggle="validator" method="POST" autocomplete="off">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Admin Name</label>
                     <input type="text" name="admin_name" class="form-control" id="form-control-2" placeholder="Admin Name" data-error="Please enter Name" required value="<?php echo $getUsers1['admin_name'];?>">
@@ -36,7 +36,8 @@ $id = $_GET['uid'];
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="admin_email" class="form-control" id="form-control-2" placeholder="Email" data-error="Please enter valid email address." required value="<?php echo $getUsers1['admin_email'];?>">
+                    <input type="email" name="admin_email" class="form-control" id="admin_email" placeholder="Email" data-error="Please enter valid email address." required value="<?php echo $getUsers1['admin_email'];?>" onkeyup="checkEmail()" >
+                    <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
@@ -64,3 +65,24 @@ $id = $_GET['uid'];
         </div>
       </div>
 <?php include_once 'admin_includes/footer.php'; ?>
+<!--Script for already existed email checking -->
+<script>
+  function checkEmail() {
+      var email = document.getElementById("admin_email").value;
+      if (email){
+        $.ajax({
+        type: "POST",
+        url: "check_email_avail.php",
+        data: {
+          admin_email:email,
+        },
+        success: function (response) {
+          $( '#email_status' ).html(response);
+          if (response == "Email Already Exist"){
+            $("#admin_email").val("");
+          }
+          }
+         });
+      }
+    }
+</script>
