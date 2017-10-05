@@ -24,7 +24,7 @@
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">New Password</label>
-                    <input type="text" name="client_new_password" class="form-control" id="client_new_password" placeholder="New Password" required>
+                    <input type="text" name="client_new_password" class="form-control" id="client_new_password" placeholder="New Password" required onkeypress="return isNumberKey(event)" required maxlength="10" pattern="[0-9]{10}">
                     <div class="help-block with-errors"></div>
                   </div>
                   <div id="content"></div>
