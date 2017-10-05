@@ -41,7 +41,21 @@
 <script>
 $(document).ready(function(){
     $("#submit").click(function(){
+      var email = $('#client_email').val();
+      var mobile = $('#client_mobile').val();
+      var password = $('#client_password').val(); 
+      $.ajax({
+        type:"POST",
+        url:"ajax_change_password.php",
+        data:"email="+email+"&mobile="+mobile+"&password="+password,
         alert("hai");
+        success:function(data){
+          if (data == "success") {
+            
+          }
+        }
+      });
+
     });
 });
 </script>
