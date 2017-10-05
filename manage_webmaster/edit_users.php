@@ -183,7 +183,7 @@ $id = $_GET['uid'];
                        </select>
                         <div class="help-block with-errors"></div>
                       </div>
-                      
+
                       <style>
                       .addspace{
                         margin-bottom: 5px;
@@ -287,7 +287,7 @@ $id = $_GET['uid'];
     var choices_names3 = <?php echo json_encode($choices_names3); ?>;
 
     var newDiv = document.createElement('div');
-    newDiv.className = 'new_appen_class';
+    newDiv.className = 'new_appen_class addspace';
     var selectHTML = "";   
     var newTextBox = ""; 
     selectHTML="<div style='border:1px solid #333;'><div class='input-field form-group col-md-12'><label for='form-control-3' class='control-label'>Choose your Category</label><select required name='category_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";
