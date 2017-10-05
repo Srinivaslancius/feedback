@@ -1,6 +1,6 @@
 <?php
-include_once('admin_includes/config.php');
-include_once('admin_includes/common_functions.php');
+include_once('../admin_includes/config.php');
+include_once('../admin_includes/common_functions.php');
 
 if(!empty($_POST["sub_category_id"])) {
 	$query ="SELECT * FROM sub_categories WHERE id = '" . $_POST["sub_category_id"] . "'";
