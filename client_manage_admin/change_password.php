@@ -12,12 +12,13 @@
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
                     <input type="text" name="client_email" class="form-control" id="client_email" placeholder="Email" data-error="Please enter Email" required>
+                    <span  id="email_status"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="client_mobile" class="form-control" id="form_control_mobile" placeholder="Mobile" data-error="Please enter Mobile" required>
+                    <input type="text" name="client_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}">
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
@@ -43,13 +44,14 @@ $(document).ready(function(){
   var email = $('#client_email').val();
   var mobile = $('#client_mobile').val();
   var password = $('#client_password').val();
+  alert("hai");
    $.ajax({
       type:"POST",
       url:"ajax_change_password.php",
-      data:{client_email : email,client_mobile : mobile, client_password :password},
+      data:{client_email : email, client_mobile : mobile , client_password : password},
       success:function(data){
       if (data == "success") {
-        
+        return true;
       };
               
       }
