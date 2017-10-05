@@ -191,6 +191,11 @@
                         <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="client_admin_logo" id="client_admin_logo"  onchange="loadFile(event)"  multiple="multiple" required >
                       </label>
                   </div>
+                  <style>
+                  .addspace{
+                    margin-bottom: 5px;
+                  }
+                  </style>
                   <div class="clearfix"></div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
@@ -267,7 +272,7 @@ function addInput(divName) {
     var choices_names3 = <?php echo json_encode($choices_names3); ?>;
 
     var newDiv = document.createElement('div');
-    newDiv.className = 'new_appen_class';
+    newDiv.className = 'new_appen_class  addspace';
     var selectHTML = "";   
     var newTextBox = ""; 
     selectHTML="<div style='border:1px solid #333;'><div class='input-field form-group col-md-12'><label for='form-control-3' class='control-label'>Choose your Category</label><select required name='category_id[]' id='form-control-3' class='custom-select' style='display:block !important'><option value=''>Select Category</option>";

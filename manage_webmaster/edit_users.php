@@ -171,7 +171,7 @@ $id = $_GET['uid'];
                   ?>
                   <!-- Main div for add more -->
                   <?php $i =0; while($row2 = $result2->fetch_assoc()) { ?>
-                    <div style="border:1px solid #333; position:relative; top:5px;" class="col-md-12 new_appen_class">
+                    <div style="border:1px solid #333; position:relative; top:5px;" class="col-md-12 new_appen_class addspace">
                     
                     <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                       <div class="form-group">
@@ -183,7 +183,12 @@ $id = $_GET['uid'];
                        </select>
                         <div class="help-block with-errors"></div>
                       </div>
-
+                      
+                      <style>
+                      .addspace{
+                        margin-bottom: 5px;
+                      }
+                      </style>
                       <?php  
                       $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                       <div class="form-group">
