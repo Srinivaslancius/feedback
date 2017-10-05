@@ -7,19 +7,14 @@ $id = $_GET['uid'];
         echo "fail";
     } else {
     //If success            
-      $user_name = $_POST['user_name'];
-      $user_email = $_POST['user_email'];
-      $user_mobile = $_POST['user_mobile'];
-      $remember_name = $_POST['remember_name'];
-      $no_of_accounts = $_POST['no_of_accounts'];
-      $user_country_id = $_POST['user_country_id'];
-      $user_state_id = $_POST['user_state_id'];
-      $user_city_id = $_POST['user_city_id'];
-      $user_location_id = $_POST['user_location_id'];
-      $user_password = encryptPassword($_POST['user_password']);
-      $user_address = $_POST['user_address'];
+      $supervisor_name = $_POST['supervisor_name'];
+      $supervisor_email = $_POST['supervisor_email'];
+      $supervisor_mobile = $_POST['supervisor_mobile'];
+      $supervisor_floor_no = $_POST['supervisor_floor_no'];
       $status = $_POST['status'];
-        $sql = "UPDATE `users` SET user_name='$user_name', user_email='$user_email', user_mobile='$user_mobile', user_country_id='$user_country_id', user_state_id='$user_state_id', user_city_id='$user_city_id', user_location_id='$user_location_id', user_password='$user_password', user_address='$user_address', status = '$status' WHERE id = '$id' ";
+      $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
+      $created_at = date("Y-m-d h:i:s");
+        $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_floor_no='$supervisor_floor_no',created_client_admin_id='$created_supervisor_admin_id',status = '$status' WHERE id = '$id' ";
         if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -30,95 +25,46 @@ $id = $_GET['uid'];
       <div class="site-content">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="m-y-0">Users</h3>
+            <h3 class="m-y-0">Supervisor Admin</h3>
           </div>
           <div class="panel-body">
             <div class="row">
-              <?php $getUsers = getDataFromTables('users',$status=NULL,'id',$id,$activeStatus=NULL,$activeTop=NULL);
+              <?php $getUsers = getDataFromTables('supervisors_admin_users',$status=NULL,'id',$id,$activeStatus=NULL,$activeTop=NULL);
               $getUsers1 = $getUsers->fetch_assoc(); ?>		
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <form data-toggle="validator" method="POST" autocomplete="off">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
-                    <input type="text" name="user_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter user name" required value="<?php echo $getUsers1['user_name'];?>">
+                    <input type="text" name="supervisor_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter user name" required value="<?php echo $getUsers1['supervisor_name'];?>">
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="user_email" class="form-control" id="user_email" placeholder="Email" onkeyup="checkemail();" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['user_email'];?>">
+                    <input type="email" name="supervisor_email" class="form-control" id="supervisor_email" placeholder="Email" onkeyup="checkemail();" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['supervisor_email'];?>">
                     <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
-
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Password</label>
-                    <input type="password" name="user_password" class="form-control" id="form-control-2" placeholder="Password" data-error="Please enter password." required value="<?php echo decryptPassword($getUsers1['user_password']);?>">
-                    <div class="help-block with-errors"></div>
-                  </div>
-
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="user_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['user_mobile'];?>">
+                    <input type="text" name="supervisor_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['supervisor_mobile'];?>">
                     <div class="help-block with-errors"></div>
                   </div>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Remember Name</label>
-                    <input type="text" name="remember_name" class="form-control" id="form-control-2" placeholder="Remember Name" data-error="Please enter Remember Name" required value="<?php echo $getUsers1['remember_name'];?>">
-                    <div class="help-block with-errors"></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Number Of Accounts</label>
-                    <input type="text" name="no_of_accounts" class="form-control" id="form-control-2" placeholder="Number Of Account" data-error="Please enter Number Of Accounts" required value="<?php echo $getUsers1['no_of_accounts'];?>">
-                    <div class="help-block with-errors"></div>
-                  </div>
-                  <?php $getCountries = getDataFromTables('lkp_countries',$status='0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);  ?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Select Country</label>
-                      <select name="user_country_id" id="user_country_id" class="custom-select" required onChange="getState(this.value);">
-                          <option value="">Select Country</option>
-                          <?php while($row = $getCountries->fetch_assoc()) {  ?>
-                              <option <?php if($row['id'] == $getUsers1['user_country_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['country_name']; ?></option>
-                          <?php } ?>
-                      </select> 
-                  </div>
+                  <?php $getNumberOfFloors = getDataFromTables('client_admin_users','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);
+                    $row = $getNumberOfFloors->fetch_assoc();
+                    ?>
+                    <div class="form-group">
+                      <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
+                      <select id="form-control-3" name="supervisor_floor_no" class="custom-select" data-error="This field is required." required>
+                        <option value="">Select Floor Number</option>
+                        <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
 
-                  <?php $getStates =  getDataFromTables('lkp_states',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Select State</label>
-                    <select id="user_state_id" name="user_state_id" class="custom-select" data-error="This field is required." required onChange="getCities(this.value);">
-                       <option value="">Select State</option>
-                      <?php while($row = $getStates->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['user_state_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['state_name']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-
-                  <?php $getCities =  getDataFromTables('lkp_cities',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Select City</label>
-                    <select id="user_city_id" name="user_city_id" class="custom-select" data-error="This field is required." required onChange="getLocations(this.value);">
-                       <option value="">Select City</option>
-                      <?php while($row = $getCities->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['user_city_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['city_name']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-
-                  <?php $getLocations =  getDataFromTables('lkp_locations',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); ?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Select Location</label>
-                    <select id="user_location_id" name="user_location_id" class="custom-select" data-error="This field is required." required>
-                       <option value="">Select Location</option>
-                      <?php while($row = $getLocations->fetch_assoc()) {  ?>
-                      <option <?php if($row['id'] == $getUsers1['user_location_id']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['location_name']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-
+                         ?>
+                          <option value="<?php echo $i; ?>" <?php if($i == $getUsers1['supervisor_floor_no']) { echo "selected=selected"; }?> >  <?php echo "Floor - ".$i; ?></option>
+                        <?php } ?>
+                     </select>
+                      <div class="help-block with-errors"></div>
+                    </div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
@@ -128,12 +74,6 @@ $id = $_GET['uid'];
                         <option <?php if($row['id'] == $getUsers1['status']) { echo "Selected"; } ?> value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
                       <?php } ?>
                     </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Address</label>
-                    <textarea type="text" name="user_address" class="form-control" id="form-control-2" placeholder="Address" data-error="This field is required." required><?php echo $getUsers1['user_address'];?></textarea>
                     <div class="help-block with-errors"></div>
                   </div>
 
@@ -155,51 +95,20 @@ $id = $_GET['uid'];
             return false;
         return true;
     }
-    function getState(val) {
-    $.ajax({
-    type: "POST",
-    url: "get_state.php",
-    data:'country_id='+val,
-    success: function(data){
-        $("#user_state_id").html(data);
-    }
-    });
-  }
-
-  function getCities(val) { 
-      $.ajax({
-      type: "POST",
-      url: "get_cities.php",
-      data:'state_id='+val,
-      success: function(data){
-          $("#user_city_id").html(data);
-      }
-      });
-  }
-
-  function getLocations(val) { 
-      $.ajax({
-      type: "POST",
-      url: "get_locations.php",
-      data:'city_id='+val,
-      success: function(data){
-          $("#user_location_id").html(data);
-      }
-      });
-  }
+    
   function checkemail() {
-    var email1 = document.getElementById("user_email").value;
+    var email1 = document.getElementById("supervisor_email").value;
     if (email1){
       $.ajax({
       type: "POST",
       url: "check_email_avail.php",
       data: {
-        user_email:email1,
+        supervisor_email:email1,
       },
       success: function (response) {
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
-          $("#user_email").val("");
+          $("#supervisor_email").val("");
         }        
         }
        });          
