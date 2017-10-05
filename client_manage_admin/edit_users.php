@@ -21,7 +21,7 @@ $id = $_GET['uid'];
       $status = $_POST['status'];
       $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
       $created_at = date("Y-m-d h:i:s");
-        echo $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_floor_no='$supervisor_floor_no',supervisors_random_id='$supervisors_random_id', created_client_admin_id='$created_supervisor_admin_id',status = '$status' WHERE id = '$id' ";die;
+       $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_floor_no='$supervisor_floor_no',supervisors_random_id='$supervisors_random_id', created_client_admin_id='$created_supervisor_admin_id',status = '$status' WHERE id = '$id' ";
         if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -59,7 +59,7 @@ $id = $_GET['uid'];
                   </div>
                   <?php $getNumberOfFloors = getDataFromTables('client_admin_users','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);
                     $row = $getNumberOfFloors->fetch_assoc();
-                    $HiddenFloors = explode(',',$row['supervisor_floor_no']);
+                    $HiddenFloors = explode(",",$row['supervisor_floor_no']);
                     ?>
                     <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
@@ -68,8 +68,8 @@ $id = $_GET['uid'];
                         <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
 
                          ?>
-                          <option value="<?php echo $i; ?>" <?php if($i == in_array($i, $HiddenFloors)) { echo "selected=selected"; }?> >  <?php echo "Floor - ".$i; ?></option>
-                          
+                          <option value="<?php echo $i; ?>" <?php if($i == in_array($i, $HiddenFloors)) { echo 'selected="selected"'; }?> >  <?php echo "Floor - ".$i; ?></option>
+
                         <?php } ?>
                      </select>
                       <div class="help-block with-errors"></div>
