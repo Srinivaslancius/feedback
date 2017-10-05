@@ -6,22 +6,20 @@ include_once('../admin_includes/common_functions.php');
 
 if($_SERVER["REQUEST_METHOD"]=="POST") {
 
-	$admin_email = $_POST["admin_email"];
-	//Set Password encrypt and decrypt	
-	$pwd=$_POST["admin_password"];	
-	$admin_password = encryptPassword($pwd);
-	$sql = "SELECT * FROM admin_users WHERE admin_email = '$admin_email' AND admin_password = '$admin_password' AND flag=0";
+	$supervisor_email = $_POST["supervisor_email"];
+	$supervisor_mobile = $_POST["supervisor_mobile"];
+	$sql = "SELECT * FROM supervisors_admin_users WHERE supervisor_email = '$supervisor_email' AND supervisor_mobile = '$supervisor_mobile' ";
 	$result = $conn->query($sql);
 	$row = $result->fetch_assoc();
 
 	if($row) {
-	    $_SESSION['admin_user_id'] = $row['id'];
-	    $_SESSION['admin_user_name'] = $row['admin_name'];
-	    $_SESSION['admin_user_flag'] = 0;
+	    $_SESSION['supervisor_admin_user_id'] = $row['id'];
+	    $_SESSION['supervisor_admin_user_name'] = $row['supervisor_name'];
+	    $_SESSION['supervisor_admin_user_flag'] = 0;
 	    //Assign the current timestamp as the user's
 		//latest activity
 		$_SESSION['last_action'] = time();
-	    if(isset($_SESSION["admin_user_name"])) {
+	    if(isset($_SESSION["supervisor_admin_user_name"])) {
 		    echo "<script type='text/javascript'>window.location='dashboard.php'</script>";
 		}
 	} else {
