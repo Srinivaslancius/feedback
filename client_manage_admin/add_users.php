@@ -11,12 +11,19 @@
     $supervisor_name = $_POST['supervisor_name'];
     $supervisor_email = $_POST['supervisor_email'];
     $supervisor_mobile = $_POST['supervisor_mobile'];
-    $supervisor_floor_no = $_POST['supervisor_floor_no'];
+    $supervisor_floor_no = implode(',',$_POST['supervisor_floor_no']);
+    //$supervisor_floor_no = $_POST['supervisor_floor_no'];
+    $string1 = str_shuffle('abcdefghijklmnopqrstuvwxyz');
+    $random1 = substr($string1,0,3);
+    $string2 = str_shuffle('1234567890');
+    $random2 = substr($string2,0,3);
+    $contstr = "SUPEVIS";
+    $supervisors_random_id = $contstr.$random1.$random2;
     $status = $_POST['status'];
     $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
     $created_at = date("Y-m-d h:i:s");
 
-   $sql = "INSERT INTO supervisors_admin_users (`supervisor_name`, `supervisor_email`, `supervisor_mobile`,`supervisor_floor_no`, `created_client_admin_id`, `created_at`, `status`) VALUES ('$supervisor_name', '$supervisor_email', '$supervisor_mobile', '$supervisor_floor_no','$created_supervisor_admin_id', '$created_at', '$status')";
+    $sql = "INSERT INTO supervisors_admin_users (`supervisor_name`, `supervisor_email`, `supervisor_mobile`,`supervisor_floor_no`,`supervisors_random_id`, `created_client_admin_id`, `created_at`, `status`) VALUES ('$supervisor_name', '$supervisor_email', '$supervisor_mobile', '$supervisor_floor_no','$supervisors_random_id','$created_supervisor_admin_id', '$created_at', '$status')";
      if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -57,7 +64,7 @@
                     ?>
                     <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
-                      <select id="form-control-3" name="supervisor_floor_no" class="custom-select" data-error="This field is required." required>
+                      <select id="form-control-3" name="supervisor_floor_no[]" multiple="multiple" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Floor Number</option>
                         <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
 
