@@ -1,5 +1,7 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getUsersData = getAllDataWithActiveRecent('supervisors_admin_users'); $i=1; ?>
+<?php 
+$id = $_SESSION['client_admin_user_id'];
+$getUsersData = getDataFromTables('supervisors_admin_users','0','created_client_admin_id',$id,$activeStatus=NULL,$activeTop=NULL); $i=1; ?>
      
       <div class="site-content">
         <div class="panel panel-default panel-table">
