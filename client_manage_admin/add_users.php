@@ -49,13 +49,15 @@
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="supervisor_email" class="form-control" id="supervisor_email" placeholder="Email" data-error="Please enter valid email address." required>
+                    <input type="email" name="supervisor_email" class="form-control" id="supervisor_email" placeholder="Email" data-error="Please enter valid email address." required onkeyup="checkemail()" >
+                    <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="supervisor_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)">
+                    <input type="text" name="supervisor_mobile" class="form-control" id="supervisor_mobile" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" onkeyup="checkMobile()" >
+                    <span id="mobile_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   
@@ -125,6 +127,24 @@
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
           $("#supervisor_email").val("");
+        }
+        }
+       });
+    }
+  }
+  function checkMobile() {
+    var mobile = document.getElementById("supervisor_mobile").value;
+    if (mobile){
+      $.ajax({
+      type: "POST",
+      url: "check_mobile_avail.php",
+      data: {
+        supervisor_mobile:mobile,
+      },
+      success: function (response) {
+        $( '#mobile_status' ).html(response);
+        if (response == "Mobile Number Already Exist"){
+          $("#supervisor_mobile").val("");
         }
         }
        });

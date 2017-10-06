@@ -36,21 +36,24 @@ if (!isset($_POST['submit']))  {
                     <label for="form-control-2" class="control-label">Feedback Options </label><br />
                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
                     <?php $image=$row ['feedback_option_image']; ?>
-                      <input type="checkbox" class="chk " id="img<?php echo $row['id']; ?>" name="img<?php echo $row['id']; ?>" value="0" />
+                      <input type="checkbox" id="img<?php echo $row['id']; ?>" class="check-with-label" name="img<?php echo $row['id']; ?>" value="0" required/>
                       <label for="img<?php echo $row['id']; ?>">
                           <img class="img" src="../uploads/feedback_images/<?php echo $image; ?>" width="150px" height="150px"/>
                       </label>
                     <?php } ?>
                   </div>
+                  <style>
+                    .check-with-label + label > .img {
+                      padding:5px; /*Just to keep things from moving*/
 
-                  
-                  <style type="text/css">
-                  input:checked ~ label {
-                      opacity: 0.5;
-                  }
+                    }
+                    .check-with-label:checked + label > .img {
+                        border:5px solid yellow;
+                        padding:0;
+                        opacity: 0.5;
+                    }
                   </style>
-
-
+                  
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
