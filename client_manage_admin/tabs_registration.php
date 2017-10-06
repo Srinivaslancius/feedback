@@ -1,5 +1,7 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getUsersData = getAllDataWithActiveRecent('tabs_registration'); $i=1; ?>
+<?php $id = $_SESSION['client_admin_user_id'];
+  $sql = "SELECT * from tabs_registration where created_client_admin_id = '$id' ORDER BY status, id DESC";
+  $getTabsRegistrationsData = $conn->query($sql); $i=1; ?>
      
       <div class="site-content">
         <div class="panel panel-default panel-table">
@@ -22,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($row = $getUsersData->fetch_assoc()) { ?>
+                  <?php while ($row = $getTabsRegistrationsData->fetch_assoc()) { ?>
                   <tr>
                     <td><?php echo $i;?></td>
                     <td><?php echo $row['tab_ref_name'];?></td>

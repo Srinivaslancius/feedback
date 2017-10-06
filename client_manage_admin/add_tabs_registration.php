@@ -56,7 +56,8 @@
                     <label for="form-control-4" class="control-label">Address</label>
                     <textarea type="text" name="tab_address" class="form-control" id="form-control-2" placeholder="Address" data-error="This field is required." required></textarea>
                   </div>
-                  <?php $id = $_SESSION['client_admin_user_id']; $getSupervisors = getDataFromTables('supervisors_admin_users','0','created_client_admin_id',$id,$activeStatus=NULL,$activeTop=NULL);?>
+                  <?php $id = $_SESSION['client_admin_user_id']; $sql = "SELECT * from supervisors_admin_users where created_client_admin_id = '$id' AND status = 0";
+                    $getSupervisors = $conn->query($sql);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your Supervisor</label>
                     <select id="form-control-3" name="supervisor_name" class="custom-select" data-error="This field is required." required>
