@@ -7,6 +7,9 @@
             //If success
             $tab_ref_name = $_POST['tab_ref_name'];
             $tab_email = $_POST['tab_email'];
+            $tab_user_name = $_POST['tab_email'];
+            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $tab_password = substr( str_shuffle( $chars ), 0, 8 );
             $tab_location = $_POST['tab_location'];
             $tab_address = $_POST['tab_address'];
             $supervisor_name = $_POST['supervisor_name'];
@@ -16,7 +19,7 @@
             $status = $_POST['status'];
             $created_at = date("Y-m-d h:i:s");
             
-             $sql = "INSERT INTO tabs_registration (`tab_ref_name`, `tab_email`, `tab_location`,`tab_address`, `supervisor_name`,`category_name`,`floor_no`, `created_client_admin_id`, `created_at`,`status`) VALUES ('$tab_ref_name', '$tab_email', '$tab_location', '$tab_address','$supervisor_name','$category_name','$floor_no', '$created_client_admin_id', '$created_at','$status')";
+             $sql = "INSERT INTO tabs_registration (`tab_ref_name`, `tab_email`, `tab_user_name`,`tab_password`,`tab_location`,`tab_address`, `supervisor_name`,`category_name`,`floor_no`, `created_client_admin_id`, `created_at`,`status`) VALUES ('$tab_ref_name', '$tab_email', '$tab_user_name','$tab_password','$tab_location', '$tab_address','$supervisor_name','$category_name','$floor_no', '$created_client_admin_id', '$created_at','$status')";
             
               $result = $conn->query($sql);
 
