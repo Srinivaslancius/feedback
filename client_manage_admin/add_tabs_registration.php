@@ -4,30 +4,57 @@
           echo "fail";
         } 
         else  {
-            //If success
-            $tab_ref_name = $_POST['tab_ref_name'];
-            $tab_email = $_POST['tab_email'];
-            $tab_user_name = $_POST['tab_email'];
-            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            $tab_password = substr( str_shuffle( $chars ), 0, 8 );
-            $tab_location = $_POST['tab_location'];
-            $tab_address = $_POST['tab_address'];
-            $supervisor_name = $_POST['supervisor_name'];
-            $category_name = $_POST['category_name'];
-            $floor_no = $_POST['floor_no'];
-            $created_client_admin_id = $_SESSION['client_admin_user_id'];
-            $status = $_POST['status'];
-            $created_at = date("Y-m-d h:i:s");
+          //If success
+          $tab_ref_name = $_POST['tab_ref_name'];
+          $tab_email = $_POST['tab_email'];
+          $tab_user_name = $_POST['tab_email'];
+          $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+          $tab_password = substr( str_shuffle( $chars ), 0, 8 );
+          $tab_location = $_POST['tab_location'];
+          $tab_address = $_POST['tab_address'];
+          $supervisor_name = $_POST['supervisor_name'];
+          $category_name = $_POST['category_name'];
+          $floor_no = $_POST['floor_no'];
+          $created_client_admin_id = $_SESSION['client_admin_user_id'];
+          $status = $_POST['status'];
+          $created_at = date("Y-m-d h:i:s");
+          
+           $sql = "INSERT INTO tabs_registration (`tab_ref_name`, `tab_email`, `tab_user_name`,`tab_password`,`tab_location`,`tab_address`, `supervisor_name`,`category_name`,`floor_no`, `created_client_admin_id`, `created_at`,`status`) VALUES ('$tab_ref_name', '$tab_email', '$tab_user_name','$tab_password','$tab_location', '$tab_address','$supervisor_name','$category_name','$floor_no', '$created_client_admin_id', '$created_at','$status')";
+          
+            $result = $conn->query($sql);
+           
+            // Check whether submitted data is not empty
+           
+            // Recipient email
+            $toEmail = '<?php echo $tab_email; ?>';
+            $emailSubject = 'Contact Request Submitted by '.$tab_ref_name;
+            $htmlContent = '<h2>Contact Request Submitted</h2>
+              <h4>Name: </h4><p>'.$tab_ref_name.'</p>
+              <h4>Email: </h4><p>'.$tab_email.'</p>
+              <h4>Location: </h4><p>'.$tab_location.'</p>
+              <h4>Address: </h4><p>'.$tab_address.'</p>
+              <h4>Supervisor Name: </h4><p>'.$supervisor_name.'</p>
+              <h4>Category Name: </h4><p>'.$category_name.'</p>
+              <h4>Floor No: </h4><p>'.$floor_no.'</p>
+              <h4>Status: </h4><p>'.$status.'</p>';
             
-             $sql = "INSERT INTO tabs_registration (`tab_ref_name`, `tab_email`, `tab_user_name`,`tab_password`,`tab_location`,`tab_address`, `supervisor_name`,`category_name`,`floor_no`, `created_client_admin_id`, `created_at`,`status`) VALUES ('$tab_ref_name', '$tab_email', '$tab_user_name','$tab_password','$tab_location', '$tab_address','$supervisor_name','$category_name','$floor_no', '$created_client_admin_id', '$created_at','$status')";
+            // Set content-type header for sending HTML email
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             
-              $result = $conn->query($sql);
+            // Additional headers
+            $headers .= 'From: '.$tab_ref_name.'<'.$tab_email.'>'. "\r\n";
 
-              if($result == 1){
-                echo "<script type='text/javascript'>window.location='tabs_registration.php?msg=success'</script>"; }
-              else {
-                echo "<script type='text/javascript'>window.location='tabs_registration.php?msg=fail'</script>"; }
-          }
+            mail($toEmail,$emailSubject,$htmlContent);
+                    
+            if($result == 1){
+              echo "<script type='text/javascript'>window.location='tabs_registration.php?msg=success'</script>"; 
+            }
+            else {
+              echo "<script type='text/javascript'>window.location='tabs_registration.php?msg=fail'</script>"; 
+            }   
+            
+        }
     ?>
       <div class="site-content">
         <div class="panel panel-default">
