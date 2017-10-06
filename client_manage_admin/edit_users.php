@@ -60,17 +60,17 @@ $id = $_GET['uid'];
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Location</label>
+                    <label for="form-control-2" class="control-label">Location</label>
                     <input type="text" name="supervisor_location" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Location." required value="<?php echo $getUsers1['supervisor_location'];?>" >
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Reference Name</label>
+                    <label for="form-control-2" class="control-label">Reference Name</label>
                     <input type="text" name="supervisor_ref_name" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Reference Name." required value="<?php echo $getUsers1['supervisor_ref_name'];?>" >
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Branch</label>
+                    <label for="form-control-2" class="control-label">Branch</label>
                     <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch." required value="<?php echo $getUsers1['supervisor_branch'];?>" >
                     <div class="help-block with-errors"></div>
                   </div>

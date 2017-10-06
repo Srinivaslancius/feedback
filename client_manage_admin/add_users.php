@@ -66,17 +66,17 @@
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Location</label>
+                    <label for="form-control-2" class="control-label">Location</label>
                     <input type="text" name="supervisor_location" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Location" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Reference Name</label>
+                    <label for="form-control-2" class="control-label">Reference Name</label>
                     <input type="text" name="supervisor_ref_name" class="form-control" id="form-control-2" placeholder="Supervisor Reference Name" data-error="Please enter Supervisor Reference Name" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <label for="form-control-2" class="control-label">Supervisor Branch</label>
+                    <label for="form-control-2" class="control-label">Branch</label>
                     <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch" required>
                     <div class="help-block with-errors"></div>
                   </div>
