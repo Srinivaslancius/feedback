@@ -27,7 +27,15 @@
                 <li class="menu-subtitle">Admins</li> 
                 <li class="<?php if($page_name == 'users.php' || $page_name == 'add_users.php' || $page_name == 'edit_users.php') { echo "active"; } ?>"><a href="users.php">Supervisor Admin</a></li>
               </ul>
-            </li>            
+            </li>
+            <li  class="<?php if($page_name == 'tabs_registration.php' || $page_name == 'add_tabs_registration.php' || $page_name == 'edit_tabs_registration.php') { echo "active"; } ?>">
+              <a href="tabs_registration.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-store zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Tabs Registration</span>
+              </a>
+            </li>
             <li  class="<?php if($page_name == 'change_password.php') { echo "active"; } ?>">
               <a href="change_password.php" aria-haspopup="true">
                 <span class="menu-icon">
