@@ -1,6 +1,6 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-$id = $_SESSION['client_admin_user_id'];
-<?php $getUsersData = getDataFromTables('supervisors_admin_users',$status=NULL,'created_client_admin_id',$id,$activeStatus=NULL,$activeTop=NULL); $i=1; ?>
+<?php $getUsersData = getAllDataWithActiveRecent('supervisors_admin_users'); $i=1; ?>
+     
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
@@ -120,9 +120,22 @@ $id = $_SESSION['client_admin_user_id'];
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Supervisor Id: </div>
+                            <div class="col-sm-6"><?php echo $row['supervisors_random_id'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
                             <div class="col-sm-4">Date: </div>
                             <div class="col-sm-6"><?php echo $row['created_at'];?></div>
                           </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Status: </div>
+                            <div class="col-sm-6"><?php if($row['status'] == 0 ){ echo "Active";} else{ echo "InActive";}?></div>
+                          </div>
+                        </div>
+                          
+                          
                           
                           <!-- <div class="row">
                             <div class="col-sm-2"></div>
@@ -134,12 +147,7 @@ $id = $_SESSION['client_admin_user_id'];
                             <div class="col-sm-4">Address: </div>
                             <div class="col-sm-6"><?php echo $row['user_address'];?></div>
                           </div> -->
-                          <div class="row">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-4">Status: </div>
-                            <div class="col-sm-6"><?php if($row['status'] == 0 ){ echo "Active";} else{ echo "InActive";}?></div>
-                          </div>
-                        </div>
+                          
                         <div class="modal-footer">
                           <!--<button type="button" data-dismiss="modal" class="btn btn-success">Continue</button>-->
                           <button type="button" data-dismiss="modal" class="btn btn-success">Close</button>
