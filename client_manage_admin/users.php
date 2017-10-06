@@ -120,6 +120,22 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>
+
+                            <div class="col-sm-4">Supervisor Location: </div>
+                            <div class="col-sm-6"><?php echo $row['supervisor_location'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Supervisor Location: </div>
+                            <div class="col-sm-6"><?php echo $row['supervisor_ref_name'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">Supervisor Branch: </div>
+                            <div class="col-sm-6"><?php echo $row['supervisor_branch'];?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-2"></div>
                             <div class="col-sm-4">Supervisor Id: </div>
                             <div class="col-sm-6"><?php echo $row['supervisors_random_id'];?></div>
                           </div>

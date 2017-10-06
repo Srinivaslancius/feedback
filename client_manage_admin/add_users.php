@@ -11,7 +11,11 @@
     $supervisor_name = $_POST['supervisor_name'];
     $supervisor_email = $_POST['supervisor_email'];
     $supervisor_mobile = $_POST['supervisor_mobile'];
-    $supervisor_floor_no = implode(',',$_POST['supervisor_floor_no']);
+    $supervisor_location = $_POST['supervisor_location'];
+    $supervisor_ref_name = $_POST['supervisor_ref_name'];
+    $supervisor_branch = $_POST['supervisor_branch'];
+    $created_at = $_POST['created_at'];
+   // $supervisor_floor_no = implode(',',$_POST['supervisor_floor_no']);
     //$supervisor_floor_no = $_POST['supervisor_floor_no'];
     $string1 = str_shuffle('abcdefghijklmnopqrstuvwxyz');
     $random1 = substr($string1,0,3);
@@ -19,11 +23,13 @@
     $random2 = substr($string2,0,3);
     $contstr = "SUPEVIS";
     $supervisors_random_id = $contstr.$random1.$random2;
+    
     $status = $_POST['status'];
     $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
     $created_at = date("Y-m-d h:i:s");
 
-    $sql = "INSERT INTO supervisors_admin_users (`supervisor_name`, `supervisor_email`, `supervisor_mobile`,`supervisor_floor_no`,`supervisors_random_id`, `created_client_admin_id`, `created_at`, `status`) VALUES ('$supervisor_name', '$supervisor_email', '$supervisor_mobile', '$supervisor_floor_no','$supervisors_random_id','$created_supervisor_admin_id', '$created_at', '$status')";
+    $sql = "INSERT INTO supervisors_admin_users (`supervisor_name`, `supervisor_email`, `supervisor_mobile`,`supervisor_location`,
+      `supervisor_ref_name`,`supervisor_branch`,`supervisors_random_id`, `created_client_admin_id`, `created_at`, `status`) VALUES ('$supervisor_name', '$supervisor_email', '$supervisor_mobile', '$supervisor_location','$supervisor_ref_name','$supervisor_branch','$supervisors_random_id','$created_supervisor_admin_id', '$created_at', '$status')";
      if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -60,22 +66,26 @@
                     <span id="mobile_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
-                  
-                    <?php $getNumberOfFloors = getDataFromTables('client_admin_users','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);
-                    $row = $getNumberOfFloors->fetch_assoc();
-                    ?>
-                    <div class="form-group">
-                      <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
-                      <select id="form-control-3" name="supervisor_floor_no[]" multiple="multiple" class="custom-select" data-error="This field is required." required>
-                        <option value="">Select Floor Number</option>
-                        <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
-
-                         ?>
-                          <option value="<?php echo $i; ?>"><?php echo "Floor".$i; ?></option>
-                        <?php } ?>
-                     </select>
-                      <div class="help-block with-errors"></div>
-                    </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Supervisor Location</label>
+                    <input type="text" name="supervisor_location" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Location">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Supervisor Reference Name</label>
+                    <input type="text" name="supervisor_ref_name" class="form-control" id="form-control-2" placeholder="Supervisor Reference Name" data-error="Please enter Supervisor Reference Name">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Supervisor Branch</label>
+                    <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="form-control-2" class="control-label">Created At</label>
+                    <input type="text" name="created_at" class="form-control" id="form-control-2" placeholder="Created At" data-error="Please enter Created At">
+                    <div class="help-block with-errors"></div>
+                  </div>
 
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
