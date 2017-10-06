@@ -68,13 +68,13 @@
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
-                  <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <?php $id = $_SESSION['client_admin_user_id']; $getCategories = getDataFromTables('client_selected_feedback_options',$status=NULL,'client_user_id',$id,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your Category</label>
                     <select id="form-control-3" name="category_name" class="custom-select" data-error="This field is required." required>
                       <option value="">Select Category</option>
                       <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['category_name']; ?>"><?php echo $row['category_name']; ?></option>
+                        <option value="<?php echo $row['category_id']; ?>"><?php echo $row['category_id']; ?></option>
                       <?php } ?>
                    </select>
                     <div class="help-block with-errors"></div>
