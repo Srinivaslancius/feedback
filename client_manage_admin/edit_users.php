@@ -13,7 +13,6 @@ $id = $_GET['uid'];
       $supervisor_location = $_POST['supervisor_location'];
       $supervisor_ref_name = $_POST['supervisor_ref_name'];
       $supervisor_branch = $_POST['supervisor_branch'];
-      $created_at = $_POST['created_at'];
       $string1 = str_shuffle('abcdefghijklmnopqrstuvwxyz');
       $random1 = substr($string1,0,3);
       $string2 = str_shuffle('1234567890');
@@ -22,8 +21,8 @@ $id = $_GET['uid'];
       $supervisors_random_id = $contstr.$random1.$random2;    
       $status = $_POST['status'];
       $created_supervisor_admin_id = $_SESSION['client_admin_user_id'];
-      $created_at = date("Y-m-d h:i:s");
-      $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_location= '$supervisor_location', supervisor_ref_name = '$supervisor_ref_name' ,supervisor_branch = '$supervisor_branch',supervisors_random_id='$supervisors_random_id', created_client_admin_id='$created_supervisor_admin_id',created_at= '$created_at',status = '$status' WHERE id = '$id' ";
+
+      $sql = "UPDATE `supervisors_admin_users` SET supervisor_name='$supervisor_name', supervisor_email='$supervisor_email', supervisor_mobile='$supervisor_mobile', supervisor_location= '$supervisor_location', supervisor_ref_name = '$supervisor_ref_name' ,supervisor_branch = '$supervisor_branch',supervisors_random_id='$supervisors_random_id', created_client_admin_id='$created_supervisor_admin_id', status = '$status' WHERE id = '$id' ";
         if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
@@ -75,12 +74,6 @@ $id = $_GET['uid'];
                     <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch." required value="<?php echo $getUsers1['supervisor_branch'];?>" >
                     <div class="help-block with-errors"></div>
                   </div>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Created At</label>
-                    <input type="text" name="created_at" class="form-control" id="form-control-2" placeholder="Created At" data-error="Please enter Created At." required value="<?php echo $getUsers1['created_at'];?>" >
-                    <div class="help-block with-errors"></div>
-                  </div>
-                  
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>

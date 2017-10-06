@@ -14,7 +14,6 @@
     $supervisor_location = $_POST['supervisor_location'];
     $supervisor_ref_name = $_POST['supervisor_ref_name'];
     $supervisor_branch = $_POST['supervisor_branch'];
-    $created_at = $_POST['created_at'];
    // $supervisor_floor_no = implode(',',$_POST['supervisor_floor_no']);
     //$supervisor_floor_no = $_POST['supervisor_floor_no'];
     $string1 = str_shuffle('abcdefghijklmnopqrstuvwxyz');
@@ -68,25 +67,19 @@
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Supervisor Location</label>
-                    <input type="text" name="supervisor_location" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Location">
+                    <input type="text" name="supervisor_location" class="form-control" id="form-control-2" placeholder="Supervisor Location" data-error="Please enter Supervisor Location" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Supervisor Reference Name</label>
-                    <input type="text" name="supervisor_ref_name" class="form-control" id="form-control-2" placeholder="Supervisor Reference Name" data-error="Please enter Supervisor Reference Name">
+                    <input type="text" name="supervisor_ref_name" class="form-control" id="form-control-2" placeholder="Supervisor Reference Name" data-error="Please enter Supervisor Reference Name" required>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Supervisor Branch</label>
-                    <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch">
+                    <input type="text" name="supervisor_branch" class="form-control" id="form-control-2" placeholder="Supervisor Branch" data-error="Please enter Supervisor Branch" required>
                     <div class="help-block with-errors"></div>
                   </div>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Created At</label>
-                    <input type="text" name="created_at" class="form-control" id="form-control-2" placeholder="Created At" data-error="Please enter Created At">
-                    <div class="help-block with-errors"></div>
-                  </div>
-
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
