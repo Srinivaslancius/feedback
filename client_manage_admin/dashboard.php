@@ -2,10 +2,15 @@
       <div class="site-content">
         <div class="row">
           <div class="col-md-3 col-sm-3">
-            <div class="widget widget-tile-2 bg-danger m-b-30">
+            <div class="widget widget-tile-2 bg-primary m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Supervisor Admin</div>
-                <div class="wt-number"><?php echo getRowsCount('supervisors_admin_users')?></div>
+                <div class="wt-number"><?php $id = $_SESSION['client_admin_user_id'];
+                  $sql = "select * from supervisors_admin_users where created_client_admin_id = '$id'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows;?>
+                </div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-accounts"></i> 

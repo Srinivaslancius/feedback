@@ -1,5 +1,5 @@
 <?php
-include "admin_includes/config.php";
+include "../admin_includes/config.php";
 if(!empty($_POST['check_active_id']) && !empty($_POST['check_active_id']))  {
 	//echo "<pre>"; print_r($_POST); die;
 	$check_active_id = $_POST['check_active_id'];

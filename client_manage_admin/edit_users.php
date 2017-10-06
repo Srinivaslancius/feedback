@@ -50,13 +50,14 @@ $id = $_GET['uid'];
 
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Email</label>
-                    <input type="email" name="supervisor_email" class="form-control" id="supervisor_email" placeholder="Email" onkeyup="checkemail();" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['supervisor_email'];?>">
+                    <input type="email" name="supervisor_email" class="form-control" id="supervisor_email" placeholder="Email" onkeyup="checkemail()" data-error="Please enter a valid email address." required value="<?php echo $getUsers1['supervisor_email'];?>">
                     <span id="email_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Mobile</label>
-                    <input type="text" name="supervisor_mobile" class="form-control" id="form-control-2" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['supervisor_mobile'];?>">
+                    <input type="text" name="supervisor_mobile" class="form-control" id="supervisor_mobile" placeholder="Mobile" data-error="Please enter mobile number." required maxlength="10" pattern="[0-9]{10}" onkeypress="return isNumberKey(event)" value="<?php echo $getUsers1['supervisor_mobile'];?>" onkeyup="checkMobile()" >
+                    <span id="mobile_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
@@ -124,9 +125,27 @@ $id = $_GET['uid'];
         $( '#email_status' ).html(response);
         if (response == "Email Already Exist"){
           $("#supervisor_email").val("");
-        }        
         }
-       });          
+        }
+       });
+    }
+  }
+  function checkMobile() {
+    var mobile = document.getElementById("supervisor_mobile").value;
+    if (mobile){
+      $.ajax({
+      type: "POST",
+      url: "check_mobile_avail.php",
+      data: {
+        supervisor_mobile:mobile,
+      },
+      success: function (response) {
+        $( '#mobile_status' ).html(response);
+        if (response == "Mobile Number Already Exist"){
+          $("#supervisor_mobile").val("");
+        }
+        }
+       });
     }
   }
 </script>
