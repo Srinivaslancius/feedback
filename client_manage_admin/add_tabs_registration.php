@@ -83,7 +83,7 @@
                     ?>
                     <div class="form-group">
                       <label for="form-control-3" class="control-label">Choose Your Floor Number</label>
-                      <select id="form-control-3" name="supervisor_floor_no" class="custom-select" data-error="This field is required." required>
+                      <select id="form-control-3" name="floor_no" class="custom-select" data-error="This field is required." required>
                         <option value="">Select Floor Number</option>
                         <?php for($i = 1; $i <= $row['no_of_floors']; $i++){ 
 
