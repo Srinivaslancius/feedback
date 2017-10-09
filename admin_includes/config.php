@@ -13,7 +13,7 @@ if(isset($_SESSION['last_action'])){
     //since the user was last active.
     $secondsInactive = time() - $_SESSION['last_action'];    
     //Convert our minutes into seconds.
-    $expireAfterSeconds = $expireAfter * 60;    
+    $expireAfterSeconds = $expireAfter * 360;    
     //Check to see if they have been inactive for too long.
     if($secondsInactive >= $expireAfterSeconds){
         //User has been inactive for too long.
@@ -29,14 +29,13 @@ if(isset($_SESSION['last_action'])){
 
 $setcon = 1;
 if($setcon == 2) {
-    $servername = "localhost";
+    $servername = "192.168.0.105";
     $username = "feedback_panel";
     $password = "lancius@12#";
     $dbname = "feedback_panel";
 } else {
-
 	$servername = "192.168.0.105";	
-	$username = "root";
+	$username = "root"; 
 	$password = "root";
 	$dbname = "feedback_demo";
 }  

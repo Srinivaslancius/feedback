@@ -23,8 +23,7 @@
                   <tr>
                      <td><?php echo $i;?></td>
                     <td><?php echo $row['category_id'];?></td>
-                    <?php $re = explode(',',$row['checklist_id']); ?>
-                    <td><?php echo $re;?></td>
+                    <td><?php echo $row['checklist_id'];?></td>
                     <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='assign_check_list'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='assign_check_list'>In Active</span>" ;} ?></td>
                     <td> <a href="edit_assign_check_list.php?bid=<?php echo $row['id']; ?>"> <i class="zmdi zmdi-edit"></i> &nbsp; </a> <a href="#"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a> <a href="delete_assign_check_list.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a></td>
                     <!-- Open Modal Box  here -->

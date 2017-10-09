@@ -16,6 +16,14 @@
                 <span class="menu-text">Dashboard</span>
               </a>
             </li>
+            <li  class="<?php if($page_name == 'reports.php' || $page_name == 'tabs_list.php' || $page_name == 'count_feedback_options.php') { echo "active"; } ?>">
+              <a href="reports.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Reports</span>
+              </a>
+            </li>
             <li class="<?php if($page_name == 'site_settings.php') { echo "active"; } ?>">
               <a href="site_settings.php" aria-haspopup="true">
                 <span class="menu-icon">
