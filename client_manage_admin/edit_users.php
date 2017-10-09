@@ -43,7 +43,8 @@ $id = $_GET['uid'];
                 <form data-toggle="validator" method="POST" autocomplete="off">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
-                    <input type="text" name="supervisor_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter user name" required value="<?php echo $getUsers1['supervisor_name'];?>">
+                    <input type="text" name="supervisor_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter user name" required value="<?php echo $getUsers1['supervisor_name'];?>" onkeyup="checkUserName()">
+                    <span id="user_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
@@ -104,7 +105,24 @@ $id = $_GET['uid'];
             return false;
         return true;
     }
-    
+   function checkUserName() {
+    var user1 = document.getElementById("supervisor_name").value;
+    if (user1){
+      $.ajax({
+      type: "POST",
+      url: "ajax_check_username.php",
+      data: {
+        supervisor_name:user1,
+      },
+      success: function (response) {
+        $( '#user_status' ).html(response);
+        if (response == "User Already Exist"){
+          $("#supervisor_name").val("");
+        }
+        }
+       });
+    }
+  } 
   function checkemail() {
     var email1 = document.getElementById("supervisor_email").value;
     if (email1){
