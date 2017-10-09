@@ -1,10 +1,10 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getCategoriesData = getAllDataWithActiveRecent('assign_check_list'); $i=1; ?>
+<?php $getCategoriesData = getAllDataWithActiveRecent('check_list'); $i=1; ?>
      <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <a href="add_assign_check_list.php" style="float:right">Add Assign Check List</a>
-            <h3 class="m-t-0 m-b-5">Assign Check List</h3>            
+            <a href="add_check_list.php" style="float:right">Add Check List</a>
+            <h3 class="m-t-0 m-b-5">Check List</h3>            
           </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -12,8 +12,7 @@
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Category Id</th>
-                    <th>Checklist Id</th>
+                    <th>CheckList Name</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
@@ -22,11 +21,9 @@
                   <?php while ($row = $getCategoriesData->fetch_assoc()) { ?>
                   <tr>
                      <td><?php echo $i;?></td>
-                    <td><?php echo $row['category_id'];?></td>
-                    <?php $re = explode(',',$row['checklist_id']); ?>
-                    <td><?php echo $re;?></td>
-                    <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='assign_check_list'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='assign_check_list'>In Active</span>" ;} ?></td>
-                    <td> <a href="edit_assign_check_list.php?bid=<?php echo $row['id']; ?>"> <i class="zmdi zmdi-edit"></i> &nbsp; </a> <a href="#"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a> <a href="delete_assign_check_list.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a></td>
+                    <td><?php echo $row['check_list_name'];?></td>
+                    <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='check_list'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='check_list'>In Active</span>" ;} ?></td>
+                    <td> <a href="edit_check_list.php?bid=<?php echo $row['id']; ?>"> <i class="zmdi zmdi-edit"></i> &nbsp; </a> <a href="#"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a> <a href="delete_check_list.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a></td>
                     <!-- Open Modal Box  here -->
                     <div id="<?php echo $row['id']; ?>" class="modal fade" tabindex="-1" role="dialog">
                       <div class="modal-dialog">
@@ -37,18 +34,13 @@
                                 <i class="zmdi zmdi-close"></i>
                               </span>
                             </button>
-                            <center><h4 class="modal-title">Assign Check List Information</h4></center>
+                            <center><h4 class="modal-title">Check List Information</h4></center>
                           </div>
                         <div class="modal-body" id="modal_body">
                           <div class="row">
                             <div class="col-sm-2"></div>
-                            <div class="col-sm-4">Category Id: </div>
-                            <div class="col-sm-6"><?php echo $row['category_id'];?></div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-4">Checklist Id: </div>
-                            <div class="col-sm-6"><?php echo $row['checklist_id'];?></div>
+                            <div class="col-sm-4">CheckList Name : </div>
+                            <div class="col-sm-6"><?php echo $row['check_list_name'];?></div>
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>

@@ -5,50 +5,31 @@ if (!isset($_POST['submit']))  {
   echo "fail";
 }else  {
   //If success
-  echo "<pre>"; print_r($_POST);
-  $category_id = $_POST['category_id'];
-  $checklist_id = implode(',', $_POST['checklist_id']);
+  $check_list_name = $_POST['check_list_name'];
   $status = $_POST['status'];
   
-  echo $sql = "INSERT INTO assign_check_list (`category_id`,  `checklist_id`,`status`) VALUES ('$category_id', '$checklist_id','$status')";
-  die;
+  $sql = "INSERT INTO check_list (`check_list_name`, `status`) VALUES ('$check_list_name','$status')";
   if($conn->query($sql) === TRUE){
-    echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
+    echo "<script type='text/javascript'>window.location='check_list.php?msg=success'</script>";
   }else {
-    echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=fail'</script>";
+    echo "<script type='text/javascript'>window.location='check_list.php?msg=fail'</script>";
   }
 }
 ?>
       <div class="site-content">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="m-y-0">Assign Check List</h3>
+            <h3 class="m-y-0">Check List</h3>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <form data-toggle="validator" method="POST">
-                  <?php $getCategories = getDataFromTables('categories','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
-                    <label for="form-control-3" class="control-label">Choose your Category</label>
-                    <select id="form-control-3" name="category_id" class="custom-select" data-error="This field is required." required>
-                      <option value="">Select Category</option>
-                      <?php while($row = $getCategories->fetch_assoc()) {  ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
-                      <?php } ?>
-                   </select>
+                    <label for="form-control-2" class="control-label">Checklist Name</label>
+                    <input type="text" class="form-control" id="form-control-2" name="check_list_name" placeholder="CheckList Name" data-error="Please enter Category Id." required>
                     <div class="help-block with-errors"></div>
                   </div>
-
-                  <?php $getfeedbackOpt = getDataFromTables('check_list','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                    <div class="form-group">
-                      <label for="form-control-2" class="control-label">Select Checklist : </label><br />
-                      
-                     <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
-                      <input type="checkbox" value="<?php echo $row['check_list_name']; ?>" name="checklist_id[]"> <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
-                      <?php } ?>
-
-                    </div>  
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>
