@@ -5,14 +5,16 @@ if (!isset($_POST['submit']))  {
   echo "fail";
 }else  {
   //If success
-  echo "<pre>"; print_r($_POST);
-  $category_id = $_POST['category_id'];
-  $checklist_id = implode(',', $_POST['checklist_id']);
-  $status = $_POST['status'];
   
-  echo $sql = "INSERT INTO assign_check_list (`category_id`,  `checklist_id`,`status`) VALUES ('$category_id', '$checklist_id','$status')";
-  die;
-  if($conn->query($sql) === TRUE){
+  $category_id = $_POST['category_id'];
+  for($i=0; $i < count($_POST['checklist_id']); $i++) {
+
+    $checkListId = $_POST['checklist_id'][$i];
+    $sql = "INSERT INTO assign_check_list (`category_id`, `checklist_id`) VALUES ('$category_id', '$checkListId')";
+    $result = $conn->query($sql);
+  } 
+  
+  if($result == 1){
     echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
   }else {
     echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=fail'</script>";
@@ -42,24 +44,14 @@ if (!isset($_POST['submit']))  {
 
                   <?php $getfeedbackOpt = getDataFromTables('check_list','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                     <div class="form-group">
-                      <label for="form-control-2" class="control-label">Select Checklist : </label><br />
+                      <label for="form-control-2" class="control-label">Select Check list : </label><br />
                       
                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
-                      <input type="checkbox" value="<?php echo $row['check_list_name']; ?>" name="checklist_id[]"> <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
+                      <input type="checkbox" value="<?php echo $row['id']; ?>" name="checklist_id[]"> <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
                       <?php } ?>
 
                     </div>  
-                  <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group">
-                    <label for="form-control-3" class="control-label">Choose your status</label>
-                    <select id="form-control-3" name="status" class="custom-select" data-error="This field is required." required>
-                      <option value="">Select Status</option>
-                      <?php while($row = $getStatus->fetch_assoc()) {  ?>
-                          <option value="<?php echo $row['id']; ?>"><?php echo $row['status']; ?></option>
-                      <?php } ?>
-                   </select>
-                    <div class="help-block with-errors"></div>
-                  </div>
+                  
                 
                   <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
