@@ -34,9 +34,8 @@ if($setcon == 2) {
     $password = "lancius@12#";
     $dbname = "feedback_panel";
 } else {
-
 	$servername = "192.168.0.105";	
-	$username = "root";
+	$username = "root"; 
 	$password = "root";
 	$dbname = "feedback_demo";
 }  
