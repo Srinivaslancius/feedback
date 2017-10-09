@@ -28,11 +28,11 @@ if(isset($_SESSION['last_action'])){
 
 
 $setcon = 2;
-if($setcon == 1) {
+if($setcon == 2) {
 	$servername = "localhost";
-	$username = "";
-	$password = "";
-	$dbname = "";
+	$username = "feedback_panel";
+	$password = "lancius@12#";
+	$dbname = "feedback_panel";
 } else {
 	$servername = "192.168.0.110";	
 	$username = "root";
@@ -47,6 +47,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$base_url = "http://localhost/feedback/";
+$base_url = "https://lanciussolutions.com/demo/Feedback_Panel/";
  
 ?>

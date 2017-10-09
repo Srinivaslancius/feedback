@@ -21,24 +21,28 @@ if(isset($_SESSION['last_action'])){
         session_unset();
         session_destroy();
         header("Location: logout.php");
-  		exit;
+        exit;
     }    
 } 
 //End Session expiry time here
 
 
-$setcon = 2;
-if($setcon == 1) {
-	$servername = "localhost";
-	$username = "";
-	$password = "";
-	$dbname = "";
+$setcon = 1;
+if($setcon == 2) {
+    $servername = "localhost";
+    $username = "feedback_panel";
+    $password = "lancius@12#";
+    $dbname = "feedback_panel";
 } else {
+
 	$servername = "192.168.0.105";	
 	$username = "root";
 	$password = "root";
 	$dbname = "feedback_demo";
 }  
+
+
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -47,6 +51,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$base_url = "http://localhost/feedback/";
+//$base_url = "https://lanciussolutions.com/demo/Feedback_Panel/";
+$base_url = "http://192.168.0.105/feedback/";
  
 ?>

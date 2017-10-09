@@ -1,4 +1,6 @@
-<?php include_once 'admin_includes/main_header.php'; ?>
+<?php include_once 'admin_includes/main_header.php'; 
+$id = $_SESSION['supervisor_admin_user_name'];
+?>
       <div class="site-content">
         <div class="row">
           <div class="col-md-4 col-sm-5">
@@ -9,7 +11,11 @@
                     <i class="zmdi zmdi-caret-up"></i>
                   </span>
                 </div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  supervisor_admin_id = '$id' AND feedback_status  = 'Good'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -20,7 +26,11 @@
             <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Average</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  supervisor_admin_id = '$id' AND feedback_status  = 'Average'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -31,7 +41,11 @@
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Poor</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  supervisor_admin_id = '$id' AND feedback_status  = 'Poor'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood-bad zmdi-hc-fw"></i>
