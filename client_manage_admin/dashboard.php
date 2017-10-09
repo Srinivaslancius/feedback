@@ -1,11 +1,13 @@
-<?php include_once 'admin_includes/main_header.php'; ?>
+<?php include_once 'admin_includes/main_header.php'; 
+$id = $_SESSION['client_admin_user_id'];
+?>
       <div class="site-content">
         <div class="row">
           <div class="col-md-3 col-sm-3">
             <div class="widget widget-tile-2 bg-primary m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Supervisor Admin</div>
-                <div class="wt-number"><?php $id = $_SESSION['client_admin_user_id'];
+                <div class="wt-number"><?php
                   $sql = "select * from supervisors_admin_users where created_client_admin_id = '$id'";
                   $result = $conn->query($sql);
                   $noRows = $result->num_rows;
@@ -22,7 +24,12 @@
             <div class="widget widget-tile-2 bg-success m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Good</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '$id' AND feedback_status  = 'Good'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?>
+                </div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -33,7 +40,12 @@
             <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Average</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  feedback_status  = 'Average' AND client_admin_id = '$id' ";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows;?>
+                </div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -44,7 +56,12 @@
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Poor</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '$id' AND feedback_status  = 'Poor'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?>
+                </div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood-bad zmdi-hc-fw"></i>

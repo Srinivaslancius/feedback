@@ -43,7 +43,12 @@
             <div class="widget widget-tile-2 bg-success m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Good</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <div class="wt-number"><?php 
+                  $query = "SELECT * FROM tab_mobile_feedbacks WHERE feedback_status= 'Good' "; 
+                  $result1 = $conn->query($query);
+                  $getRowsCount = $result1->num_rows;
+                  echo $getRowsCount;
+                ?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -54,7 +59,12 @@
             <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Average</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <?php
+                  $query = "SELECT * FROM tab_mobile_feedbacks WHERE feedback_status= 'Average' "; 
+                  $result1 = $conn->query($query);
+                  $getRowsCount = $result1->num_rows;
+                ?>
+                <div class="wt-number"><?php echo $getRowsCount;?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
@@ -65,7 +75,12 @@
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Poor</div>
-                <div class="wt-number"><?php echo getRowsCount('feedback_options')?></div>
+                <?php
+                  $query = "SELECT * FROM tab_mobile_feedbacks WHERE feedback_status= 'Poor' "; 
+                  $result1 = $conn->query($query);
+                  $getRowsCount = $result1->num_rows;
+                ?>
+                <div class="wt-number"><?php echo $getRowsCount;?></div>
               </div>
               <div class="wt-icon">
                 <i class="zmdi zmdi-mood-bad zmdi-hc-fw"></i>
@@ -82,4 +97,3 @@
 
       </div>
      <?php include_once 'admin_includes/footer.php'; ?>
-     
