@@ -1,5 +1,5 @@
 <?php include_once 'admin_includes/main_header.php'; 
-$id = $_SESSION['supervisor_admin_user_id'];
+$id = $_SESSION['supervisor_admin_user_name'];
 ?>
       <div class="site-content">
         <div class="row">
