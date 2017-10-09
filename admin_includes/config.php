@@ -21,7 +21,7 @@ if(isset($_SESSION['last_action'])){
         session_unset();
         session_destroy();
         header("Location: logout.php");
-  		exit;
+        exit;
     }    
 }
 //End Session expiry time here
@@ -29,15 +29,15 @@ if(isset($_SESSION['last_action'])){
 
 $setcon = 1;
 if($setcon == 2) {
-	$servername = "localhost";
-	$username = "feedback_panel";
-	$password = "lancius@12#";
-	$dbname = "feedback_panel";
+    $servername = "localhost";
+    $username = "feedback_panel";
+    $password = "lancius@12#";
+    $dbname = "feedback_panel";
 } else {
-	$servername = "192.168.0.110";	
-	$username = "root"; 
-	$password = "root";
-	$dbname = "feedback_demo";
+    $servername = "192.168.0.110";  
+    $username = "root"; 
+    $password = "root";
+    $dbname = "feedback_demo"; 
 }   
 
 // Create connection
