@@ -34,7 +34,7 @@ if($setcon == 2) {
 	$password = "lancius@12#";
 	$dbname = "feedback_panel";
 } else {
-	$servername = "192.168.0.110";	
+	$servername = "192.168.0.105";	
 	$username = "root";
 	$password = "root";
 	$dbname = "feedback_demo";
@@ -48,6 +48,6 @@ if ($conn->connect_error) {
 } 
 
 //$base_url = "https://lanciussolutions.com/demo/Feedback_Panel/";
-$base_url = "http://192.168.0.110/feedback/";
+$base_url = "http://192.168.0.105/feedback/";
  
 ?>
