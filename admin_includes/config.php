@@ -23,7 +23,7 @@ if(isset($_SESSION['last_action'])){
         header("Location: logout.php");
         exit;
     }    
-}
+} 
 //End Session expiry time here
 
 
@@ -40,6 +40,9 @@ if($setcon == 2) {
 	$password = "root";
 	$dbname = "feedback_demo";
 }  
+
+
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
