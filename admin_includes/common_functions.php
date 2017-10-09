@@ -55,6 +55,14 @@
         return $admin_pwd;
     }
 
+    /*Common function with where clause */
+    function getAllDataWhere($table,$clause,$id) {
+        global $conn;
+        $sql="select * from `$table` WHERE `$clause` = '$id' ";
+        $result = $conn->query($sql);        
+        return $result;
+    }
+
     function getImageUnlink($val,$table,$clause,$id,$target_dir) {
         global $conn;
         $getBanner = "SELECT $val FROM $table WHERE $clause='$id' ";
