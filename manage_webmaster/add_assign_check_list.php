@@ -5,11 +5,13 @@ if (!isset($_POST['submit']))  {
   echo "fail";
 }else  {
   //If success
+  echo "<pre>"; print_r($_POST);
   $category_id = $_POST['category_id'];
   $checklist_id = implode(',', $_POST['checklist_id']);
   $status = $_POST['status'];
   
-  $sql = "INSERT INTO assign_check_list (`category_id`,  `checklist_id`,`status`) VALUES ('$category_id', '$checklist_id','$status')";
+  echo $sql = "INSERT INTO assign_check_list (`category_id`,  `checklist_id`,`status`) VALUES ('$category_id', '$checklist_id','$status')";
+  die;
   if($conn->query($sql) === TRUE){
     echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
   }else {
@@ -43,7 +45,7 @@ if (!isset($_POST['submit']))  {
                       <label for="form-control-2" class="control-label">Select Checklist : </label><br />
                       
                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
-                      <input type="checkbox" value="<?php echo $row['check_list_name']; ?>" name="checklist_id[0]"> <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
+                      <input type="checkbox" value="<?php echo $row['check_list_name']; ?>" name="checklist_id[]"> <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
                       <?php } ?>
 
                     </div>  
