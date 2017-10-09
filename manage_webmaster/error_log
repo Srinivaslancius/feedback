@@ -1,0 +1,17 @@
+[07-Oct-2017 22:53:08 Asia/Kolkata] PHP Notice:  Undefined index: feedback_option_image in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/edit_feedback_options.php on line 9
+[07-Oct-2017 22:53:22 Asia/Kolkata] PHP Notice:  Undefined index: feedback_option_image in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/edit_feedback_options.php on line 9
+[07-Oct-2017 22:54:41 Asia/Kolkata] PHP Notice:  Undefined index: feedback_option_image in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/edit_feedback_options.php on line 9
+[07-Oct-2017 22:55:25 Asia/Kolkata] PHP Notice:  Undefined index: feedback_option_image in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/edit_feedback_options.php on line 9
+[07-Oct-2017 22:55:43 Asia/Kolkata] PHP Notice:  Undefined index: feedback_option_image in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/edit_feedback_options.php on line 9
+[07-Oct-2017 22:59:00 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 22:59:11 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:00:28 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:00:42 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:01:00 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:01:19 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:01:37 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[07-Oct-2017 23:02:10 Asia/Kolkata] PHP Warning:  chown(): Operation not permitted in /home/lancius/public_html/demo/Feedback_Panel/admin_includes/common_functions.php on line 73
+[08-Oct-2017 19:48:28 Asia/Kolkata] PHP Notice:  Undefined index: user_address in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/users.php on line 91
+[08-Oct-2017 19:48:28 Asia/Kolkata] PHP Notice:  Undefined index: user_address in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/users.php on line 160
+[08-Oct-2017 19:49:33 Asia/Kolkata] PHP Notice:  Undefined index: user_address in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/users.php on line 91
+[08-Oct-2017 19:49:33 Asia/Kolkata] PHP Notice:  Undefined index: user_address in /home/lancius/public_html/demo/Feedback_Panel/manage_webmaster/users.php on line 160

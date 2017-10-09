@@ -55,7 +55,7 @@ $id = $_GET['bid'];
                     <img src="<?php echo $base_url . 'uploads/feedback_images/'.$getContents1['feedback_option_image'] ?>"  id="output" height="100" width="100"/>
                     <label class="btn btn-default file-upload-btn">
                         Choose file...
-                        <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="fileToUpload" id="fileToUpload"  onchange="loadFile(event)"  multiple="multiple" >
+                        <input id="form-control-22" class="file-upload-input" type="file" accept="image/*" name="feedback_option_image" id="feedback_option_image"  onchange="loadFile(event)"  multiple="multiple" >
                       </label>
                   </div>
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
