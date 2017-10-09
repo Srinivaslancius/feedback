@@ -23,7 +23,7 @@ if(isset($_SESSION['last_action'])){
         header("Location: logout.php");
   		exit;
     }    
-}
+} 
 //End Session expiry time here
 
 
@@ -34,7 +34,7 @@ if($setcon == 1) {
 	$password = "";
 	$dbname = "";
 } else {
-	$servername = "192.168.0.107";	
+	$servername = "192.168.0.105";	
 	$username = "root";
 	$password = "root";
 	$dbname = "feedback_demo";
