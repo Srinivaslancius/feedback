@@ -38,7 +38,7 @@ if($setcon == 2) {
 	$username = "root"; 
 	$password = "root";
 	$dbname = "feedback_demo"; 
-}  
+}   
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
