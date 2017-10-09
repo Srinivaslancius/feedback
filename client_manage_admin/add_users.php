@@ -45,10 +45,11 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <form data-toggle="validator" method="POST">
+                <form data-toggle="validator" method="POST" autocomplete="off">
                   <div class="form-group">
                     <label for="form-control-2" class="control-label">Name</label>
-                    <input type="text" name="supervisor_name" class="form-control" id="form-control-2" placeholder="User Name" data-error="Please enter Name" required>
+                    <input type="text" name="supervisor_name" class="form-control" id="supervisor_name" placeholder="User Name" data-error="Please enter Name" required onkeyup="checkUserName()">
+                    <span id="user_status" style="color: red;"></span>
                     <div class="help-block with-errors"></div>
                   </div>
 
@@ -116,6 +117,24 @@
       if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     return true;
+  }
+  function checkUserName() {
+    var user1 = document.getElementById("supervisor_name").value;
+    if (user1){
+      $.ajax({
+      type: "POST",
+      url: "ajax_check_username.php",
+      data: {
+        supervisor_name:user1,
+      },
+      success: function (response) {
+        $( '#user_status' ).html(response);
+        if (response == "User Already Exist"){
+          $("#supervisor_name").val("");
+        }
+        }
+       });
+    }
   }
   function checkemail() {
     var email1 = document.getElementById("supervisor_email").value;
