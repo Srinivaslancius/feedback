@@ -33,11 +33,18 @@ if (!isset($_POST['submit'])) {
                     <input type="text" class="form-control" id="form-control-2" name="category_id" required value="<?php echo $getContents1['category_id'];?>">
                     <div class="help-block with-errors"></div>
                   </div>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Checklist Id</label>
-                    <input type="text" class="form-control" id="form-control-2" name="checklist_id" required value="<?php echo $getContents1['checklist_id'];?>">
-                    <div class="help-block with-errors"></div>
-                  </div>
+                  <?php  
+                      $getfeedbackOpt = getDataFromTables('check_list','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                      <div class="form-group">
+                      <label for="form-control-2" class="control-label">Select Check List : </label><br />
+                      <?php  while ($row = $getfeedbackOpt->fetch_assoc()) { 
+                          $checked = '';                          
+                          $explodeFeedbackOpt=explode(',',$row2['feedback_options']);
+                        if (in_array($row['feedback_option'], $explodeFeedbackOpt)) $checked = " checked"; 
+                      ?>
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" name='feedback_options[<?php echo $i ?>][]' <?php echo $checked; ?> > <?php echo $row['feedback_option']; ?> &nbsp;&nbsp;
+                      <?php  } ?>
+                      </div>
                   
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
