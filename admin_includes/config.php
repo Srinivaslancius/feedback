@@ -37,7 +37,7 @@ if($setcon == 2) {
 	$servername = "192.168.0.110";	
 	$username = "root"; 
 	$password = "root";
-	$dbname = "feedback_demo";
+	$dbname = "feedback_demo"; 
 }  
 
 // Create connection
