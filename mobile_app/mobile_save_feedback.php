@@ -16,25 +16,20 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $created_at = date("Y-m-d h:i:s");
             $client_id= $_REQUEST['client_id'];
             $supervisor_name= $_REQUEST['supervisor_name'];
-            $feedback_option= $_REQUEST['feedback_option'];
-            
+            $feedback_option= $_REQUEST['feedback_option'];            
 
            $sqlIns = "INSERT INTO tab_mobile_feedbacks (tab_id,feedback_status,category,created_at,client_admin_id,supervisor_admin_id,feedback_option) VALUES ('$tab_id','$feedback_status','$category','$created_at','$client_id','$supervisor_name','$feedback_option')";  
                   
-if ($conn->query($sqlIns) === TRUE) {
- $response["success"] = 0;
-            $response["message"] = "Thanks for your feeback"; 
+            if ($conn->query($sqlIns) === TRUE) {
+                $response["success"] = 0;
+                $response["message"] = "Thanks for your feeback"; 
 
-} else {
-            // fail query insert problem
-            $response["success"] = 2;
-            $response["message"] = "Oops! An error occurred.";           
-           
-        }
-            
-           
-
-        
+            } else {
+                // fail query insert problem
+                $response["success"] = 2;
+                $response["message"] = "Oops! An error occurred.";           
+               
+            }
          
 
     } else {
