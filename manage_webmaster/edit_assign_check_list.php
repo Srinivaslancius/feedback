@@ -5,18 +5,15 @@ if (!isset($_POST['submit'])) {
       //If fail
         echo "fail";
     } else {
-    //If success            
-    $category_id = $_POST['category_id'];
-    for($i=0; $i < count($_POST['checklist_id']); $i++) {
-      $checkListId = $_POST['checklist_id'][$i];
-      $sql = "UPDATE assign_check_list SET category_id = '$category_id', checklist_id = '$checkListId'";
-      $result = $conn->query($sql);
-    }
-      if($result == 1){
-      echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
-      }else {
-      echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=fail'</script>";
-      }
+    //If success  
+          $category_id = $_POST['category_id'];  
+          $checkListId = implode(",",$_POST['checklist_id']);
+          $sql = "UPDATE assign_check_list SET category_id = '$category_id', checklist_id = '$checkListId'";  
+          if($conn->query($sql) == TRUE){
+            echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
+          }else {
+            echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=fail'</script>";
+          }
     }   
 ?>
       <div class="site-content">
@@ -41,20 +38,19 @@ if (!isset($_POST['submit'])) {
                    </select>
                     <div class="help-block with-errors"></div>
                   </div>
-                  
                   <?php  
-                      $getfeedbackOpt = getDataFromTables('check_list','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                    <div class="form-group">
-                    <label for="form-control-2" class="control-label">Select Check List : </label><br />
-                    <?php  while ($row = $getfeedbackOpt->fetch_assoc()) { 
-                        /*$checked = '';                          
-                        $explodeFeedbackOpt=explode(',',$row['check_list_name']);
-                      if (in_array($row['check_list_name'], $explodeFeedbackOpt))*/ $checked = " checked"; 
-                    ?>
-                    <input type="checkbox" value="<?php echo $getContents1['checklist_id']; ?>" name='checklist_id[]' <?php if($row['id'] == $getContents1['checklist_id']) { echo $checked; } ?> > <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
-                    <?php  } ?>
-                    </div>
-                  
+                      $getcheckList = getDataFromTables('check_list','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                      <div class="form-group">
+                      <label for="form-control-2" class="control-label">Select Check List : </label><br />
+                      <?php  while ($row = $getcheckList->fetch_assoc()) { 
+                          $checked = '';                          
+                          $explodeCheckListOpt=explode(',',$getContents1['checklist_id']);
+                        if (in_array($row['id'], $explodeCheckListOpt)) $checked = " checked"; 
+                      ?>
+                      <input type="checkbox" value="<?php echo $row['id']; ?>" name='checklist_id[]' <?php echo $checked; ?> > <?php echo $row['check_list_name']; ?> &nbsp;&nbsp;
+                      <?php  } ?>
+                      </div>
+
                   <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
               </div>
