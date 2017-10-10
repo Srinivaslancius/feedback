@@ -1,5 +1,7 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getCategoriesData = getAllDataWithActiveRecent('assign_check_list'); $i=1; ?>
+<?php $sql = "SELECT * From assign_check_list GROUP BY category_id"; $i = 1;
+    $result = $conn->query($sql);
+?>
      <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
@@ -12,19 +14,17 @@
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Category Id</th>
-                    <th>Checklist Id</th>
-                    <th>Status</th>
+                    <th>Category Name</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($row = $getCategoriesData->fetch_assoc()) { ?>
+                  <?php while ($row = $result->fetch_assoc()) { ?>
                   <tr>
                      <td><?php echo $i;?></td>
-                    <td><?php echo $row['category_id'];?></td>
-                    <td><?php echo $row['checklist_id'];?></td>
-                    <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='assign_check_list'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='assign_check_list'>In Active</span>" ;} ?></td>
+                     <td><?php $getCategories = getDataFromTables('categories',$status=NULL,'id',$row['category_id'],$activeStatus=NULL,$activeTop=NULL);
+                      $getCategory = $getCategories->fetch_assoc(); echo $getCategory['category_name']; ?></td>
+                    <!-- <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='assign_check_list'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='assign_check_list'>In Active</span>" ;} ?></td> -->
                     <td> <a href="edit_assign_check_list.php?bid=<?php echo $row['id']; ?>"> <i class="zmdi zmdi-edit"></i> &nbsp; </a> <a href="#"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a> <a href="delete_assign_check_list.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a></td>
                     <!-- Open Modal Box  here -->
                     <div id="<?php echo $row['id']; ?>" class="modal fade" tabindex="-1" role="dialog">
