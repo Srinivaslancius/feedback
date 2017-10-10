@@ -8,7 +8,7 @@ if (!isset($_POST['submit'])) {
     //If success  
           $category_id = $_POST['category_id'];  
           $checkListId = implode(",",$_POST['checklist_id']);
-          $sql = "UPDATE assign_check_list SET category_id = '$category_id', checklist_id = '$checkListId'";  
+          $sql = "UPDATE assign_check_list SET category_id = '$category_id', checklist_id = '$checkListId' WHERE id= '$id' ";  
           if($conn->query($sql) == TRUE){
             echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
           }else {
