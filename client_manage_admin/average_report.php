@@ -11,7 +11,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
             <div class="table-responsive">
               <div class="col s12 m12 l12">                  
                 <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Average'"; $getUsersData1 = $conn->query($sql);?>
-                  <div class="form-group col-md-4">                    
+                  <div class="form-group col-md-3">                    
                     <select id="select-feedback-option" class="custom-select">
                        <option value="">Select FeedBack Option</option>
                         <?php while ($row = $getUsersData1->fetch_assoc()) { ?>
@@ -20,7 +20,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
                     </select>
                   </div>
                   <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Average'"; $getUsersData1 = $conn->query($sql);?>
-                  <div class="form-group col-md-4">                    
+                  <div class="form-group col-md-3">                    
                     <select id="select-category" class="custom-select">
                        <option value="">Select Category</option>
                         <?php while ($row = $getUsersData1->fetch_assoc()) { ?>
@@ -30,6 +30,11 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
                   </div>
                 </div>
                 <div class="clear_fix"></div>
+
+                <p id="date_filter">
+                  <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                  <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
+                </p>
 
               <table class="table table-striped table-bordered dataTable" id="table-1">
                 <thead>
@@ -48,7 +53,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
                     <td><?php echo $i;?></td>
                     <td><?php $getTabsData =  getDataFromTables('tabs_registration',$status=NULL,'id',$row['tab_id'],$activeStatus=NULL,$activeTop=NULL); $tab = $getTabsData->fetch_assoc(); echo $tab['tab_ref_name']?></td>
                     <td><?php echo $row['feedback_status'];?></td>
-                    <td><?php echo $row['created_at'];?></td>
+                    <td><?php echo date('m/d/Y',strtotime($row['created_at']));?></td>
                     <td><?php echo $row['feedback_option'];?></td>
                     <td><?php echo $row['category'];?></td>
                   </tr>
@@ -159,4 +164,68 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
                
             });
         </script>
-  
+        <script type="text/javascript">
+          $(document).ready(function() {
+            var oTable = $('#table-1').DataTable({
+              "oLanguage": {
+                "sSearch": "Filter Data"
+              },
+              "iDisplayLength": -1,
+              "sPaginationType": "full_numbers",
+
+            });
+
+            $("#datepicker_from").datepicker({
+              showOn: "button",
+              buttonImage: "images/calendar.gif",
+              buttonImageOnly: false,
+              "onSelect": function(date) {
+                minDateFilter = new Date(date).getTime();
+                oTable.fnDraw();
+              }
+            }).keyup(function() {
+              minDateFilter = new Date(this.value).getTime();
+              oTable.fnDraw();
+            });
+
+            $("#datepicker_to").datepicker({
+              showOn: "button",
+              buttonImage: "images/calendar.gif",
+              buttonImageOnly: false,
+              "onSelect": function(date) {
+                maxDateFilter = new Date(date).getTime();
+                oTable.fnDraw();
+              }
+            }).keyup(function() {
+              maxDateFilter = new Date(this.value).getTime();
+              oTable.fnDraw();
+            });
+
+          });
+
+          // Date range filter
+          minDateFilter = "";
+          maxDateFilter = "";
+
+          $.fn.dataTableExt.afnFiltering.push(
+            function(oSettings, aData, iDataIndex) {
+              if (typeof aData._date == 'undefined') {
+                aData._date = new Date(aData[0]).getTime();
+              }
+
+              if (minDateFilter && !isNaN(minDateFilter)) {
+                if (aData._date < minDateFilter) {
+                  return false;
+                }
+              }
+
+              if (maxDateFilter && !isNaN(maxDateFilter)) {
+                if (aData._date > maxDateFilter) {
+                  return false;
+                }
+              }
+
+              return true;
+            }
+          );
+        </script>
