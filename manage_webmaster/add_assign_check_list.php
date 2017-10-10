@@ -4,17 +4,12 @@ if (!isset($_POST['submit']))  {
   //If fail
   echo "fail";
 }else  {
-  //If success
+  //If success  
+  $category_id = $_POST['category_id'];  
+  $checkListId = implode(",",$_POST['checklist_id']);
+  $sql = "INSERT INTO assign_check_list (`category_id`, `checklist_id`) VALUES ('$category_id', '$checkListId')";   
   
-  $category_id = $_POST['category_id'];
-  for($i=0; $i < count($_POST['checklist_id']); $i++) {
-
-    $checkListId = $_POST['checklist_id'][$i];
-    $sql = "INSERT INTO assign_check_list (`category_id`, `checklist_id`) VALUES ('$category_id', '$checkListId')";
-    $result = $conn->query($sql);
-  } 
-  
-  if($result == 1){
+  if($conn->query($sql) == TRUE){
     echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=success'</script>";
   }else {
     echo "<script type='text/javascript'>window.location='assign_check_list.php?msg=fail'</script>";
