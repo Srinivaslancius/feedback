@@ -42,7 +42,6 @@ if($setcon == 2) {
 
 
 
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
