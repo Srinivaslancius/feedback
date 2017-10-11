@@ -6,9 +6,10 @@ if (!isset($_POST['submit']))  {
 }else  {
   //If success
   $category_name = $_POST['category_name'];
+  $category_feedback_options = implode(',', $_POST['category_feedback_options']);
   $status = $_POST['status'];
   
-  $sql = "INSERT INTO categories (`category_name`, `status`) VALUES ('$category_name', '$status')";
+  $sql = "INSERT INTO categories (`category_name`, `category_feedback_options`, `status`) VALUES ('$category_name', '$category_feedback_options', '$status')";
   if($conn->query($sql) === TRUE){
     echo "<script type='text/javascript'>window.location='categories.php?msg=success'</script>";
   }else {
@@ -32,16 +33,16 @@ if (!isset($_POST['submit']))  {
                   </div>
 
                   <?php $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
-                  <div class="form-group">
-                    <label for="form-control-2" class="control-label">Feedback Options </label><br />
-                    <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
-                    <?php $image=$row ['feedback_option_image']; ?>
-                      <input type="checkbox" id="img<?php echo $row['id']; ?>" class="check-with-label" name="img<?php echo $row['id']; ?>" value="0" required/>
+                    <div class="form-group">
+                      <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                      <?php while ($row = $getfeedbackOpt->fetch_assoc()) { ?>
+                      <?php $image=$row ['feedback_option_image']; ?>
+                      <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" class="check-with-label" name="category_feedback_options[]">
                       <label for="img<?php echo $row['id']; ?>">
-                          <img class="img" src="../uploads/feedback_images/<?php echo $image; ?>" width="150px" height="150px"/>
+                        <img class="img" src="../uploads/feedback_images/<?php echo $image; ?>" width="150px" height="150px"/>
                       </label>
-                    <?php } ?>
-                  </div>
+                      <?php } ?>
+
                   <style>
                     .check-with-label + label > .img {
                       padding:5px; /*Just to keep things from moving*/
