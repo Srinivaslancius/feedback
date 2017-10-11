@@ -1,7 +1,5 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $sql = "SELECT * From assign_check_list GROUP BY category_id"; $i = 1;
-    $result = $conn->query($sql);
-?>
+<?php $result = getAllDataWithActiveRecent('assign_check_list'); $i=1; ?>
      <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">

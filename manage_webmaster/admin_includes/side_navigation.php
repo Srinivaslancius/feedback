@@ -117,6 +117,14 @@
                 <span class="menu-text">Assign Check List</span>
               </a>
             </li> 
+            <li  class="<?php if($page_name == 'tab_check_list.php') { echo "active"; } ?>">
+              <a href="tab_check_list.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Tab Check List</span>
+              </a>
+            </li> 
             <!-- <li  class="<?php if($page_name == 'product_offers.php' || $page_name == 'add_product_offers.php' || $page_name == 'edit_product_offers.php') { echo "active"; } ?>">
               <a href="product_offers.php" aria-haspopup="true">
                 <span class="menu-icon">
