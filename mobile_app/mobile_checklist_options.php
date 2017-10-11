@@ -20,9 +20,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $row = $result1->fetch_assoc();            
             $response["lists"] = array();            
             $expCheckOp = explode(",",$row["checklist_id"]);
-            for($i=0; $i<count($expCheckOp); $i++) {
-                $lists["id"] = $row["id"];
-                $lists["category_id"] = $row["category_id"];
+            for($i=0; $i<count($expCheckOp); $i++) {                
                 $ck_id = $expCheckOp[$i];   
                 $getCkList = getDataFromTables('check_list',$status=NULL,'id',$ck_id,$activeStatus=NULL,$activeTop=NULL); $getck = $getCkList->fetch_assoc();
                 $lists["checklist_option"] = $getck['check_list_name'];

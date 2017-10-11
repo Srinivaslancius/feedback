@@ -1,5 +1,5 @@
 <?php
-    error_reporting(0);
+    error_reporting(1);
     require_once('../admin_includes/config.php');
     require_once('../admin_includes/common_functions.php');
     
@@ -16,9 +16,33 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $created_at = date("Y-m-d h:i:s");
             $client_id= $_REQUEST['client_id'];
             $supervisor_name= $_REQUEST['supervisor_name'];
-            $feedback_option= $_REQUEST['feedback_option'];            
+            $feedback_option= $_REQUEST['feedback_option'];    
 
-           $sqlIns = "INSERT INTO tab_mobile_feedbacks (tab_id,feedback_status,category,created_at,client_admin_id,supervisor_admin_id,feedback_option) VALUES ('$tab_id','$feedback_status','$category','$created_at','$client_id','$supervisor_name','$feedback_option')";  
+            //Check poor status 5 times a day
+            if($_REQUEST['feedback_status'] == "Poor") {
+                
+                $getCntStatus = "SELECT COUNT(feedback_status) AS totalCnt FROM save_poor_notifications_view_count WHERE  MONTH(created_date) = MONTH(CURDATE()) AND YEAR(created_date) = YEAR(CURDATE()) AND feedback_status= '$feedback_status' ";
+                $res = $conn->query($getCntStatus);
+                $cntTotal = $res->fetch_assoc();
+                $getTotalCnt = $cntTotal['totalCnt'];
+                if($getTotalCnt == 5) {
+
+                    $delPoorFeedback = "DELETE FROM save_poor_notifications_view_count ";
+                    $conn->query($delPoorFeedback);
+
+                    $savePoorSucFeedback = "INSERT INTO save_poor_notifications_view (tab_id,feedback_status,created_date) VALUES ('$tab_id','$feedback_status','$created_at') ";
+                    $conn->query($savePoorSucFeedback);
+                    
+                } else {
+
+                    $savePoorFeedback = "INSERT INTO save_poor_notifications_view_count (tab_id,feedback_status,created_date) VALUES ('$tab_id','$feedback_status','$created_at') ";
+                    $conn->query($savePoorFeedback);
+                }
+
+            }
+            //End 
+
+            $sqlIns = "INSERT INTO tab_mobile_feedbacks (tab_id,feedback_status,category,created_at,client_admin_id,supervisor_admin_id,feedback_option) VALUES ('$tab_id','$feedback_status','$category','$created_at','$client_id','$supervisor_name','$feedback_option')";  
                   
             if ($conn->query($sqlIns) === TRUE) {
                 $response["success"] = 0;
