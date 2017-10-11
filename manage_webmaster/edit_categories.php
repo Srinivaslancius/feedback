@@ -7,8 +7,9 @@ if (!isset($_POST['submit'])) {
     } else {
     //If success            
     $category_name = $_POST['category_name'];
+    $category_feedback_options = implode(',', $_POST['category_feedback_options']);
     $status = $_POST['status'];
-        $sql = "UPDATE `categories` SET category_name = '$category_name', status='$status' WHERE id = '$id' ";
+        $sql = "UPDATE `categories` SET category_name = '$category_name', category_feedback_options = '$category_feedback_options', status='$status' WHERE id = '$id' ";
         if($conn->query($sql) === TRUE){
            echo "<script type='text/javascript'>window.location='categories.php?msg=success'</script>";
         } else {
@@ -33,6 +34,22 @@ if (!isset($_POST['submit'])) {
                     <div class="help-block with-errors"></div>
                   </div>
                   
+                  <?php  $getfeedbackOpt = getDataFromTables('feedback_options','0',$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
+                  <div class="form-group">
+                  <label for="form-control-2" class="control-label">Feedback Options : </label><br />
+                  <?php  while ($row = $getfeedbackOpt->fetch_assoc()) { 
+                      $checked = '';                          
+                      $explodeCheckListOpt=explode(',',$getContents1['category_feedback_options']);
+                    if (in_array($row['feedback_option'], $explodeCheckListOpt)) $checked = " checked"; 
+                  ?>
+                  <?php $image=$row ['feedback_option_image']; ?>
+                  <input type="checkbox" value="<?php echo $row['feedback_option']; ?>" class="check-with-label" name="category_feedback_options[]" <?php echo $checked; ?>>
+                  <label for="img<?php echo $row['id']; ?>">
+                    <img class="img" src="../uploads/feedback_images/<?php echo $image; ?>" width="150px" height="150px"/>
+                  </label>
+                  <?php  } ?>
+                  </div>
+
                   <?php $getStatus = getDataFromTables('user_status',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL);?>
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose your status</label>

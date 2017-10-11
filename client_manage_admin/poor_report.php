@@ -10,7 +10,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
           <div class="panel-body">
             <div class="table-responsive">
               <div class="col s12 m12 l12">                  
-                <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Poor'"; $getUsersData1 = $conn->query($sql);?>
+                <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Poor' GROUP BY feedback_option"; $getUsersData1 = $conn->query($sql);?>
                   <div class="form-group col-md-3">                    
                     <select id="select-feedback-option" class="custom-select">
                        <option value="">Select FeedBack Option</option>
@@ -19,7 +19,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status=
                         <?php } ?>
                     </select>
                   </div>
-                  <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Poor'"; $getUsersData1 = $conn->query($sql);?>
+                  <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status='Poor' GROUP BY category"; $getUsersData1 = $conn->query($sql);?>
                   <div class="form-group col-md-3">                    
                     <select id="select-category" class="custom-select">
                        <option value="">Select Category</option>
