@@ -20,6 +20,7 @@ $id = $_GET['uid'];
     $client_location_id = $_POST['client_location_id'];
     $status = $_POST['status'];
     $created_super_admin_id = $_SESSION['admin_user_id'];
+    $created_at = date("Y-m-d h:i:s");
     
     if($_FILES["client_admin_logo"]["name"]!='') {
               $client_admin_logo = $_FILES["client_admin_logo"]["name"];
@@ -29,36 +30,25 @@ $id = $_GET['uid'];
               $getImgUnlink = getImageUnlink('client_admin_logo','client_admin_users','id',$id,$target_dir);
                 //Send parameters for img val,tablename,clause,id,imgpath for image ubnlink from folder
               if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
-            $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts',no_of_floors = '$no_of_floors' ,client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',client_admin_logo='$client_admin_logo',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                    
-            if($conn->query($sql) === TRUE){    
-                       echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
-                    } else {
-                       echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
-                    }
-                    //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                  $sql = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts',no_of_floors = '$no_of_floors' ,client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',client_admin_logo='$client_admin_logo',created_super_admin_id='$created_super_admin_id',created_at='$created_at', status = '$status' WHERE id = '$id' ";                    
+                  $conn->query($sql);
                 } else {
                     echo "Sorry, there was an error uploading your file.";
                 }
-            }  else {
-
-            $sql  = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id', status = '$status' WHERE id = '$id' ";                
-            if($conn->query($sql) === TRUE){
-                   echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
-              } else {
-                 echo "<script type='text/javascript'>window.location='users.php?msg=fail'</script>";
-              }
-            }
-        $result = $conn->query($sql);
+        }  else {
+              $sql  = "UPDATE `client_admin_users` SET client_name='$client_name', client_email='$client_email', client_mobile='$client_mobile', remember_name='$remember_name', no_of_accounts='$no_of_accounts', client_country_id='$client_country_id', client_state_id='$client_state_id', client_city_id='$client_city_id', client_location_id='$client_location_id',created_super_admin_id='$created_super_admin_id', status = '$status' WHERE id = '$id' ";                
+              $conn->query($sql);
+        }
         
         $del = "DELETE FROM client_selected_feedback_options WHERE client_user_id = '$id' ";
         $result = $conn->query($del);
         $category_ids = $_REQUEST['category_id'];
         foreach($category_ids as $key=>$value){
-        $category_id = $_REQUEST['category_id'][$key];
-        $getcheckList=implode(",", $_REQUEST['feedback_options'][$key]);           
-        $sql = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$id','$category_id','$getcheckList','$created_at')";
-        $result = $conn->query($sql);
-    }
+            $category_id = $_REQUEST['category_id'][$key];
+            $getcheckList=implode(",", $_REQUEST['feedback_options'][$key]);           
+            $sql = "INSERT INTO client_selected_feedback_options ( `client_user_id`,`category_id`,`feedback_options`,`created_at`) VALUES ('$id','$category_id','$getcheckList','$created_at')";
+            $result = $conn->query($sql);
+        }
         if($result == 1){
            echo "<script type='text/javascript'>window.location='users.php?msg=success'</script>";
         } else {
