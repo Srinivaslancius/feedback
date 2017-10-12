@@ -4,7 +4,7 @@
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
             <a href="add_advertisement.php" style="float:right">Add Advertisement</a>
-            <h3 class="m-t-0 m-b-5">Feedback Options</h3>            
+            <h3 class="m-t-0 m-b-5">Advertisements</h3>            
           </div>
           <div class="panel-body">
             <div class="table-responsive">
