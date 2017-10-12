@@ -44,6 +44,14 @@
                 <span class="menu-text">Tabs Registration</span>
               </a>
             </li>
+            <li  class="<?php if($page_name == 'advertisement.php' || $page_name == 'add_advertisement.php' || $page_name == 'edit_advertisement.php') { echo "active"; } ?>">
+              <a href="advertisement.php" aria-haspopup="true">
+                <span class="menu-icon">
+                   <i class="zmdi zmdi-store zmdi-hc-fw"></i>
+                </span>
+                <span class="menu-text">Advertisement</span>
+              </a>
+            </li>
             <li  class="<?php if($page_name == 'change_password.php') { echo "active"; } ?>">
               <a href="change_password.php" aria-haspopup="true">
                 <span class="menu-icon">

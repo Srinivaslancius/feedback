@@ -29,7 +29,7 @@
 
                 if (move_uploaded_file($_FILES["client_admin_logo"]["tmp_name"], $target_file)) {
                   
-                   $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`no_of_floors`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `client_admin_logo`,`status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$no_of_floors','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', '$client_admin_logo' ,'$status')";
+                   $sql = "INSERT INTO client_admin_users (`client_name`, `client_email`, `client_mobile`,`remember_name`, `no_of_accounts`,`no_of_floors`,`client_country_id`, `client_state_id`, `client_city_id`, `client_location_id`,`created_super_admin_id`, `created_at`, `client_admin_logo`,`status`,`client_ads_status`) VALUES ('$client_name', '$client_email', '$client_mobile', '$remember_name','$no_of_accounts','$no_of_floors','$client_country_id', '$client_state_id', '$client_city_id', '$client_location_id','$created_super_admin_id', '$created_at', '$client_admin_logo' ,'$status',0)";
                   
                     $result = $conn->query($sql);
                     $last_id = $conn->insert_id;
