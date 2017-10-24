@@ -45,14 +45,14 @@
                 <li class="<?php if($page_name == 'users.php' || $page_name == 'add_users.php' || $page_name == 'edit_users.php') { echo "active"; } ?>"><a href="users.php">Client Admin</a></li>
               </ul>
             </li>
-            <!-- <li  class="<?php if($page_name == 'banners.php' || $page_name == 'add_banners.php' || $page_name == 'edit_banners.php' ) { echo "active"; } ?>">
+            <li  class="<?php if($page_name == 'banners.php' || $page_name == 'add_banners.php' || $page_name == 'edit_banners.php' ) { echo "active"; } ?>">
               <a href="banners.php" aria-haspopup="true">
                 <span class="menu-icon">
                    <i class="zmdi zmdi-collection-image zmdi-hc-fw"></i>
                 </span>
                 <span class="menu-text">Banners</span>
               </a>
-            </li> -->
+            </li>
             <!-- <li  class="<?php if($page_name == 'content_pages.php' || $page_name == 'add_content_pages.php' || $page_name == 'edit_content_pages.php') { echo "active"; } ?>">
               <a href="content_pages.php" aria-haspopup="true">
                 <span class="menu-icon">
