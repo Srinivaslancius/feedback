@@ -54,7 +54,8 @@
               }
             }
           });
-        }); 
+        });
+         
       //Set time for messge notifications
       $(document).ready(function () {
         setTimeout(function () {

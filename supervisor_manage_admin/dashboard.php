@@ -2,6 +2,7 @@
 $id = $_SESSION['supervisor_admin_user_name'];
 ?>
       <div class="site-content">
+        
         <div class="row">
           <div class="col-md-4 col-sm-5">
             <div class="widget widget-tile-2 bg-success m-b-30">
@@ -22,6 +23,7 @@ $id = $_SESSION['supervisor_admin_user_name'];
               </div>
             </div> 
           </div>
+          <a href="average_report.php?uid=<?php echo $id;?>">
           <div class="col-md-4 col-sm-5">
             <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
@@ -37,6 +39,7 @@ $id = $_SESSION['supervisor_admin_user_name'];
               </div>
             </div>
           </div>
+          <a href="poor_report.php?uid=<?php echo $id;?>">
           <div class="col-md-4 col-sm-5">
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
@@ -54,6 +57,7 @@ $id = $_SESSION['supervisor_admin_user_name'];
           </div>
           
         </div>
+       
 
        <!--  <div class="col-md-6 m-b-30">
           <h4 class="m-t-0 m-b-30">Pie chart</h4>
