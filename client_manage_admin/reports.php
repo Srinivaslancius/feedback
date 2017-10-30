@@ -29,7 +29,7 @@ $id = $_SESSION['client_admin_user_id'];
               </div>
             </div>
           </div>
-          <a href="average_report.php?uid=<?php echo $i;?>">
+          <a href="average_report.php?uid=<?php echo $i;?>&cid=<?php echo $id; ?>">
           <div class="col-md-3 col-sm-3">
             <div class="widget widget-tile-2 bg-warning m-b-30">
               <div class="wt-content p-a-20 p-b-50">
@@ -47,7 +47,7 @@ $id = $_SESSION['client_admin_user_id'];
             </div>
           </div>
           </a>
-          <a href="poor_report.php?uid=<?php echo $i;?>">
+          <a href="poor_report.php?uid=<?php echo $i;?>&cid=<?php echo $id; ?>">
           <div class="col-md-3 col-sm-3">
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">
