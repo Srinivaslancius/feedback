@@ -3,13 +3,14 @@ $id = $_SESSION['client_admin_user_id'];
 ?>
       <div class="site-content">
           <?php
-          $sql = $conn->query("SELECT tab_ref_name,COUNT(DISTINCT tab_id) AS total FROM tab_mobile_feedbacks WHERE client_admin_id = '$id'");
+          $sql = $conn->query("SELECT tab_id,max(DISTINCT tab_id) AS total FROM tab_mobile_feedbacks WHERE client_admin_id = '$id'");
           $row = $sql->fetch_assoc();
           $res = $row['total'];
-          for ($i=1; $i <= $res ; $i++) { ?>
+          $tab_id = $row['tab_id'];
+          for ($i=$tab_id; $i <= $res ; $i++) { ?>
         <div class="row">
           <?php
-          $getTabName = $conn->query("SELECT tab_ref_name FROM tab_mobile_feedbacks WHERE client_admin_id = '$id' AND tab_id='$i'");
+          $getTabName = $conn->query("SELECT tab_ref_name FROM tabs_registration WHERE created_client_admin_id = '$id' AND id='$i'");
           $getTabName1 = $getTabName->fetch_assoc(); ?>
           <h1><?php echo $getTabName1['tab_ref_name'];?></h1>
           <div class="col-md-3 col-sm-3">
