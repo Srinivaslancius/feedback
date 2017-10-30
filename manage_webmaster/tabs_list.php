@@ -30,19 +30,19 @@
                     <td><?php echo $i;?></td>
                     <td><?php echo $row['tab_ref_name'];?></td>
                     <td><?php echo $row['tab_location'];?></td>
-                    <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '".$row['id']."' AND feedback_status  = 'Good' ";
+                    <td><?php $tab_id=$row['id']; $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id='$id' AND feedback_status  = 'Good' AND tab_id = '$tab_id' ";
                       $result = $conn->query($sql);
                       $noRows = $result->num_rows;
                       echo $noRows?></td>
-                        <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '".$row['id']."' AND feedback_status  = 'Average'";
+                        <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE client_admin_id='$id' AND feedback_status  = 'Average' AND tab_id = '$tab_id'";
                       $result = $conn->query($sql);
                       $noRows = $result->num_rows;
                       echo $noRows?></td>
-                    <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '".$row['id']."' AND feedback_status  = 'Average'";
+                    <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id='$id' AND feedback_status  = 'Poor' AND tab_id = '$tab_id'";
                       $result = $conn->query($sql);
                       $noRows = $result->num_rows;
                       echo $noRows?></td>
-                    <td><a href="count_feedback_options.php?tid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a></td>
+                    <td><a href="count_feedback_options.php?tid=<?php echo $row['id']; ?>&cid=<?php echo $id; ?>"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a></td>
                   </tr>
                   <?php  $i++; } ?>
                 </tbody>

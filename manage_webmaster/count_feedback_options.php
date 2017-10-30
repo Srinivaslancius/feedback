@@ -1,6 +1,7 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
 <?php $id = $_GET['tid'];
-$sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor')" ; $i=1; $getReportsData = $conn->query($sql);?>
+$cid = $_GET['cid'];
+$sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND tab_id=$id AND feedback_status IN('Average' , 'Poor')" ; $i=1; $getReportsData = $conn->query($sql);?>
      
       <div class="site-content">
         <div class="panel panel-default panel-table">
