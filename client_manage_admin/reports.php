@@ -12,7 +12,7 @@ $id = $_SESSION['client_admin_user_id'];
           <?php
           $getTabName = $conn->query("SELECT tab_ref_name FROM tabs_registration WHERE created_client_admin_id = '$id' AND id='$i'");
           $getTabName1 = $getTabName->fetch_assoc(); ?>
-          <h1><?php echo $getTabName1['tab_ref_name'];?></h1>
+          <h1>&nbsp;&nbsp;<?php echo $getTabName1['tab_ref_name'];?></h1>
           <div class="col-md-3 col-sm-3">
             <div class="widget widget-tile-2 bg-success m-b-30">
               <div class="wt-content p-a-20 p-b-50">
