@@ -10,6 +10,27 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND ta
           </div>
           <div class="panel-body">
             <div class="table-responsive">
+              <div class="col s12 m12 l12">                  
+                <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid' AND feedback_status IN('Average' , 'Poor') GROUP BY feedback_option"; $getFeedbackOption = $conn->query($sql);?>
+                  <div class="form-group col-md-3">                    
+                    <select id="select-feedback-option" class="custom-select">
+                       <option value="">Select FeedBack Option</option>
+                        <?php while ($row = $getFeedbackOption->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['feedback_option']; ?>"><?php echo $row['feedback_option']; ?></option>
+                        <?php } ?>
+                    </select>
+                  </div>
+                  <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid' AND feedback_status IN('Average' , 'Poor') GROUP BY feedback_status"; $getCategory = $conn->query($sql);?>
+                  <div class="form-group col-md-3">                    
+                    <select id="select-feedback-status" class="custom-select">
+                       <option value="">Select Category</option>
+                        <?php while ($row = $getCategory->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['feedback_status']; ?>"><?php echo $row['feedback_status']; ?></option>
+                        <?php } ?>
+                    </select>                    
+                  </div>
+                </div>
+                <div class="clear_fix"></div>
               <table class="table table-striped table-bordered dataTable" id="table-1">
                 <thead>
                   <tr>
