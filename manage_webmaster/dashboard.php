@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-5">
-            <div class="widget widget-tile-2 bg-warning m-b-30">
+            <div class="widget widget-tile-2  m-b-30" style="background-color:#3e4273">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Client Admin</div>
                 <div class="wt-number"><?php echo getRowsCount('client_admin_users')?></div>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-5">
-            <div class="widget widget-tile-2 bg-danger m-b-30">
+            <div class="widget widget-tile-2 m-b-30" style="background-color:#a92fa4">
               <div class="wt-content p-a-20 p-b-50">
                 <div class="wt-title">Supervisor Admin</div>
                 <div class="wt-number"><?php echo getRowsCount('supervisors_admin_users')?></div>
