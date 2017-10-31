@@ -1,56 +1,79 @@
-<?php include_once 'admin_includes/main_header.php'; ?>
-
-<?php 
-  $id = $_GET["cid"];
-  $sql = "SELECT * from tabs_registration WHERE created_client_admin_id = '$id';";
-  $getReportsData = $conn->query($sql); $i=1; ?>
-     
+<?php include_once 'admin_includes/main_header.php'; 
+$id = $_GET['cid'];
+?>
       <div class="site-content">
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">Tab Reports</h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered dataTable" id="table-1">
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Tab Name</th>
-                    <th>Loaction</th>
-                    <th>Good</th>
-                    <th>Average</th>
-                    <th>Poor</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php while ($row = $getReportsData->fetch_assoc()) { ?>
-                  <tr>
-                    <td><?php echo $i;?></td>
-                    <td><?php echo $row['tab_ref_name'];?></td>
-                    <td><?php echo $row['tab_location'];?></td>
-                    <td><?php $tab_id=$row['id']; $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id='$id' AND feedback_status  = 'Good' AND tab_id = '$tab_id' ";
-                      $result = $conn->query($sql);
-                      $noRows = $result->num_rows;
-                      echo $noRows?></td>
-                        <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE client_admin_id='$id' AND feedback_status  = 'Average' AND tab_id = '$tab_id'";
-                      $result = $conn->query($sql);
-                      $noRows = $result->num_rows;
-                      echo $noRows?></td>
-                    <td><?php $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id='$id' AND feedback_status  = 'Poor' AND tab_id = '$tab_id'";
-                      $result = $conn->query($sql);
-                      $noRows = $result->num_rows;
-                      echo $noRows?></td>
-                    <td><a href="count_feedback_options.php?tid=<?php echo $row['id']; ?>&cid=<?php echo $id; ?>"><i class="zmdi zmdi-eye zmdi-hc-fw" data-toggle="modal" data-target="#<?php echo $row['id']; ?>" class=""></i></a></td>
-                  </tr>
-                  <?php  $i++; } ?>
-                </tbody>
-              </table>
+          <?php
+          $sql = $conn->query("SELECT tab_id,max(DISTINCT tab_id) AS total FROM tab_mobile_feedbacks WHERE client_admin_id = '$id'");
+          $row = $sql->fetch_assoc();
+          $res = $row['total'];
+          $tab_id = $row['tab_id'];
+          for ($i=$tab_id; $i <= $res ; $i++) { ?>
+        <div class="row">
+          <?php
+          $getTabName = $conn->query("SELECT tab_ref_name FROM tabs_registration WHERE created_client_admin_id = '$id' AND id='$i'");
+          $getTabName1 = $getTabName->fetch_assoc(); ?>
+          <h1>&nbsp;&nbsp;<?php echo $getTabName1['tab_ref_name'];?></h1>
+          <div class="col-md-3 col-sm-3">
+            <div class="widget widget-tile-2 bg-success m-b-30">
+              <div class="wt-content p-a-20 p-b-50">
+                <div class="wt-title">Good</div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '$id' AND feedback_status  = 'Good' AND tab_id='$i'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows;?>
+                </div>
+              </div>
+              <div class="wt-icon">
+                <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
+              </div>
             </div>
           </div>
-        </div>      
+          <a href="average_report.php?uid=<?php echo $i;?>&cid=<?php echo $id; ?>">
+          <div class="col-md-3 col-sm-3">
+            <div class="widget widget-tile-2 bg-warning m-b-30">
+              <div class="wt-content p-a-20 p-b-50">
+                <div class="wt-title">Average</div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  feedback_status  = 'Average' AND client_admin_id = '$id' AND tab_id='$i'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows;?>
+                </div>
+              </div>
+              <div class="wt-icon">
+                <i class="zmdi zmdi-mood zmdi-hc-fw"></i>
+              </div>
+            </div>
+          </div>
+          </a>
+          <a href="poor_report.php?uid=<?php echo $i;?>&cid=<?php echo $id; ?>">
+          <div class="col-md-3 col-sm-3">
+            <div class="widget widget-tile-2 bg-danger m-b-30">
+              <div class="wt-content p-a-20 p-b-50">
+                <div class="wt-title">Poor</div>
+                <div class="wt-number"><?php
+                $sql="SELECT * from tab_mobile_feedbacks WHERE  client_admin_id = '$id' AND feedback_status  = 'Poor' AND tab_id='$i'";
+                  $result = $conn->query($sql);
+                  $noRows = $result->num_rows;
+                  echo $noRows?>
+                </div>
+              </div>
+              <div class="wt-icon">
+                <i class="zmdi zmdi-mood-bad zmdi-hc-fw"></i>
+              </div>
+            </div>
+          </div>
+          </a>
+        </div>
+        <?php } ?>
+
+       <!--  <div class="col-md-6 m-b-30">
+          <h4 class="m-t-0 m-b-30">Pie chart</h4>
+          <div id="pie" style="height: 300px"></div>
+        </div> -->
+
+
       </div>
-   <?php include_once 'admin_includes/footer.php'; ?>
-   <script src="js/tables-datatables.min.js"></script>
-  
+     <?php include_once 'admin_includes/footer.php'; ?>
+     
