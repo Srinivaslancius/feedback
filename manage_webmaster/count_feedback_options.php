@@ -58,103 +58,82 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND ta
         </div>
         <div class="col-md-6 m-b-30">
           <h4 class="m-t-0 m-b-30">Pie chart</h4>
-          <div id="pie" style="height: 300px"></div>
+          <div class="chart-wrapper">
+            <canvas id="pie-canvas3"></canvas>
+          </div>
         </div>
       </div>
       
    <?php include_once 'admin_includes/footer.php'; ?>
    <script src="js/tables-datatables.min.js"></script>
    <script src="js/charts-flot.min.js"></script>
-     <script type="text/javascript">
-            $(document).ready(function() {
-                
-                var pie = function () {
-                    var data = [{
-                        label: "No Tolilet Paper",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'No Tolilet Paper'";
+    <script>
+    function createChart(id, type, options) {
+      var data = {
+        labels: ['No Tolilet Paper', 'Foul Smell', 'Litter Bin Full','Wet Floor','Dirty Basin','Dirty Tolilet Bowl','Temparature','Faulty Equipment'],
+        datasets: [
+          {
+            label: 'My First dataset',
+            data: [<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'No Tolilet Paper'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#4D4D4D",
-                    }, {
-                        label: "Foul Smell",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor')  AND feedback_option = 'Foul Smell'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor')  AND feedback_option = 'Foul Smell'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#5DA5DA",
-                    }, {
-                        label: "Litter Bin Full",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Litter Bin Full'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Litter Bin Full'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#FAA43A",
-                    }, {
-                        label: "Wet Floor",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Wet Floor'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Wet Floor'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#60BD68",
-                    }, {
-                        label: "Dirty Basin",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Dirty Basin'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Dirty Basin'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#F17CB0",
-                    }, {
-                        label: "Dirty Tolilet Bowl",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Dirty Tolilet Bowl'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Dirty Tolilet Bowl'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#B2912F",
-                    }, {
-                        label: "Temparature",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Temparature'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Temparature'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#B276B2",
-                    }, {
-                        label: "Faulty Equipment",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND feedback_status IN('Average' , 'Poor') AND feedback_option = 'Faulty Equipment'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE tab_id=$id AND client_admin_id = '$cid'And feedback_status IN('Average' , 'Poor') AND feedback_option = 'Faulty Equipment'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#DECF3F",
-                    }];
-                    var options = {
-                        series: {
-                            pie: {
-                                show: true
-                            }
-                        },
-                        legend: {
-                            labelFormatter: function(label, series){
-                                return '<span class="pie-chart-legend">'+label+'</span>';
-                            }
-                        },
-                        grid: {
-                            hoverable: true
-                        },
-                        tooltip: true,
-                        tooltipOpts: {
-                            content: "%p.0%, %s",
-                            shifts: {
-                                x: 20,
-                                y: 0
-                            },
-                            defaultTheme: false
-                        }
-                    };
-                    $.plot($("#pie"), data, options);
-                };
+                          echo $noRows ?>],
+            backgroundColor: [
+              '#FF6384',
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384',
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384',
+              '#36A2EB'
+            ]
+          }
+        ]
+      };
 
-                pie();
-               
-            });
-        </script>
-  
+      new Chart(document.getElementById(id), {
+        type: type,
+        data: data,
+        options: options
+      });
+    }
+
+    ['pie'].forEach(function (type) {
+      createChart(type + '-canvas3', type, {
+        responsive: true,
+        maintainAspectRatio: false,
+        pieceLabel: {
+          render: 'percentage',
+          // fontColor: function (args) {
+          //   var rgb = hexToRgb(args.dataset.backgroundColor[args.index]);
+          //   var threshold = 140;
+          //   var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
+          //   return luminance > threshold ? 'black' : 'white';
+          // },
+          //precision: 2
+        }
+      });
+    });
+  </script>
