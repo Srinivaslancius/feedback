@@ -112,7 +112,7 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND ta
               '#F17CB0',
               '#B2912F',
               '#B276B2',
-              '#4D4D4D'
+              '#DECF3F'
             ]
           }
         ]
