@@ -1,4 +1,5 @@
 <?php include_once 'admin_includes/main_header.php'; 
+error_reporting(0);
 $id = $_GET['cid'];
 ?>
       <div class="site-content">

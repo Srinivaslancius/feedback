@@ -1,5 +1,6 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
 <?php $id = $_GET['tabid']; $cid = $_GET['clientid'];
+if($id != 0) {
 $sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND tab_id=$id AND feedback_status='Poor'"; $i=1; $getUsersData = $conn->query($sql);?>
      
       <div class="site-content">
@@ -68,7 +69,11 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE client_admin_id = '$cid' AND ta
           </div>
         </div>
       </div>
-      
+      <?php } 
+        else {
+        echo "<script>alert('There are no tabs');window.location='reports.php';</script>";
+      }
+      ?>
    <?php include_once 'admin_includes/footer.php'; ?>
    <script src="js/tables-datatables.min.js"></script>
    <script src="js/charts-flot.min.js"></script>

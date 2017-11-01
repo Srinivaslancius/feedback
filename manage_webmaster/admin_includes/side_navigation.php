@@ -16,7 +16,7 @@
                 <span class="menu-text">Dashboard</span>
               </a>
             </li>
-            <li  class="<?php if($page_name == 'reports.php' || $page_name == 'tabs_list.php' || $page_name == 'count_feedback_options.php') { echo "active"; } ?>">
+            <li  class="<?php if($page_name == 'reports.php' || $page_name == 'tabs_list.php' || $page_name == 'average_report.php' || $page_name == 'poor_report.php') { echo "active"; } ?>">
               <a href="reports.php" aria-haspopup="true">
                 <span class="menu-icon">
                    <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
