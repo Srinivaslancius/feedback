@@ -118,8 +118,8 @@ $getUsersData = $conn->query($sql); ?>
               '#60BD68',
               '#F17CB0',
               '#B2912F',
-              '#B276B2',
-              '#4D4D4D'
+              '#36A2EB',
+              '#DECF3F'
             ]
           }
         ]
