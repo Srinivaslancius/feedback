@@ -1,6 +1,10 @@
-<?php include_once 'admin_includes/main_header.php'; ?>
-<?php $id = $_SESSION['supervisor_admin_user_name'];
-$sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Poor'"; $i=1; $getUsersData = $conn->query($sql);?>
+<?php include_once 'admin_includes/main_header.php'; 
+  error_reporting(0);
+?>
+
+<?php $id = $_GET['tabid']; $cid = $_GET['superVisorId'];
+if($id != 0) {
+$sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor'"; $i=1; $getUsersData = $conn->query($sql);?>
      
       <div class="site-content">
         <div class="panel panel-default panel-table">
@@ -9,6 +13,31 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND f
           </div>
           <div class="panel-body">
             <div class="table-responsive">
+              <div class="col s12 m12 l12">                  
+                <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' GROUP BY feedback_option"; $getUsersData1 = $conn->query($sql);?>
+                  <div class="form-group col-md-3">                    
+                    <select id="select-feedback-option" class="custom-select">
+                       <option value="">Select FeedBack Option</option>
+                        <?php while ($row = $getUsersData1->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['feedback_option']; ?>"><?php echo $row['feedback_option']; ?></option>
+                        <?php } ?>
+                    </select>
+                  </div>
+                  <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' GROUP BY category"; $getUsersData1 = $conn->query($sql);?>
+                  <div class="form-group col-md-3">                    
+                    <select id="select-category" class="custom-select">
+                       <option value="">Select Category</option>
+                        <?php while ($row = $getUsersData1->fetch_assoc()) { ?>
+                          <option value="<?php echo $row['category']; ?>"><?php echo $row['category']; ?></option>
+                        <?php } ?>
+                    </select>                    
+                  </div>
+                </div>
+                <div class="clear_fix"></div>
+                <p id="date_filter">
+                  <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                  <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
+                </p>
               <table class="table table-striped table-bordered dataTable" id="table-1">
                 <thead>
                   <tr>
@@ -38,103 +67,86 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND f
         </div>
         <div class="col-md-6 m-b-30">
           <h4 class="m-t-0 m-b-30">Pie chart</h4>
-          <div id="pie" style="height: 300px"></div>
+          <div class="chart-wrapper">
+            <canvas id="pie-canvas3"></canvas>
+          </div>
         </div>
       </div>
-      
+      <?php } 
+        else {
+        echo "<script>alert('There are no tabs');window.location='dashboard.php';</script>";
+      }
+      ?>
    <?php include_once 'admin_includes/footer.php'; ?>
    <script src="js/tables-datatables.min.js"></script>
    <script src="js/charts-flot.min.js"></script>
-     <script type="text/javascript">
-            $(document).ready(function() {
-                
-                var pie = function () {
-                    var data = [{
-                        label: "No Tolilet Paper",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'No Tolilet Paper'";
+     <script>
+    function createChart(id, type, options) {
+      var data = {
+        labels: ['No Tolilet Paper', 'Foul Smell', 'Litter Bin Full','Wet Floor','Dirty Basin','Dirty Tolilet Bowl','Temparature','Faulty Equipment'],
+        datasets: [
+          {
+            label: 'My First dataset',
+            data: [<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'No Tolilet Paper'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#4D4D4D",
-                    }, {
-                        label: "Foul Smell",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Foul Smell'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Foul Smell'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#5DA5DA",
-                    }, {
-                        label: "Litter Bin Full",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Litter Bin Full'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Litter Bin Full'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#FAA43A",
-                    }, {
-                        label: "Wet Floor",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Wet Floor'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Wet Floor'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#60BD68",
-                    }, {
-                        label: "Dirty Basin",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Dirty Basin'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Dirty Basin'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#F17CB0",
-                    }, {
-                        label: "Dirty Tolilet Bowl",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Dirty Tolilet Bowl'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Dirty Tolilet Bowl'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#B2912F",
-                    }, {
-                        label: "Temparature",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Temparature'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Temparature'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#B276B2",
-                    }, {
-                        label: "Faulty Equipment",
-                        data: <?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$id' AND feedback_status='Average' AND feedback_option = 'Faulty Equipment'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Faulty Equipment'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,
-                        color: "#DECF3F",
-                    }];
-                    var options = {
-                        series: {
-                            pie: {
-                                show: true
-                            }
-                        },
-                        legend: {
-                            labelFormatter: function(label, series){
-                                return '<span class="pie-chart-legend">'+label+'</span>';
-                            }
-                        },
-                        grid: {
-                            hoverable: true
-                        },
-                        tooltip: true,
-                        tooltipOpts: {
-                            content: "%p.0%, %s",
-                            shifts: {
-                                x: 20,
-                                y: 0
-                            },
-                            defaultTheme: false
-                        }
-                    };
-                    $.plot($("#pie"), data, options);
-                };
+                          echo $noRows ?>],
+            backgroundColor: [
+              '#4D4D4D',
+              '#5DA5DA',
+              '#FAA43A',
+              '#60BD68',
+              '#F17CB0',
+              '#B2912F',
+              '#B276B2',
+              '#4D4D4D'
+            ]
+          }
+        ]
+      };
 
-                pie();
-               
-            });
-        </script>
-     
+      new Chart(document.getElementById(id), {
+        type: type,
+        data: data,
+        options: options
+      });
+    }
+
+    ['pie'].forEach(function (type) {
+      createChart(type + '-canvas3', type, {
+        responsive: true,
+        maintainAspectRatio: false,
+        pieceLabel: {
+          render: 'percentage',
+          // fontColor: function (args) {
+          //   var rgb = hexToRgb(args.dataset.backgroundColor[args.index]);
+          //   var threshold = 140;
+          //   var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
+          //   return luminance > threshold ? 'black' : 'white';
+          // },
+          //precision: 2
+        }
+      });
+    });
+  </script>
