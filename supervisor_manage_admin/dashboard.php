@@ -47,7 +47,7 @@ $id = $_SESSION['supervisor_admin_user_name'];
             </div>
           </div>
           </a>
-          <a href="poor_report.php?tabid=<?php echo $i;?>&clientid=<?php echo $id; ?>">
+          <a href="poor_report.php?tabid=<?php echo $i;?>&superVisorId=<?php echo $id; ?>">
           <div class="col-md-3 col-sm-3">
             <div class="widget widget-tile-2 bg-danger m-b-30">
               <div class="wt-content p-a-20 p-b-50">

@@ -1,7 +1,6 @@
 <?php include_once 'admin_includes/main_header.php'; 
   error_reporting(0);
 ?>
-
 <?php $id = $_GET['tabid']; $cid = $_GET['superVisorId'];
 if($id != 0) {
 $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor'"; $i=1; $getUsersData = $conn->query($sql);?>
