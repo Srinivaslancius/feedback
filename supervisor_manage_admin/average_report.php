@@ -56,7 +56,7 @@ $getUsersData = $conn->query($sql); ?>
                     <td><?php echo $i;?></td>
                     <td><?php $getTabsData =  getDataFromTables('tabs_registration',$status=NULL,'id',$row['tab_id'],$activeStatus=NULL,$activeTop=NULL); $tab = $getTabsData->fetch_assoc(); echo $tab['tab_ref_name']?></td>
                     <td><?php echo $row['feedback_status'];?></td>
-                    <td><?php echo date('m/d/Y',strtotime($row['created_at']));?></td>
+                    <td><?php echo date('d/m/Y h:i:s',strtotime($row['created_at']));?></td>
                     <td><?php echo $row['feedback_option'];?></td>
                     <td><?php echo $row['category'];?></td>
                   </tr>
