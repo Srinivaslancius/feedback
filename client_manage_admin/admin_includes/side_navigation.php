@@ -36,14 +36,21 @@
                 <li class="<?php if($page_name == 'users.php' || $page_name == 'add_users.php' || $page_name == 'edit_users.php') { echo "active"; } ?>"><a href="users.php">Supervisor Admin</a></li>
               </ul>
             </li>
-            <li  class="<?php if($page_name == 'tabs_registration.php' || $page_name == 'add_tabs_registration.php' || $page_name == 'edit_tabs_registration.php') { echo "active"; } ?>">
-              <a href="tabs_registration.php" aria-haspopup="true">
-                <span class="menu-icon">
-                   <i class="zmdi zmdi-store zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Tabs Registration</span>
-              </a>
-            </li>
+            
+                <li  class="<?php if($page_name == 'tabs_registration.php' || $page_name == 'add_tabs_registration.php' || $page_name == 'edit_tabs_registration.php') { echo "active"; } ?>">
+                  <a href="tabs_registration.php" aria-haspopup="true">
+                    <span class="menu-icon">
+                       <i class="zmdi zmdi-store zmdi-hc-fw"></i>
+                    </span>
+                    <span class="menu-text">Tabs Registration</span>
+                  </a>
+                </li>
+            <?php $cid = $_SESSION['client_admin_user_id'];
+              $sql = "SELECT * FROM client_admin_users WHERE id = '$cid' AND client_ads_status = 0";
+              $res = $conn->query($sql);
+              $noRows = $res->num_rows;
+              ?>
+              <?php if($noRows!=0){ ?>
             <li  class="<?php if($page_name == 'advertisement.php' || $page_name == 'add_advertisement.php' || $page_name == 'edit_advertisement.php') { echo "active"; } ?>">
               <a href="advertisement.php" aria-haspopup="true">
                 <span class="menu-icon">
@@ -52,6 +59,7 @@
                 <span class="menu-text">Advertisement</span>
               </a>
             </li>
+            <?php }?>
             <li  class="<?php if($page_name == 'change_password.php') { echo "active"; } ?>">
               <a href="change_password.php" aria-haspopup="true">
                 <span class="menu-icon">
