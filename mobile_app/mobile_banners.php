@@ -8,27 +8,40 @@ $lists = array();
 $response = array();
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-	$result = getDataFromTables('banners',$status=NULL,$clause=NULL,$id=NULL,$activeStatus=NULL,$activeTop=NULL); 
-	if ($result->num_rows > 0) {
+	if (isset($_REQUEST['tab_id']) && !empty($_REQUEST['tab_id']) && isset($_REQUEST['client_admin_id']) && !empty($_REQUEST['client_admin_id']) )  {
+
+		$tab_id= $_REQUEST['tab_id'];
+		$client_admin_id= $_REQUEST['client_admin_id'];
+
+		$getRows = "SELECT * FROM client_admin_users WHERE id= '$client_admin_id' AND client_ads_status= 0 ";
+		$cnus = $conn->query($getRows);
+		$cntNums = $cnus->num_rows;
+
+		if($cntNums!=0) {
+
+			$getQry  = "SELECT * FROM client_advertisements WHERE tab_id = '$tab_id' AND client_admin_id = '$client_admin_id' AND status=0";
+			$result = $conn->query($getQry);
 			$response["lists"] = array();
 			while($row = $result->fetch_assoc()) {
-				//Chedck the condioton for emptty or not		
 				$lists = array();
 		    	$lists["id"] = $row["id"];
 		    	$lists["title"] = $row["title"];		    	
-		    	$lists["image"] = $base_url."uploads/banner_images/".$row["banner"];
-				array_push($response["lists"], $lists);		 
+		    	$lists["image"] = $base_url."uploads/advertisement_images/".$row["image"];
+				array_push($response["lists"], $lists);	
 			}
-			$response["success"] = 0;
-			$response["message"] = "Success";				
+
+		} else {
+			$response["success"] = 4;
+			$response["message"] = "No Ads Found";
+		}		
+		
 	} else {
-	    $response["success"] = 1;
-	    $response["message"] = "No Records found";	   
+		$response["success"] = 3;
+		$response["message"] = "Required Fields Missing";
 	}
 } else {
-	$response["success"] = 3;
-	$response["message"] = "Invalid request";
+		$response["success"] = 34;
+		$response["message"] = "Invalid Request";
 }
 echo json_encode($response);
-
 ?>

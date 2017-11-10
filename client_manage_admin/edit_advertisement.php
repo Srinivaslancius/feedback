@@ -51,7 +51,7 @@ $id = $_GET['bid'];
                   <div class="form-group">
                     <label for="form-control-3" class="control-label">Choose Tab Name</label>
                     <select id="form-control-3" name="tab_id" class="custom-select" data-error="This field is required." required>
-                      <option value="">Select Category</option>
+                      <option value="">Select Tab</option>
                       <?php while($row = $getTabReference->fetch_assoc()) {  ?>
                           <option value="<?php echo $row['id']; ?>" <?php if($row['id'] == $getContents1['tab_id']) { echo "Selected"; } ?>><?php echo $row['tab_ref_name']; ?></option>
                       <?php } ?>
