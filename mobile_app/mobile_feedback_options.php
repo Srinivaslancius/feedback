@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
           
             if ($conn->query($sqlIns) === TRUE) {
                 $response["success"] = 0;
-                $response["message"] = "Thanks for your feedback."; 
+                $response["message"] = "Thank you for your valuable feedback."; 
                 
             } else {
                 // fail query insert problem

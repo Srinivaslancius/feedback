@@ -32,15 +32,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
                     $savePoorSucFeedback = "INSERT INTO save_poor_notifications_view (tab_id,feedback_status,created_date) VALUES ('$tab_id','$feedback_status','$created_at') ";
                     $conn->query($savePoorSucFeedback);
-                    //Send email
-                    $to      = 'phanendrakumar@lanciussolutions.com';
-                    $subject = 'Feedback Status For Poor ';
-                    $message = 'Hi , <br /> Poor feedback status 5 times submitted today';
-                    $headers = 'From: srinivas@lanciussolutions.com' . "\r\n" .
-                        'Reply-To: srinivas@lanciussolutions.com' . "\r\n" .
-                        'X-Mailer: PHP/' . phpversion();
-
-                    mail($to, $subject, $message, $headers);
                     
                 } else {
 
@@ -55,8 +46,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                   
             if ($conn->query($sqlIns) === TRUE) {
                 $response["success"] = 0;
-                $response["message"] = "Your feedback matters, we shall work on improvising our
-services."; 
+                $response["message"] = "Thanks for your feeback"; 
 
             } else {
                 // fail query insert problem

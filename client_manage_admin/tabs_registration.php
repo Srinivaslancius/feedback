@@ -59,7 +59,7 @@
                           <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-4">Username: </div>
-                            <div class="col-sm-6"><?php echo $row['tab_email'];?></div>
+                            <div class="col-sm-6"><?php echo $row['tab_user_name'];?></div>
                           </div>
                           <div class="row">
                             <div class="col-sm-2"></div>

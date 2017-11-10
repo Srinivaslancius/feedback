@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $sqlIns = "INSERT INTO tab_mobile_feedbacks (tab_id,feedback_status,category,created_at) VALUES ('$tab_id','$tab_id','$feedback_status','$category','$created_at')";
             $result = $conn->query($sqlIns); 
             $response["success"] = 0;
-            $response["message"] = "Thanks for your feedback."; 
+            $response["message"] = "Thank you for your valuable feedback."; 
         } else {
             //Else 
             $user_name = $_REQUEST['user_name'];

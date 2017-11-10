@@ -86,28 +86,28 @@ $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND 
         datasets: [
           {
             label: 'My First dataset',
-            data: [<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'No Tolilet Paper'";
+            data: [<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'No Tolilet Paper'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Foul Smell'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Foul Smell'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Litter Bin Full'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Litter Bin Full'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Wet Floor'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Wet Floor'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Dirty Basin'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Dirty Basin'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Dirty Tolilet Bowl'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Dirty Tolilet Bowl'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Temparature'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Temparature'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
-                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Average' AND feedback_option = 'Faulty Equipment'";
+                          echo $noRows ?>,<?php $sql = "SELECT * FROM tab_mobile_feedbacks WHERE supervisor_admin_id='$cid' AND tab_id=$id AND feedback_status='Poor' AND feedback_option = 'Faulty Equipment'";
                           $result = $conn->query($sql);
                           $noRows = $result->num_rows;
                           echo $noRows ?>],
