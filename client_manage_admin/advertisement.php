@@ -1,5 +1,10 @@
 <?php include_once 'admin_includes/main_header.php'; ?>
-<?php $getAdvertisementData = getAllDataWithActiveRecent('client_advertisements'); $i=1; ?>
+<?php 
+      $i=1;
+      $cid = $_SESSION['client_admin_user_id'];
+       $getQry = "SELECT * FROM client_advertisements WHERE client_admin_id = '$cid' AND status = 0"; 
+      $getAdvertisementData  = $conn->query($getQry);
+      ?>
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
