@@ -2,7 +2,7 @@
 <?php 
       $i=1;
       $cid = $_SESSION['client_admin_user_id'];
-      $getQry = "SELECT * FROM client_advertisements WHERE id = '$cid' AND status = 0";  
+       $getQry = "SELECT * FROM client_advertisements WHERE client_admin_id = '$cid' AND status = 0"; 
       $getAdvertisementData  = $conn->query($getQry);
       ?>
       <div class="site-content">
