@@ -21,14 +21,24 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 			$getQry  = "SELECT * FROM client_advertisements WHERE tab_id = '$tab_id' AND client_admin_id = '$client_admin_id' AND status=0";
 			$result = $conn->query($getQry);
-			$response["lists"] = array();
-			while($row = $result->fetch_assoc()) {
+			$getbancnt = $result->num_rows;
+			if($getbancnt!=0) {
+				$response["lists"] = array();
+				while($row = $result->fetch_assoc()) {
 				$lists = array();
 		    	$lists["id"] = $row["id"];
 		    	$lists["title"] = $row["title"];		    	
 		    	$lists["image"] = $base_url."uploads/advertisement_images/".$row["image"];
+		    	$response["success"] = 0;
+				$response["message"] = "Success";
 				array_push($response["lists"], $lists);	
+				}
+			} else {
+				$response["success"] = 5;
+				$response["message"] = "No Ads Found";
+
 			}
+			
 
 		} else {
 			$response["success"] = 4;
@@ -40,7 +50,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$response["message"] = "Required Fields Missing";
 	}
 } else {
-		$response["success"] = 34;
+		$response["success"] = 2;
 		$response["message"] = "Invalid Request";
 }
 echo json_encode($response);
