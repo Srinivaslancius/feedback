@@ -69,30 +69,6 @@
                 <span class="menu-text">Categories</span>
               </a>
             </li>
-            <!-- <li  class="<?php if($page_name == 'sub_categories.php' || $page_name == 'add_sub_categories.php' || $page_name == 'edit_sub_categories.php') { echo "active"; } ?>">
-              <a href="sub_categories.php" aria-haspopup="true">
-                <span class="menu-icon">
-                   <i class="zmdi zmdi-store zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Sub Categories</span>
-              </a>
-            </li> -->
-            <!-- <li  class="<?php if($page_name == 'products.php' || $page_name == 'add_products.php' || $page_name == 'edit_products.php') { echo "active"; } ?>">
-              <a href="products.php" aria-haspopup="true">
-                <span class="menu-icon">
-                   <i class="zmdi zmdi-shopping-basket zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Products</span>
-              </a>
-            </li> -->
-            <!-- <li  class="<?php if($page_name == 'orders.php') { echo "active"; } ?>">
-              <a href="orders.php" aria-haspopup="true">
-                <span class="menu-icon">
-                   <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Orders</span>
-              </a>
-            </li> --> 
             <li  class="<?php if($page_name == 'feedback_options.php' || $page_name == 'add_feedback_options.php' || $page_name == 'edit_feedback_options.php') { echo "active"; } ?>">
               <a href="feedback_options.php" aria-haspopup="true">
                 <span class="menu-icon">
@@ -124,24 +100,15 @@
                 </span>
                 <span class="menu-text">Tab Check List</span>
               </a>
-            </li> 
-            <!-- <li  class="<?php if($page_name == 'product_offers.php' || $page_name == 'add_product_offers.php' || $page_name == 'edit_product_offers.php') { echo "active"; } ?>">
-              <a href="product_offers.php" aria-haspopup="true">
-                <span class="menu-icon">
-                   <i class="zmdi zmdi-shopping-basket zmdi-hc-fw"></i>
-                </span>
-                <span class="menu-text">Offers</span>
-              </a>
-            </li> -->
             </li>
-            <!-- <li  class="<?php if($page_name == 'customer_enqueries.php') { echo "active"; } ?>">
-              <a href="customer_enqueries.php" aria-haspopup="true">
+            <li  class="<?php if($page_name == 'lkp_locations.php' || $page_name == 'add_lkp_locations.php' || $page_name == 'edit_lkp_locations.php' ) { echo "active"; } ?>">
+              <a href="lkp_locations.php" aria-haspopup="true">
                 <span class="menu-icon">
-                   <i class="zmdi zmdi-account-box-mail zmdi-hc-fw"></i>
+                   <i class="zmdi zmdi-pin zmdi-hc-fw"></i>
                 </span>
-                <span class="menu-text">Customer Enqueries</span>
+                <span class="menu-text">Locations</span>
               </a>
-            </li> -->
+            </li> 
           </ul>
         </div>
       </div>
