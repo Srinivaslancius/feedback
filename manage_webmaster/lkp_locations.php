@@ -28,7 +28,7 @@
                     <td><?php $getCityData =  getDataFromTables('lkp_cities',$status=NULL,'id',$row['lkp_city_id'],$activeStatus=NULL,$activeTop=NULL); $city = $getCityData->fetch_assoc(); echo $city['city_name']?></td>
                     <td><?php echo $row['location_name'];?></td>
                     <td><?php if ($row['status']==0) { echo "<span class='label label-outline-success check_active open_cursor' data-incId=".$row['id']." data-status=".$row['status']." data-tbname='lkp_locations'>Active</span>" ;} else { echo "<span class='label label-outline-info check_active open_cursor' data-status=".$row['status']." data-incId=".$row['id']." data-tbname='lkp_locations'>In Active</span>" ;} ?></td>
-                    <td> <a href="edit_lkp_locations.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-edit"></i></a></td>
+                    <td> <a href="edit_lkp_locations.php?uid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-edit"></i></a>&nbsp;<a href="delete_lkp_locations.php?lid=<?php echo $row['id']; ?>"><i class="zmdi zmdi-delete zmdi-hc-fw" onclick="return confirm('Are you sure you want to delete?')"></i></a></td>
                   </tr>
                   <?php  $i++; } ?>
                 </tbody>
