@@ -50,7 +50,7 @@
                 <span class="menu-icon">
                    <i class="zmdi zmdi-collection-image zmdi-hc-fw"></i>
                 </span>
-                <span class="menu-text">Banners</span>
+                <span class="menu-text">Advertisements</span>
               </a>
             </li>
             <!-- <li  class="<?php if($page_name == 'content_pages.php' || $page_name == 'add_content_pages.php' || $page_name == 'edit_content_pages.php') { echo "active"; } ?>">
