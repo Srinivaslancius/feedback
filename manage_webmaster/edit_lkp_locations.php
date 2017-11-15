@@ -117,15 +117,4 @@ $id = $_GET['uid'];
       });
   }
 
-  function getLocations(val) { 
-      $.ajax({
-      type: "POST",
-      url: "get_locations.php",
-      data:'city_id='+val,
-      success: function(data){
-          $("#user_location_id").html(data);
-      }
-      });
-  }
-  
 </script>
